@@ -1,5 +1,11 @@
 @import '@master/normal.css';
 
+@keyframes scroll {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
