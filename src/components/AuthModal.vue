@@ -55,10 +55,10 @@ const type = ref('login');
           </div>
         </div>
         <div class="p:40 bg:#333 b:10|solid|black r:60">
-          <form v-show="type === 'login'">
+          <VeeForm v-show="type === 'login'">
             <div>
               <label class="f:bold f:20 fg:white" for="email">電子郵件</label>
-              <input
+              <VeeField
                 id="email"
                 class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
                 type="email"
@@ -81,50 +81,8 @@ const type = ref('login');
               ></span>
               登入
             </button>
-          </form>
-          <form v-show="type === 'register'">
-            <div>
-              <label class="f:bold f:20 fg:white" for="email">電子郵件</label>
-              <input
-                id="email"
-                class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
-                type="email"
-              />
-            </div>
-            <div class="mt:20">
-              <label class="f:bold f:20 fg:white" for="password">密碼</label>
-              <input
-                id="password"
-                class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
-                type="password"
-              />
-            </div>
-            <div class="mt:20">
-              <label class="f:bold f:20 fg:white" for="password">密碼</label>
-              <input
-                id="password"
-                class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
-                type="password"
-              />
-            </div>
-            <div class="mt:20">
-              <label class="f:bold f:20 fg:white" for="password">密碼</label>
-              <input
-                id="password"
-                class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
-                type="password"
-              />
-            </div>
-            <button
-              class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded"
-              type="button"
-            >
-              <span
-                class="abs top:1/2 left:10 w:40 h:40 b:4|solid|black rounded translateY(-50%)"
-              ></span>
-              註冊
-            </button>
-          </form>
+          </VeeForm>
+          <form v-show="type === 'register'"></form>
         </div>
       </div>
     </div>

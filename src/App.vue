@@ -13,7 +13,7 @@ import AuthModal from '@/components/AuthModal.vue';
 
   <div class="fixed top:160 bottom:-280 left:1/2 translateX(-50%)">
     <img
-      class="h:full @rotate|1s|linear|infinite"
+      class="h:full @rotate|10s|linear|infinite"
       src="assets/img/cd-character.svg"
       alt="貓 CD"
     />
