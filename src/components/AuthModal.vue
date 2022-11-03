@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { useModalStore } from '@/stores/modal';
 import { storeToRefs } from 'pinia';
 
@@ -8,6 +8,10 @@ const { isOpen } = storeToRefs(modalStore);
 const { toggleAuthModal } = modalStore;
 
 const type = ref('login');
+const schema = reactive({
+  email: 'required|email',
+  password: 'required|min:6|max:32',
+});
 </script>
 
 <template>
@@ -55,26 +59,34 @@ const type = ref('login');
           </div>
         </div>
         <div class="p:40 bg:#333 b:10|solid|black r:60">
-          <VeeForm v-show="type === 'login'">
+          <VeeForm v-show="type === 'login'" :validation-schema="schema">
             <div>
-              <label class="f:bold f:20 fg:white" for="email">電子郵件</label>
+              <label class="f:bold f:20 fg:white" for="loginEmail"
+                >電子郵件</label
+              >
               <VeeField
-                id="email"
+                id="loginEmail"
                 class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
                 type="email"
+                name="email"
               />
+              <ErrorMessage class="fg:red" name="email" />
             </div>
             <div class="mt:20">
-              <label class="f:bold f:20 fg:white" for="password">密碼</label>
-              <input
-                id="password"
+              <label class="f:bold f:20 fg:white" for="loginPassword"
+                >密碼</label
+              >
+              <VeeField
+                id="loginPassword"
                 class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
                 type="password"
+                name="password"
               />
+              <ErrorMessage class="fg:red" name="password" />
             </div>
             <button
               class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded"
-              type="button"
+              type="submit"
             >
               <span
                 class="abs top:1/2 left:10 w:40 h:40 b:4|solid|black rounded translateY(-50%)"
@@ -82,7 +94,7 @@ const type = ref('login');
               登入
             </button>
           </VeeForm>
-          <form v-show="type === 'register'"></form>
+          <VeeForm v-show="type === 'register'"></VeeForm>
         </div>
       </div>
     </div>
