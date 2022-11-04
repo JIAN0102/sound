@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue';
-import { useModalStore } from '@/stores/modal';
 import { storeToRefs } from 'pinia';
-import LoginForm from '@/components/LoginForm.vue';
-import RegisterForm from '@/components/RegisterForm.vue';
+import { useModalStore } from '@/stores/modal';
+import LoginForm from '@/components/auth/LoginForm.vue';
+import RegisterForm from '@/components/auth/RegisterForm.vue';
 
 const modalStore = useModalStore();
 const { isOpen } = storeToRefs(modalStore);
@@ -39,7 +39,7 @@ const type = ref('login');
           <div class="flex jc:center">
             <div class="pr:30">
               <h3
-                class="f:bold f:28 fg:#777 cursor:pointer fg:white:hover fg:white.is-active"
+                class="f:bold f:28 fg:#777 cursor:pointer fg:white.is-active"
                 :class="{ 'is-active': type === 'login' }"
                 @click.prevent="type = 'login'"
               >
@@ -48,7 +48,7 @@ const type = ref('login');
             </div>
             <div class="pl:30 bl:1|solid|white">
               <h3
-                class="f:bold f:28 fg:#777 cursor:pointer fg:white:hover fg:white.is-active"
+                class="f:bold f:28 fg:#777 cursor:pointer fg:white.is-active"
                 :class="{ 'is-active': type === 'register' }"
                 @click.prevent="type = 'register'"
               >

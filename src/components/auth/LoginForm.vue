@@ -30,12 +30,12 @@ function loginUser(values) {
         id="loginEmail"
         class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
         type="email"
-        name="電子郵件"
+        name="email"
         rules="required|email"
       />
       <ErrorMessage
-        class="inline-block p:6|12 mt:10 f:12 fg:white bg:#ff3333 rounded"
-        name="電子郵件"
+        class="rel inline-block pl:22 mt:10 f:12 fg:#ee2828 {content:'!';abs;top:1/2;left:0;flex;center-content;w:16;h:16;f:12;fg:white;bg:#ee2828;round;translateY(-50%)}::before"
+        name="email"
       />
     </div>
     <div class="mt:20">
@@ -44,16 +44,16 @@ function loginUser(values) {
         id="loginPassword"
         class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
         type="password"
-        name="密碼"
+        name="password"
         rules="required|min:6|max:100"
       />
       <ErrorMessage
-        class="inline-block p:6|12 mt:10 f:12 fg:white bg:#ff3333 rounded"
-        name="密碼"
+        class="rel inline-block pl:22 mt:10 f:12 fg:#ee2828 {content:'!';abs;top:1/2;left:0;flex;center-content;w:16;h:16;f:12;fg:white;bg:#ee2828;round;translateY(-50%)}::before"
+        name="password"
       />
     </div>
     <button
-      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded"
+      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1.5s|infinite:hover"
       type="submit"
       :disabled="submission"
     >

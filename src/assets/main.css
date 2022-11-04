@@ -11,3 +11,18 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes bounce {
+  20% {
+    transform: scale(1.1)
+  }
+  30% {
+    transform: scale(1)
+  }
+  40% {
+    transform: scale(1.1)
+  }
+  50% {
+    transform: scale(1)
+  }
+}
