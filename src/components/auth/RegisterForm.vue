@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from 'vue';
+import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
+
+const modalStore = useModalStore();
+const { toggleAuthModal } = modalStore;
 
 const userStore = useUserStore();
 const { register } = userStore;
@@ -10,7 +14,7 @@ const showAlert = ref(false);
 const alertVarient = ref('bg:blue');
 const alertMessage = ref('請稍等！正在為您註冊帳號');
 
-async function onSubmit(values) {
+async function onSubmit(values, { resetForm }) {
   submission.value = true;
   showAlert.value = true;
   alertVarient.value = 'bg:blue';
@@ -19,9 +23,14 @@ async function onSubmit(values) {
   try {
     await register(values);
 
+    toggleAuthModal();
+
+    resetForm();
+
     submission.value = false;
-    alertVarient.value = 'bg:green';
-    alertMessage.value = '註冊帳號成功';
+    showAlert.value = false;
+    alertVarient.value = '';
+    alertMessage.value = '';
   } catch (err) {
     const errorCode = err.code;
     if (errorCode === 'auth/email-already-in-use') {
@@ -55,15 +64,15 @@ async function onSubmit(values) {
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center pl:22 mt:10 f:12 fg:#ee2828"
+        class="rel flex ai:center gap-x:6 mt:10"
         as="div"
         name="name"
       >
         <span
-          class="abs top:1/2 left:0 flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round translateY(-50%)"
+          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
           >!</span
         >
-        <p>{{ message }}</p>
+        <p class="f:12 fg:#ee2828">{{ message }}</p>
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -78,9 +87,17 @@ async function onSubmit(values) {
         rules="required|email"
       />
       <ErrorMessage
-        class="rel inline-block pl:22 mt:10 f:12 fg:#ee2828 {content:'!';abs;top:1/2;left:0;flex;center-content;w:16;h:16;f:12;fg:white;bg:#ee2828;round;translateY(-50%)}::before"
+        v-slot="{ message }"
+        class="rel flex ai:center gap-x:6 mt:10"
+        as="div"
         name="email"
-      />
+      >
+        <span
+          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          >!</span
+        >
+        <p class="f:12 fg:#ee2828">{{ message }}</p>
+      </ErrorMessage>
     </div>
     <div class="mt:20">
       <label class="f:bold f:18 fg:white" for="registerPassword">密碼</label>
@@ -92,9 +109,17 @@ async function onSubmit(values) {
         rules="required|min:6|max:100"
       />
       <ErrorMessage
-        class="rel inline-block pl:22 mt:10 f:12 fg:#ee2828 {content:'!';abs;top:1/2;left:0;flex;center-content;w:16;h:16;f:12;fg:white;bg:#ee2828;round;translateY(-50%)}::before"
+        v-slot="{ message }"
+        class="rel flex ai:center gap-x:6 mt:10"
+        as="div"
         name="password"
-      />
+      >
+        <span
+          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          >!</span
+        >
+        <p class="f:12 fg:#ee2828">{{ message }}</p>
+      </ErrorMessage>
     </div>
     <div class="mt:20">
       <label class="f:bold f:18 fg:white" for="registerConfirmPassword"
@@ -108,9 +133,17 @@ async function onSubmit(values) {
         rules="confirmed:@password"
       />
       <ErrorMessage
-        class="rel inline-block pl:22 mt:10 f:12 fg:#ee2828 {content:'!';abs;top:1/2;left:0;flex;center-content;w:16;h:16;f:12;fg:white;bg:#ee2828;round;translateY(-50%)}::before"
+        v-slot="{ message }"
+        class="rel flex ai:center gap-x:6 mt:10"
+        as="div"
         name="confirmPassword"
-      />
+      >
+        <span
+          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          >!</span
+        >
+        <p class="f:12 fg:#ee2828">{{ message }}</p>
+      </ErrorMessage>
     </div>
     <button
       class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover"

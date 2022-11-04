@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/user';
 import { auth } from '@/includes/firebase';
 import AppHeader from '@/components/layout/AppHeader.vue';
@@ -8,23 +7,23 @@ import SongPlayer from '@/components/song/SongPlayer.vue';
 import AuthModal from '@/components/auth/AuthModal.vue';
 
 const userStore = useUserStore();
-const { isLoggedIn } = storeToRefs(userStore);
+const { toggleAuth } = userStore;
 
 onMounted(() => {
   if (auth.currentUser) {
-    isLoggedIn.value = true;
+    toggleAuth();
   }
 });
 </script>
 
 <template>
-  <div class="fixed inset:0 overflow:hidden">
+  <div class="fixed inset:0 overflow:hidden pointer-events:none">
     <div class="abs inset:0 bg:linear-gradient(#282828,black)"></div>
     <div
       class="abs inset:0 bg:repeating-linear-gradient(40deg,#19191e,#19191e|3px,transparent|3px,transparent|8px)"
     ></div>
     <div
-      class="abs top:1/2 left:1/2 pointer-events:none opacity:.03 translate(-50%,-50%)|rotate(-15deg) mt:-9vh>div~div"
+      class="abs top:1/2 left:1/2 opacity:.03 translate(-50%,-50%)|rotate(-15deg) mt:-9vh>div~div"
     >
       <div
         class="flex font-family:countach f:bold f:50vh fg:white lh:1 white-space:nowrap"

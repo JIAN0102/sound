@@ -1,16 +1,20 @@
 <script setup>
 import { ref } from 'vue';
+import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
+
+const modalStore = useModalStore();
+const { toggleAuthModal } = modalStore;
 
 const userStore = useUserStore();
 const { login } = userStore;
 
 const submission = ref(false);
 const showAlert = ref(false);
-const alertVarient = ref('bg:blue');
-const alertMessage = ref('登入中，請稍後');
+const alertVarient = ref('');
+const alertMessage = ref('');
 
-async function onSubmit(values) {
+async function onSubmit(values, { resetForm }) {
   submission.value = true;
   showAlert.value = true;
   alertVarient.value = 'bg:blue';
@@ -19,9 +23,14 @@ async function onSubmit(values) {
   try {
     await login(values);
 
+    toggleAuthModal();
+
+    resetForm();
+
     submission.value = false;
-    alertVarient.value = 'bg:green';
-    alertMessage.value = '登入成功';
+    showAlert.value = false;
+    alertVarient.value = '';
+    alertMessage.value = '';
   } catch (err) {
     const errorCode = err.code;
     if (errorCode === 'auth/user-not-found') {
@@ -52,9 +61,17 @@ async function onSubmit(values) {
         rules="required|email"
       />
       <ErrorMessage
-        class="rel inline-block pl:22 mt:10 f:12 fg:#ee2828 {content:'!';abs;top:1/2;left:0;flex;center-content;w:16;h:16;f:12;fg:white;bg:#ee2828;round;translateY(-50%)}::before"
+        v-slot="{ message }"
+        class="rel flex ai:center gap-x:6 mt:10"
+        as="div"
         name="email"
-      />
+      >
+        <span
+          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          >!</span
+        >
+        <p class="f:12 fg:#ee2828">{{ message }}</p>
+      </ErrorMessage>
     </div>
     <div class="mt:20">
       <label class="f:bold f:18 fg:white" for="loginPassword">密碼</label>
@@ -66,9 +83,17 @@ async function onSubmit(values) {
         rules="required|min:6|max:100"
       />
       <ErrorMessage
-        class="rel inline-block pl:22 mt:10 f:12 fg:#ee2828 {content:'!';abs;top:1/2;left:0;flex;center-content;w:16;h:16;f:12;fg:white;bg:#ee2828;round;translateY(-50%)}::before"
+        v-slot="{ message }"
+        class="rel flex ai:center gap-x:6 mt:10"
+        as="div"
         name="password"
-      />
+      >
+        <span
+          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          >!</span
+        >
+        <p class="f:12 fg:#ee2828">{{ message }}</p>
+      </ErrorMessage>
     </div>
     <button
       class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover"

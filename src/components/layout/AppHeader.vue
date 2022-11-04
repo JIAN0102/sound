@@ -1,8 +1,14 @@
 <script setup>
+import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
+import { useUserStore } from '@/stores/user';
 
 const modalStore = useModalStore();
 const { toggleAuthModal } = modalStore;
+
+const userStore = useUserStore();
+const { isLoggedIn } = storeToRefs(userStore);
+const { logout } = userStore;
 </script>
 
 <template>
@@ -14,6 +20,7 @@ const { toggleAuthModal } = modalStore;
       <span class="ml:10 font-family:countach f:bold f:30 fg:white">SOUND</span>
     </div>
     <button
+      v-if="!isLoggedIn"
       class="rel flex ai:center h:60 pr:30 pl:60 fg:white bg:black rounded @bounce|1s|infinite:hover"
       type="button"
       @click.prevent="toggleAuthModal"
@@ -23,5 +30,15 @@ const { toggleAuthModal } = modalStore;
       ></div>
       登入 / 註冊
     </button>
+    <nav v-else>
+      <ul class="flex gap-x:20 fg:white">
+        <li>
+          <button type="button">管理歌曲</button>
+        </li>
+        <li>
+          <button type="button" @click.prevent="logout">登出</button>
+        </li>
+      </ul>
+    </nav>
   </header>
 </template>
