@@ -1,17 +1,35 @@
 <script setup>
 import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore();
+const { login } = userStore;
 
 const submission = ref(false);
 const showAlert = ref(false);
 const alertVarient = ref('bg:blue');
 const alertMessage = ref('登入中，請稍後');
 
-function loginUser(values) {
-  console.log(values);
+async function onSubmit(values) {
   submission.value = true;
   showAlert.value = true;
   alertVarient.value = 'bg:blue';
-  alertMessage.value = '登入成功';
+  alertMessage.value = '登入中，請稍後';
+
+  try {
+    await login(values);
+
+    submission.value = false;
+    alertVarient.value = 'bg:green';
+    alertMessage.value = '登入成功';
+  } catch (err) {
+    const errorCode = err.code;
+    if (errorCode === 'auth/user-not-found') {
+      alertMessage.value = '電子郵件或密碼錯誤';
+    }
+    submission.value = false;
+    alertVarient.value = 'bg:red';
+  }
 }
 </script>
 
@@ -23,7 +41,7 @@ function loginUser(values) {
   >
     {{ alertMessage }}
   </div>
-  <VForm @submit="loginUser">
+  <VForm @submit="onSubmit">
     <div>
       <label class="f:bold f:18 fg:white" for="loginEmail">電子郵件</label>
       <VField
@@ -53,7 +71,7 @@ function loginUser(values) {
       />
     </div>
     <button
-      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1.5s|infinite:hover"
+      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover"
       type="submit"
       :disabled="submission"
     >
