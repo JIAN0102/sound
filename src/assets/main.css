@@ -13,16 +13,16 @@
 }
 
 @keyframes bounce {
-  20% {
-    transform: scale(1.1)
-  }
-  30% {
-    transform: scale(1)
+  25% {
+    transform: scale(1.05)
   }
   40% {
-    transform: scale(1.1)
+    transform: scale(1)
   }
-  50% {
+  55% {
+    transform: scale(1.05)
+  }
+  70% {
     transform: scale(1)
   }
 }

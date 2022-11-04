@@ -6,7 +6,7 @@ const showAlert = ref(false);
 const alertVarient = ref('bg:blue');
 const alertMessage = ref('登入中，請稍後');
 
-function loginUser(values) {
+function onSubmit(values) {
   console.log(values);
   submission.value = true;
   showAlert.value = true;
@@ -23,7 +23,7 @@ function loginUser(values) {
   >
     {{ alertMessage }}
   </div>
-  <VForm @submit="loginUser">
+  <VForm @submit="onSubmit">
     <div>
       <label class="f:bold f:18 fg:white" for="loginEmail">電子郵件</label>
       <VField
@@ -53,7 +53,7 @@ function loginUser(values) {
       />
     </div>
     <button
-      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1.5s|infinite:hover"
+      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover"
       type="submit"
       :disabled="submission"
     >

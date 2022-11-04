@@ -1,7 +1,20 @@
 <script setup>
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/stores/user';
+import { auth } from '@/includes/firebase';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import SongPlayer from '@/components/song/SongPlayer.vue';
 import AuthModal from '@/components/auth/AuthModal.vue';
+
+const userStore = useUserStore();
+const { isLoggedIn } = storeToRefs(userStore);
+
+onMounted(() => {
+  if (auth.currentUser) {
+    isLoggedIn.value = true;
+  }
+});
 </script>
 
 <template>
@@ -49,7 +62,11 @@ import AuthModal from '@/components/auth/AuthModal.vue';
     <div
       class="abs top:120 bottom:-200 left:1/2 translateX(-50%) {top:160;bottom:-400}@md"
     >
-      <img class="h:full" src="assets/img/cd-character.svg" alt="CD Cat" />
+      <img
+        class="h:full @rotate|1s|linear|infinite"
+        src="assets/img/cd-character.svg"
+        alt="CD Cat"
+      />
     </div>
   </div>
 

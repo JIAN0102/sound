@@ -1,45 +1,33 @@
 <script setup>
 import { ref } from 'vue';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { addDoc } from 'firebase/firestore';
-import { auth, usersCollection } from '@/includes/firebase';
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore();
+const { register } = userStore;
 
 const submission = ref(false);
 const showAlert = ref(false);
 const alertVarient = ref('bg:blue');
 const alertMessage = ref('請稍等！正在為您註冊帳號');
 
-async function registerUser({ name, email, password }) {
+async function onSubmit(values) {
   submission.value = true;
   showAlert.value = true;
   alertVarient.value = 'bg:blue';
   alertMessage.value = '請稍等！正在為您建立帳號';
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await register(values);
 
     submission.value = false;
-    showAlert.value = true;
     alertVarient.value = 'bg:green';
     alertMessage.value = '註冊帳號成功';
-
-    const docRef = await addDoc(usersCollection, {
-      name,
-      email,
-    });
-
-    console.log(userCredential, docRef);
   } catch (err) {
     const errorCode = err.code;
     if (errorCode === 'auth/email-already-in-use') {
       alertMessage.value = '這個信箱已有人使用，請試試其他信箱。';
     }
     submission.value = false;
-    showAlert.value = true;
     alertVarient.value = 'bg:red';
   }
 }
@@ -53,7 +41,7 @@ async function registerUser({ name, email, password }) {
   >
     {{ alertMessage }}
   </div>
-  <VForm @submit="registerUser">
+  <VForm @submit="onSubmit">
     <div>
       <label class="f:bold f:18 fg:white" for="registerName"
         >該如何稱呼你？</label
@@ -125,7 +113,7 @@ async function registerUser({ name, email, password }) {
       />
     </div>
     <button
-      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1.5s|infinite:hover"
+      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover"
       type="submit"
       :disabled="submission"
     >

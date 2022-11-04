@@ -14,7 +14,7 @@ const { toggleAuthModal } = modalStore;
       <span class="ml:10 font-family:countach f:bold f:30 fg:white">SOUND</span>
     </div>
     <button
-      class="rel flex ai:center h:60 pr:30 pl:60 fg:white bg:black rounded @bounce|1.5s|infinite:hover"
+      class="rel flex ai:center h:60 pr:30 pl:60 fg:white bg:black rounded @bounce|1s|infinite:hover"
       type="button"
       @click.prevent="toggleAuthModal"
     >
