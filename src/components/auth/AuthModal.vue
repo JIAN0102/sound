@@ -24,16 +24,12 @@ const type = ref('login');
         class="rel w:full bg:black r:60 pointer-events:auto opacity:0 translateY(15%) ~opacity|.5s,transform|.5s .is-open_{opacity:1;translateY(0)}"
       >
         <button
-          class="abs top:30 right:30 w:40 h:40 b:3|solid|#333 round"
+          class="abs top:30 right:30 w:40 h:40 b:3|solid|#333 round {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"
           type="button"
           @click.prevent="toggleAuthModal"
         >
-          <span
-            class="abs top:1/2 left:1/2 w:16 h:3 bg:white rounded translate(-50%,-50%)|rotate(45deg)"
-          ></span>
-          <span
-            class="abs top:1/2 left:1/2 w:16 h:3 bg:white rounded translate(-50%,-50%)|rotate(-45deg)"
-          ></span>
+          <span class="translate(-50%,-50%)|rotate(45deg)"></span>
+          <span class="translate(-50%,-50%)|rotate(-45deg)"></span>
         </button>
         <div class="p:60|20|20">
           <div class="flex jc:center">

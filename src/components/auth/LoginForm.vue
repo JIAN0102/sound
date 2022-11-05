@@ -24,7 +24,6 @@ async function onSubmit(values, { resetForm }) {
     await login(values);
 
     toggleAuthModal();
-
     resetForm();
 
     submission.value = false;
@@ -34,7 +33,9 @@ async function onSubmit(values, { resetForm }) {
   } catch (err) {
     const errorCode = err.code;
     if (errorCode === 'auth/user-not-found') {
-      alertMessage.value = '電子郵件或密碼錯誤';
+      alertMessage.value = '找不到您的帳戶';
+    } else if (errorCode === 'auth/wrong-password') {
+      alertMessage.value = '密碼輸入錯誤';
     }
     submission.value = false;
     alertVarient.value = 'bg:red';
@@ -70,7 +71,7 @@ async function onSubmit(values, { resetForm }) {
           class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
           >!</span
         >
-        <p class="f:12 fg:#ee2828">{{ message }}</p>
+        <p class="f:13 fg:#ee2828">{{ message }}</p>
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -92,11 +93,11 @@ async function onSubmit(values, { resetForm }) {
           class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
           >!</span
         >
-        <p class="f:12 fg:#ee2828">{{ message }}</p>
+        <p class="f:13 fg:#ee2828">{{ message }}</p>
       </ErrorMessage>
     </div>
     <button
-      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover"
+      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover {pointer-events:none}:disabled"
       type="submit"
       :disabled="submission"
     >
