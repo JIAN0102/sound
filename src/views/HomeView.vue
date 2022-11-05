@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>
 
 <template>
   <div
@@ -8,22 +10,28 @@
       class="grid-cols:1 gap:40 grid-cols:9@xs grid-cols:13@lg grid-col-start:2>div:nth(4n+3)@xs&<lg grid-col-start:2>div:nth(6n+4)@lg"
     >
       <div class="grid-col-span:4@xs">
-        <div class="h:80 bg:black rounded"></div>
+        <RouterLink
+          class="block h:80 bg:black rounded"
+          :to="{ name: 'manage' }"
+        ></RouterLink>
       </div>
       <div class="grid-col-span:4@xs">
-        <div class="h:80 bg:black rounded"></div>
+        <RouterLink
+          class="block h:80 bg:black rounded"
+          :to="{ name: 'manage' }"
+        ></RouterLink>
       </div>
       <div class="grid-col-span:4@xs">
-        <div class="h:80 bg:black rounded"></div>
+        <RouterLink
+          class="block h:80 bg:black rounded"
+          :to="{ name: 'manage' }"
+        ></RouterLink>
       </div>
       <div class="grid-col-span:4@xs">
-        <div class="h:80 bg:black rounded"></div>
-      </div>
-      <div class="grid-col-span:4@xs">
-        <div class="h:80 bg:black rounded"></div>
-      </div>
-      <div class="grid-col-span:4@xs">
-        <div class="h:80 bg:black rounded"></div>
+        <RouterLink
+          class="block h:80 bg:black rounded"
+          :to="{ name: 'manage' }"
+        ></RouterLink>
       </div>
     </div>
   </div>

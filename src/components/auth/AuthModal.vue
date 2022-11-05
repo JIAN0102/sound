@@ -14,7 +14,7 @@ const type = ref('login');
 
 <template>
   <div
-    class="fixed inset:0 z:9999 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.2,white/.2|3px,white/.1|3px,white/.1|8px) bd:blur(5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
+    class="fixed inset:0 z:9998 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.2,white/.2|3px,white/.1|3px,white/.1|8px) bd:blur(5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
     :class="{ 'is-open': isOpen }"
   >
     <div

@@ -23,9 +23,8 @@ export const useUserStore = defineStore('user', () => {
       password
     );
 
-    const docRef = doc(usersCollection, userCredential.user.uid);
-
-    await setDoc(docRef, {
+    const userRef = doc(usersCollection, userCredential.user.uid);
+    await setDoc(userRef, {
       name,
       email,
     });

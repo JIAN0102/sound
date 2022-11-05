@@ -34,8 +34,10 @@ async function logoutUser() {
       :to="{ name: 'home' }"
       exact-active-class=""
     >
-      <div class="w:50 h:50 bg:white round"></div>
-      <span class="ml:10 font-family:countach f:bold f:30 fg:white">SOUND</span>
+      <div class="w:40 h:40 bg:white round {w:50;h:50}@md"></div>
+      <span class="ml:8 font-family:countach fg:white {ml:10;f:30}@md"
+        >SOUND</span
+      >
     </RouterLink>
 
     <button

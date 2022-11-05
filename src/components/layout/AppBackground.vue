@@ -1,3 +1,9 @@
+<script setup>
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+</script>
+
 <template>
   <div class="fixed inset:0 overflow:hidden pointer-events:none">
     <div class="abs inset:0 bg:linear-gradient(#282828,black)"></div>
@@ -41,7 +47,8 @@
       </div>
     </div>
     <div
-      class="abs top:120 bottom:-200 left:1/2 translateX(-50%) {top:160;bottom:-400}@md"
+      class="abs top:120 bottom:-200 left:1/2 translateX(-50%) ~transform|1s {top:160;bottom:-400}@md {translate(-50%,30%)}.is-scrolldown"
+      :class="{ 'is-scrolldown': route.name !== 'home' }"
     >
       <img
         class="h:full @rotate|.75s|linear|infinite"
@@ -52,7 +59,7 @@
   </div>
 
   <svg
-    class="fixed top:0 left:0 z:998"
+    class="fixed top:0 left:0 z:9999 pointer-events:none hide@<md"
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
     height="100%"

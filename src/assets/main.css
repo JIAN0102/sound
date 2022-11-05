@@ -14,15 +14,24 @@
 
 @keyframes bounce {
   25% {
-    transform: scale(1.05)
+    transform: scale(1.05);
   }
   40% {
-    transform: scale(1)
+    transform: scale(1);
   }
   55% {
-    transform: scale(1.05)
+    transform: scale(1.05);
   }
   70% {
-    transform: scale(1)
+    transform: scale(1);
+  }
+}
+
+@keyframes progress {
+  0% {
+    background-position: 2.5rem 0;
+  }
+  100% {
+    background-position: 0 0;
   }
 }
