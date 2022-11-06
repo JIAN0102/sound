@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 import { useUserStore } from '@/stores/user';
-import { auth } from '@/includes/firebase';
+import { auth } from '@/plugins/firebase';
 import AppBackground from '@/components/layout/AppBackground.vue';
 import AppHeader from '@/components/layout/AppHeader.vue';
 import SongPlayer from '@/components/song/SongPlayer.vue';

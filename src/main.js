@@ -3,9 +3,9 @@ import { createPinia } from 'pinia';
 
 import App from './App.vue';
 import router from './router';
-import VeeValidate from './includes/validation';
+import VeeValidate from './plugins/validation';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './includes/firebase';
+import { auth } from './plugins/firebase';
 
 import './assets/main.css';
 import '../master';

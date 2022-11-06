@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/user';
 import HomeView from '@/views/HomeView.vue';
 import ManageView from '@/views/ManageView.vue';
+import SongView from '@/views/SongView.vue';
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+  },
+  {
+    path: '/song',
+    name: 'song',
+    component: SongView,
   },
   {
     path: '/:catchAll(.*)*',

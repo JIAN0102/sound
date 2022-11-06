@@ -3,6 +3,15 @@ import { ref } from 'vue';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
 
+defineProps({
+  type: {
+    required: true,
+    type: String,
+  },
+});
+
+defineEmits(['change-type']);
+
 const modalStore = useModalStore();
 const { toggleAuthModal } = modalStore;
 
@@ -53,17 +62,17 @@ async function onSubmit(values, { resetForm }) {
   </div>
   <VForm @submit="onSubmit">
     <div>
-      <label class="f:bold f:18 fg:white" for="loginEmail">電子郵件</label>
+      <label class="f:bold fg:white f:18@md" for="loginEmail">電子郵件</label>
       <VField
         id="loginEmail"
-        class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
+        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="email"
         name="email"
         rules="required|email"
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center gap-x:6 mt:10"
+        class="rel flex ai:center gap-x:6 mt:8"
         as="div"
         name="email"
       >
@@ -75,17 +84,17 @@ async function onSubmit(values, { resetForm }) {
       </ErrorMessage>
     </div>
     <div class="mt:20">
-      <label class="f:bold f:18 fg:white" for="loginPassword">密碼</label>
+      <label class="f:bold fg:white f:18@md" for="loginPassword">密碼</label>
       <VField
         id="loginPassword"
-        class="block w:full h:60 px:26 mt:10 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#f4db0d:focus"
+        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="password"
         name="password"
         rules="required|min:6|max:100"
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center gap-x:6 mt:10"
+        class="rel flex ai:center gap-x:6 mt:8"
         as="div"
         name="password"
       >
@@ -97,7 +106,7 @@ async function onSubmit(values, { resetForm }) {
       </ErrorMessage>
     </div>
     <button
-      class="rel w:full h:60 mt:40 f:bold f:20 bg:linear-gradient(to|right,#fd9d02,#f4db0d) rounded @bounce|1s|infinite:hover {pointer-events:none}:disabled"
+      class="rel w:full h:60 mt:40 f:bold f:18 bg:linear-gradient(to|right,primary,secondary) rounded @bounce|1s|infinite:hover {pointer-events:none}:disabled"
       type="submit"
       :disabled="submission"
     >
@@ -106,5 +115,13 @@ async function onSubmit(values, { resetForm }) {
       ></span>
       登入
     </button>
+    <p class="mt:20 f:bold fg:white t:center f:18@md">
+      還沒有帳號嗎？
+      <span
+        class="t:underline cursor:pointer"
+        @click="$emit('change-type', 'register')"
+        >註冊</span
+      >
+    </p>
   </VForm>
 </template>

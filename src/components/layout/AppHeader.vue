@@ -41,7 +41,7 @@ async function logoutUser() {
     </RouterLink>
 
     <button
-      v-if="!isLoggedIn"
+      v-if="isLoggedIn"
       class="rel flex ai:center h:60 pr:30 pl:60 fg:white pointer-events:auto bg:black rounded @bounce|1s|infinite:hover"
       type="button"
       @click.prevent="toggleAuthModal"
@@ -53,7 +53,7 @@ async function logoutUser() {
     </button>
 
     <nav
-      v-else
+      v-if="isLoggedIn"
       class="flex ai:center h:60 px:40 pointer-events:auto bg:black rounded"
     >
       <ul class="flex gap-x:20">

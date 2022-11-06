@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, onBeforeUnmount } from 'vue';
-import { auth, storage, songsCollection } from '@/includes/firebase';
+import { auth, storage, songsCollection } from '@/plugins/firebase';
 import { addDoc, getDoc } from 'firebase/firestore';
 import {
   ref as storageRef,
@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
 
 <template>
   <label
-    class="flex center-content h:180 f:bold fg:white bg:black r:20 b:4|solid|transparent {h:320;f:20}@md {bg:#111;b:secondary}:is(:hover,.is-drag-over)"
+    class="flex center-content aspect:3/2 f:bold fg:white bg:black r:30 b:4|solid|transparent aspect:2/1@xs f:20@md {bg:#222;b:secondary}:is(:hover,.is-drag-over)"
     :class="{ 'is-drag-over': isDragOver }"
     for="upload"
     @dragend.prevent.stop="isDragOver = false"
@@ -78,8 +78,8 @@ onBeforeUnmount(() => {
     @dragleave.prevent.stop="isDragOver = false"
     @drop.prevent.stop="uploadFile($event)"
   >
-    點擊上傳或拖拉檔案至此</label
-  >
+    點擊上傳或拖拉檔案至此
+  </label>
   <input
     id="upload"
     class="hide"
@@ -87,24 +87,23 @@ onBeforeUnmount(() => {
     multiple
     @change="uploadFile($event)"
   />
-  <ul v-for="upload in uploads" :key="upload.name" class="mt:30 mt:20>li~li">
-    <li>
+  <ul v-if="uploads.length" class="mt:20 mt:30@md mt:20>li~li">
+    <li v-for="upload in uploads" :key="upload.name" :class="upload.class">
+      <span class="f:14 fg:white f:16@md">{{ upload.name }}</span>
       <div
-        class="rel h:60 overflow:hidden bg:black b:10|solid|black rounded"
-        :class="upload.class"
+        class="rel h:40 mt:8 overflow:hidden bg:#555 background-size:40|40 rounded @progress|1.5s|linear|infinite rounded ~width|.1s"
       >
         <div
-          class="rel h:full overflow:hidden bg:#777 rounded ~width|.1s .is-error_{bg:#ee2828} .is-uploaded_{bg:linear-gradient(to|right,primary,secondary)}"
+          class="abs top:0 left:0 h:full overflow:hidden bg:#777 rounded ~width|.1s .is-error_{bg:#ee2828} .is-uploaded_{bg:linear-gradient(to|right,primary,secondary)}"
           :style="{ width: `${upload.currentProgress}%` }"
         >
           <div
-            class="abs inset:0 bg:linear-gradient(-45deg,white/.1|25%,transparent|25%,transparent|50%,white/.1|50%,white/.1|75%,transparent|75%,transparent) background-size:40|40 @progress|1.5s|linear|infinite .is-error_{bg:linear-gradient(-45deg,black/.1|25%,transparent|25%,transparent|50%,black/.1|50%,black/.1|75%,transparent|75%,transparent)} .is-uploaded_{bg:linear-gradient(-45deg,primary/.5|25%,transparent|25%,transparent|50%,primary/.5|50%,primary/.5|75%,transparent|75%,transparent)}"
+            class="abs inset:0 bg:linear-gradient(-45deg,white/.1|25%,transparent|25%,transparent|50%,white/.1|50%,white/.1|75%,transparent|75%,transparent) background-size:40|40 @progress|1.5s|linear|infinite"
           ></div>
         </div>
-        <span
-          class="abs top:-10 left:-10 p:10|32|10|24 f:14 fg:white bg:black rrb:80"
-          >{{ upload.name }}</span
-        >
+        <div
+          class="abs top:1/2 left:10 w:20 h:20 bg:white round translateY(-50%)"
+        ></div>
       </div>
     </li>
   </ul>

@@ -1,5 +1,15 @@
 @import '@master/normal.css';
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
 @keyframes scroll {
   100% {
     transform: translateX(100%);

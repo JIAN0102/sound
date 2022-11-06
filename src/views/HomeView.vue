@@ -12,25 +12,25 @@ import { RouterLink } from 'vue-router';
       <div class="grid-col-span:4@xs">
         <RouterLink
           class="block h:80 bg:black rounded"
-          :to="{ name: 'manage' }"
+          :to="{ name: 'song' }"
         ></RouterLink>
       </div>
       <div class="grid-col-span:4@xs">
         <RouterLink
           class="block h:80 bg:black rounded"
-          :to="{ name: 'manage' }"
+          :to="{ name: 'song' }"
         ></RouterLink>
       </div>
       <div class="grid-col-span:4@xs">
         <RouterLink
           class="block h:80 bg:black rounded"
-          :to="{ name: 'manage' }"
+          :to="{ name: 'song' }"
         ></RouterLink>
       </div>
       <div class="grid-col-span:4@xs">
         <RouterLink
           class="block h:80 bg:black rounded"
-          :to="{ name: 'manage' }"
+          :to="{ name: 'song' }"
         ></RouterLink>
       </div>
     </div>

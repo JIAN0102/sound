@@ -1,8 +1,4 @@
-<script setup>
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
-</script>
+<script setup></script>
 
 <template>
   <div class="fixed inset:0 overflow:hidden pointer-events:none">
@@ -11,34 +7,30 @@ const route = useRoute();
       class="abs inset:0 bg:repeating-linear-gradient(40deg,#19191e,#19191e|3px,transparent|3px,transparent|8px)"
     ></div>
     <div
-      class="abs top:1/2 left:1/2 opacity:.03 translate(-50%,-50%)|rotate(-15deg) mt:-9vh>div~div"
+      class="abs top:1/2 left:1/2 font-family:countach f:bold f:50vh fg:white lh:1 white-space:nowrap opacity:.03 translate(-50%,-50%)|rotate(-15deg) mt:-10vh>div~div"
     >
-      <div
-        class="flex font-family:countach f:bold f:50vh fg:white lh:1 white-space:nowrap {px:40;animation:scroll|7.5s|linear|infinite}>span"
-      >
+      <div class="flex {px:40;animation:scroll|7.5s|linear|infinite}>span">
         <span>SOUND</span>
         <span>SOUND</span>
         <span>SOUND</span>
         <span>SOUND</span>
       </div>
       <div
-        class="flex font-family:countach f:bold f:50vh fg:white lh:1 white-space:nowrap {px:40;animation:scroll|7.5s|linear|infinite|reverse}>span"
+        class="flex {px:40;animation:scroll|7.5s|linear|infinite|reverse}>span"
       >
         <span>SOUND</span>
         <span>SOUND</span>
         <span>SOUND</span>
         <span>SOUND</span>
       </div>
-      <div
-        class="flex font-family:countach f:bold f:50vh fg:white lh:1 white-space:nowrap {px:40;animation:scroll|7.5s|linear|infinite}>span"
-      >
+      <div class="flex {px:40;animation:scroll|7.5s|linear|infinite}>span">
         <span>SOUND</span>
         <span>SOUND</span>
         <span>SOUND</span>
         <span>SOUND</span>
       </div>
       <div
-        class="flex font-family:countach f:bold f:50vh fg:white lh:1 white-space:nowrap {px:40;animation:scroll|7.5s|linear|infinite|reverse}>span"
+        class="flex {px:40;animation:scroll|7.5s|linear|infinite|reverse}>span"
       >
         <span>SOUND</span>
         <span>SOUND</span>
@@ -47,8 +39,7 @@ const route = useRoute();
       </div>
     </div>
     <div
-      class="abs top:120 bottom:-200 left:1/2 translateX(-50%) ~transform|1s {top:160;bottom:-400}@md {translate(-50%,30%)}.is-scrolldown"
-      :class="{ 'is-scrolldown': route.name !== 'home' }"
+      class="abs top:20% bottom:-20% left:1/2 translateX(-50%) ~transform|1s {top:15%;bottom:-40%}@md"
     >
       <img
         class="h:full @rotate|.75s|linear|infinite"

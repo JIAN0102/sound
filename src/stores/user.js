@@ -7,7 +7,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, usersCollection } from '@/includes/firebase';
+import { auth, usersCollection } from '@/plugins/firebase';
 
 export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false);

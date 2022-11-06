@@ -5,31 +5,36 @@
     class="fixed bottom:80 left:1/2 z:999 flex bg:black rounded translateX(-50%)"
   >
     <button
-      class="rel w:140 h:80 mr:-30 bg:linear-gradient(to|right,#fd9d02,#f4db0d) b:10|solid|black rl:9999"
+      class="rel w:140 h:80 mr:-30 bg:linear-gradient(to|right,primary,secondary) b:10|solid|black rl:9999"
       type="button"
     ></button>
     <div
-      class="rel z:10 w:660 h:80 overflow:hidden f:bold fg:white bg:#333 b:10|solid|black rounded"
+      class="rel z:10 w:660 h:80 overflow:hidden f:bold fg:white bg:#333 b:10|solid|black rounded cursor:pointer"
     >
       <div
-        class="abs top:0 left:0 full bg:#777 transform:left scaleX(.4)"
-      ></div>
-      <span class="abs top:1/2 left:30 translateY(-50%)">00:48</span>
-      <span class="abs top:1/2 right:30 translateY(-50%)">03:26</span>
-      <h2 class="abs top:1/2 left:1/2 f:20 translate(-50%,-50%)">
-        【陳約翰】秘密基地
-      </h2>
+        class="abs top:0 left:0 w:45% h:full overflow:hidden bg:#777 rounded transform:left"
+      >
+        <div
+          class="abs inset:0 bg:linear-gradient(-45deg,white/.1|25%,transparent|25%,transparent|50%,white/.1|50%,white/.1|75%,transparent|75%,transparent) background-size:40|40 @progress|1.5s|linear|infinite"
+        ></div>
+      </div>
+      <div class="abs inset:0 pointer-events:none">
+        <span class="abs top:1/2 left:30 translateY(-50%)">00:48</span>
+        <span class="abs top:1/2 right:30 translateY(-50%)">03:26</span>
+        <h2 class="abs top:1/2 left:1/2 f:18 translate(-50%,-50%)">
+          【陳約翰】秘密基地
+        </h2>
+      </div>
     </div>
-    <button
-      class="rel w:140 h:80 ml:-30 overflow:hidden bg:#333 b:10|solid|black rr:9999"
-      type="button"
+    <div
+      class="rel w:140 h:80 ml:-30 overflow:hidden bg:#333 b:10|solid|black rr:9999 cursor:pointer"
     >
       <div
-        class="abs top:0 left:0 full bg:#777 transform:left scaleX(.4)"
+        class="abs top:0 left:0 w:80% h:full bg:#777 rr:9999 transform:left"
       ></div>
       <div
         class="abs top:1/2 left:30 w:24 h:24 bg:white round translateY(-50%)"
       ></div>
-    </button>
+    </div>
   </div>
 </template>

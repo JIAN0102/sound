@@ -1,8 +1,10 @@
 <script setup>
 import { onMounted } from 'vue';
 import { query, where, getDocs } from 'firebase/firestore';
-import { auth, songsCollection } from '@/includes/firebase';
+import { auth, songsCollection } from '@/plugins/firebase';
+import BaseCard from '@/components/base/BaseCard.vue';
 import SongUpload from '@/components/song/SongUpload.vue';
+import SongModify from '@/components/song/SongModify.vue';
 
 onMounted(async () => {
   const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
@@ -13,27 +15,33 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div
-    class="grid-cols:1 gap-x:40 gap-y:30 p:80|0|120 {grid-cols:2;p:180|80|210}@md"
-  >
+  <div class="grid-cols:1 gap:30|40 p:80|0|210 p:180|80|210@md grid-cols:2@lg">
     <div>
-      <div class="bg:black r:40 r:60@md">
-        <div class="p:40|20|20 p:60|60|20@md">
-          <h1 class="f:24 fg:white f:28@md">上傳音樂</h1>
-        </div>
-        <div class="p:20 bg:#333 r:40 {p:40;b:10|solid|black;r:60}@md">
+      <BaseCard>
+        <template #header>
+          <h1 class="f:bold f:24 fg:white t:center {f:28;t:left}@md">
+            上傳音樂
+          </h1>
+        </template>
+
+        <template #main>
           <SongUpload />
-        </div>
-      </div>
+        </template>
+      </BaseCard>
     </div>
 
     <div>
-      <div class="bg:black r:40 r:60@md">
-        <div class="p:40|20|20 p:60|60|20@md">
-          <h2 class="f:24 fg:white f:28@md">我的歌曲</h2>
-        </div>
-        <div class="p:20 bg:#333 r:40 {p:40;b:10|solid|black;r:60}@md"></div>
-      </div>
+      <BaseCard>
+        <template #header>
+          <h2 class="f:bold f:24 fg:white t:center {f:28;t:left}@md">
+            我的歌曲
+          </h2>
+        </template>
+
+        <template #main>
+          <SongModify />
+        </template>
+      </BaseCard>
     </div>
   </div>
 </template>

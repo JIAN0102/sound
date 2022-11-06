@@ -6,6 +6,7 @@ export const useModalStore = defineStore('modal', () => {
 
   function toggleAuthModal() {
     isOpen.value = !isOpen.value;
+
     document.body.classList.toggle('overflow:hidden');
   }
 
