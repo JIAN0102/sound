@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="60" viewBox="0 0 50 60">
+  <defs>
+    <clipPath id="clip-progress-arrow">
+      <rect width="50" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="progress-arrow" clip-path="url(#clip-progress-arrow)">
+    <g id="Group_1094" data-name="Group 1094" transform="translate(-140 -920)" opacity="0.1">
+      <path id="Union_167" data-name="Union 167" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4180 3023)" fill="#fff"/>
+      <path id="Union_168" data-name="Union 168" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4231 3023)" fill="#fff"/>
+      <path id="Union_169" data-name="Union 169" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4282 3023)" fill="#fff"/>
+      <path id="Union_170" data-name="Union 170" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4333 3023)" fill="#fff"/>
+      <path id="Union_171" data-name="Union 171" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4384 3023)" fill="#fff"/>
+      <path id="Union_172" data-name="Union 172" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4435 3023)" fill="#fff"/>
+      <path id="Union_173" data-name="Union 173" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4486 3023)" fill="#fff"/>
+      <path id="Union_174" data-name="Union 174" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4537 3023)" fill="#fff"/>
+      <path id="Union_175" data-name="Union 175" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4588 3023)" fill="#fff"/>
+      <path id="Union_176" data-name="Union 176" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4639 3023)" fill="#fff"/>
+      <path id="Union_177" data-name="Union 177" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4690 3023)" fill="#fff"/>
+      <path id="Union_178" data-name="Union 178" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4741 3023)" fill="#fff"/>
+      <path id="Union_179" data-name="Union 179" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4792 3023)" fill="#fff"/>
+      <path id="Union_180" data-name="Union 180" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4843 3023)" fill="#fff"/>
+      <path id="Union_181" data-name="Union 181" d="M-4040-2043l10-30h30l-10,30Zm10-30-10-30h30l10,30Z" transform="translate(4894 3023)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

@@ -2,6 +2,20 @@
 import { ref } from 'vue';
 
 const showEditForm = ref(false);
+
+// const vClickOutside = {
+//   created(el, binding) {
+//     el.clickOutsideEvent = (e) => {
+//       if (!(el === e.target || el.contains(e.target))) {
+//         binding.value(e, el);
+//       }
+//     };
+//     document.addEventListener('click', el.clickOutsideEvent);
+//   },
+//   beforeUnmount(el) {
+//     document.removeEventListener('click', el.clickOutsideEvent);
+//   },
+// };
 </script>
 
 <template>
@@ -66,7 +80,7 @@ const showEditForm = ref(false);
     </li>
     <li>
       <div
-        class="flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
+        class="rel flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
       >
         <div class="flex:1 lines:1">
           <h3 class="f:bold fg:white f:18@md" title="陳約翰 - 秘密基地">

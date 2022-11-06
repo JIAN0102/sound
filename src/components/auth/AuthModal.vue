@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import BaseCard from '@/components/base/BaseCard.vue';
@@ -7,15 +6,13 @@ import LoginForm from '@/components/auth/LoginForm.vue';
 import RegisterForm from '@/components/auth/RegisterForm.vue';
 
 const modalStore = useModalStore();
-const { isOpen } = storeToRefs(modalStore);
-const { toggleAuthModal } = modalStore;
-
-const type = ref('login');
+const { isOpen, type } = storeToRefs(modalStore);
+const { toggleModal } = modalStore;
 </script>
 
 <template>
   <div
-    class="fixed inset:0 z:9998 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.2,white/.2|3px,white/.15|3px,white/.15|8px) bd:blur(5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
+    class="fixed inset:0 z:9998 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.1,white/.1|3px,white/.05|3px,white/.05|8px) bd:blur(7.5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
     :class="{ 'is-open': isOpen }"
   >
     <div class="flex ai:center max-w:600 min-h:calc(100%-80px) m:40|auto">
@@ -25,7 +22,7 @@ const type = ref('login');
         <button
           class="abs top:20 right:20 w:40 h:40 b:3|solid|#333 round {top:30;right:30}@md {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"
           type="button"
-          @click.prevent="toggleAuthModal"
+          @click.prevent="toggleModal"
         >
           <span class="translate(-50%,-50%)|rotate(45deg)"></span>
           <span class="translate(-50%,-50%)|rotate(-45deg)"></span>
@@ -55,12 +52,8 @@ const type = ref('login');
           </template>
 
           <template #main>
-            <LoginForm
-              v-if="type === 'login'"
-              :type="type"
-              @change-type="type = 'register'"
-            />
-            <RegisterForm v-else :type="type" @change-type="type = 'login'" />
+            <LoginForm v-if="type === 'login'" />
+            <RegisterForm v-else />
           </template>
         </BaseCard>
       </div>

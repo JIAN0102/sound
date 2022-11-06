@@ -1,19 +1,12 @@
 <script setup>
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
 
-defineProps({
-  type: {
-    required: true,
-    type: String,
-  },
-});
-
-defineEmits(['change-type']);
-
 const modalStore = useModalStore();
-const { toggleAuthModal } = modalStore;
+const { type } = storeToRefs(modalStore);
+const { toggleModal } = modalStore;
 
 const userStore = useUserStore();
 const { login } = userStore;
@@ -32,7 +25,7 @@ async function onSubmit(values, { resetForm }) {
   try {
     await login(values);
 
-    toggleAuthModal();
+    toggleModal();
     resetForm();
 
     submission.value = false;
@@ -117,9 +110,7 @@ async function onSubmit(values, { resetForm }) {
     </button>
     <p class="mt:20 f:bold fg:white t:center f:18@md">
       還沒有帳號嗎？
-      <span
-        class="t:underline cursor:pointer"
-        @click="$emit('change-type', 'register')"
+      <span class="t:underline cursor:pointer" @click="type = 'register'"
         >註冊</span
       >
     </p>

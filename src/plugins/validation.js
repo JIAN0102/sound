@@ -32,6 +32,7 @@ export default {
           confirmPassword: '密碼',
         },
       }),
+      classes: true,
     });
 
     setLocale('zh_TW');

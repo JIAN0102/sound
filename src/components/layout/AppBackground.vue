@@ -42,7 +42,7 @@
       class="abs top:20% bottom:-20% left:1/2 translateX(-50%) ~transform|1s {top:15%;bottom:-40%}@md"
     >
       <img
-        class="h:full @rotate|.75s|linear|infinite"
+        class="h:full @rotate|.5s|linear|infinite"
         src="assets/img/cd-character.svg"
         alt="CD Cat"
       />

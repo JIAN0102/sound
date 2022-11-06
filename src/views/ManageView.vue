@@ -8,14 +8,12 @@ import SongModify from '@/components/song/SongModify.vue';
 
 onMounted(async () => {
   const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
-  const snapshots = await getDocs(q);
-
-  console.log(snapshots);
+  await getDocs(q);
 });
 </script>
 
 <template>
-  <div class="grid-cols:1 gap:30|40 p:80|0|210 p:180|80|210@md grid-cols:2@lg">
+  <div class="grid-cols:1 gap:30|40 p:100|0|210 p:180|80|210@md grid-cols:2@lg">
     <div>
       <BaseCard>
         <template #header>

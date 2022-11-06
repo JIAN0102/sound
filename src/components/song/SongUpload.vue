@@ -97,8 +97,11 @@ onBeforeUnmount(() => {
           class="abs top:0 left:0 h:full overflow:hidden bg:#777 rounded ~width|.1s .is-error_{bg:#ee2828} .is-uploaded_{bg:linear-gradient(to|right,primary,secondary)}"
           :style="{ width: `${upload.currentProgress}%` }"
         >
-          <div
+          <!-- <div
             class="abs inset:0 bg:linear-gradient(-45deg,white/.1|25%,transparent|25%,transparent|50%,white/.1|50%,white/.1|75%,transparent|75%,transparent) background-size:40|40 @progress|1.5s|linear|infinite"
+          ></div> -->
+          <div
+            class="abs inset:0 bg:url('assets/img/progress-arrow.svg') background-size:50|40 @progress|1.5s|linear|infinite"
           ></div>
         </div>
         <div

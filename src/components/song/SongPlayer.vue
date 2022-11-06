@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="fixed bottom:80 left:1/2 z:999 flex bg:black rounded translateX(-50%)"
+    class="fixed bottom:80 left:1/2 z:997 flex bg:black rounded translateX(-50%)"
   >
     <button
       class="rel w:140 h:80 mr:-30 bg:linear-gradient(to|right,primary,secondary) b:10|solid|black rl:9999"
@@ -14,8 +14,11 @@
       <div
         class="abs top:0 left:0 w:45% h:full overflow:hidden bg:#777 rounded transform:left"
       >
-        <div
+        <!-- <div
           class="abs inset:0 bg:linear-gradient(-45deg,white/.1|25%,transparent|25%,transparent|50%,white/.1|50%,white/.1|75%,transparent|75%,transparent) background-size:40|40 @progress|1.5s|linear|infinite"
+        ></div> -->
+        <div
+          class="abs inset:0 bg:url('assets/img/progress-arrow.svg') @progress|1.5s|linear|infinite"
         ></div>
       </div>
       <div class="abs inset:0 pointer-events:none">
