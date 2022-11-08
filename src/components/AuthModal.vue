@@ -1,9 +1,9 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
-import BaseCard from '@/components/base/BaseCard.vue';
-import LoginForm from '@/components/auth/LoginForm.vue';
-import RegisterForm from '@/components/auth/RegisterForm.vue';
+import BaseCard from '@/components/BaseCard.vue';
+import LoginForm from '@/components/LoginForm.vue';
+import RegisterForm from '@/components/RegisterForm.vue';
 
 const modalStore = useModalStore();
 const { isOpen, type } = storeToRefs(modalStore);
@@ -24,8 +24,8 @@ const { toggleModal } = modalStore;
           type="button"
           @click.prevent="toggleModal"
         >
-          <span class="translate(-50%,-50%)|rotate(45deg)"></span>
-          <span class="translate(-50%,-50%)|rotate(-45deg)"></span>
+          <span class="translate(-50%,-50%)|rotate(45)"></span>
+          <span class="translate(-50%,-50%)|rotate(-45)"></span>
         </button>
         <BaseCard>
           <template #header>

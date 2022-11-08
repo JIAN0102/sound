@@ -2,9 +2,9 @@
 import { onMounted } from 'vue';
 import { query, where, getDocs } from 'firebase/firestore';
 import { auth, songsCollection } from '@/plugins/firebase';
-import BaseCard from '@/components/base/BaseCard.vue';
-import SongUpload from '@/components/song/SongUpload.vue';
-import SongModify from '@/components/song/SongModify.vue';
+import BaseCard from '@/components/BaseCard.vue';
+import SongUpload from '@/components/SongUpload.vue';
+import SongModify from '@/components/SongModify.vue';
 
 onMounted(async () => {
   const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
@@ -18,7 +18,7 @@ onMounted(async () => {
       <BaseCard>
         <template #header>
           <h1 class="f:bold f:24 fg:white t:center {f:28;t:left}@md">
-            上傳音樂
+            上傳歌曲
           </h1>
         </template>
 

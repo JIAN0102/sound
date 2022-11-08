@@ -1,9 +1,9 @@
 <script setup>
-import BaseCard from '@/components/base/BaseCard.vue';
+import BaseCard from '@/components/BaseCard.vue';
 </script>
 
 <template>
-  <div class="grid-cols:1 gap:30|40 p:80|0|210 p:180|80|210@md grid-cols:2@lg">
+  <div class="grid-cols:1 gap:30|40 p:100|0|210 p:180|80|210@md grid-cols:2@lg">
     <div>
       <BaseCard>
         <template #header>
@@ -30,12 +30,19 @@ import BaseCard from '@/components/base/BaseCard.vue';
             </div>
           </div>
           <button
-            class="rel w:full h:60 mt:20 f:bold f:18 bg:linear-gradient(to|right,primary,secondary) rounded mt:30@md @bounce|1s|infinite:hover"
+            class="group rel w:full mt:20 mt:30@md {pointer-events:none}:disabled"
+            type="submit"
+            :disabled="submission"
           >
-            <span
-              class="abs top:1/2 left:10 w:40 h:40 b:4|solid|black rounded translateY(-50%)"
-            ></span>
-            播放音樂
+            <div
+              class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{@bounce|1s|infinite}"
+            ></div>
+            <div class="rel flex center-content h:60">
+              <span
+                class="abs top:1/2 left:14 w:32 h:32 bg:black rounded translateY(-50%)"
+              ></span>
+              <span class="f:bold f:18">播放音樂</span>
+            </div>
           </button>
         </template>
       </BaseCard>

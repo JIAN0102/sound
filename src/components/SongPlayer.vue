@@ -14,9 +14,6 @@
       <div
         class="abs top:0 left:0 w:45% h:full overflow:hidden bg:#777 rounded transform:left"
       >
-        <!-- <div
-          class="abs inset:0 bg:linear-gradient(-45deg,white/.1|25%,transparent|25%,transparent|50%,white/.1|50%,white/.1|75%,transparent|75%,transparent) background-size:40|40 @progress|1.5s|linear|infinite"
-        ></div> -->
         <div
           class="abs inset:0 bg:url('assets/img/progress-arrow.svg') @progress|1.5s|linear|infinite"
         ></div>

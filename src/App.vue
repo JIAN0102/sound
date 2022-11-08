@@ -3,10 +3,10 @@ import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { auth } from '@/plugins/firebase';
-import AppBackground from '@/components/layout/AppBackground.vue';
-import AppHeader from '@/components/layout/AppHeader.vue';
-import SongPlayer from '@/components/song/SongPlayer.vue';
-import AuthModal from '@/components/auth/AuthModal.vue';
+import TheBackground from '@/components/TheBackground.vue';
+import TheHeader from '@/components/TheHeader.vue';
+import SongPlayer from '@/components/SongPlayer.vue';
+import AuthModal from '@/components/AuthModal.vue';
 
 const userStore = useUserStore();
 const { toggleAuth } = userStore;
@@ -19,9 +19,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <AppBackground />
+  <TheBackground />
 
-  <AppHeader />
+  <TheHeader />
 
   <main class="rel">
     <RouterView />

@@ -99,14 +99,19 @@ async function onSubmit(values, { resetForm }) {
       </ErrorMessage>
     </div>
     <button
-      class="rel w:full h:60 mt:40 f:bold f:18 bg:linear-gradient(to|right,primary,secondary) rounded @bounce|1s|infinite:hover {pointer-events:none}:disabled"
+      class="group rel w:full mt:40 {pointer-events:none}:disabled"
       type="submit"
       :disabled="submission"
     >
-      <span
-        class="abs top:1/2 left:10 w:40 h:40 b:4|solid|black rounded translateY(-50%)"
-      ></span>
-      登入
+      <div
+        class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{@bounce|1s|infinite}"
+      ></div>
+      <div class="rel flex center-content h:60">
+        <span
+          class="abs top:1/2 left:14 w:32 h:32 bg:black round translateY(-50%)"
+        ></span>
+        <span class="f:bold f:18">登入</span>
+      </div>
     </button>
     <p class="mt:20 f:bold fg:white t:center f:18@md">
       還沒有帳號嗎？
