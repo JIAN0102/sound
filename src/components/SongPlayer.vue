@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="fixed bottom:80 left:1/2 z:997 flex bg:black rounded translateX(-50%)"
+    class="fixed bottom:40 left:1/2 z:997 flex bg:black rounded translateX(-50%)"
   >
     <button
       class="rel w:140 h:80 mr:-30 bg:linear-gradient(to|right,primary,secondary) b:10|solid|black rl:9999"

@@ -1,14 +1,37 @@
 <script setup>
-import { onMounted } from 'vue';
+import { reactive, onMounted } from 'vue';
 import { query, where, getDocs } from 'firebase/firestore';
 import { auth, songsCollection } from '@/plugins/firebase';
 import BaseCard from '@/components/BaseCard.vue';
 import SongUpload from '@/components/SongUpload.vue';
 import SongModify from '@/components/SongModify.vue';
 
+const songs = reactive([]);
+
+function uploadSong(document) {
+  const song = {
+    ...document.data(),
+    docID: document.id,
+  };
+  songs.push(song);
+}
+
+function editSong(docID, { modifiedName, genre }) {
+  const index = songs.findIndex((song) => song.docID === docID);
+  songs[index].modifiedName = modifiedName;
+  songs[index].genre = genre;
+}
+
+function deleteSong(docID) {
+  const index = songs.findIndex((song) => song.docID === docID);
+  songs.splice(index, 1);
+}
+
 onMounted(async () => {
   const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
-  await getDocs(q);
+  const snapshot = await getDocs(q);
+
+  snapshot.forEach(uploadSong);
 });
 </script>
 
@@ -23,7 +46,7 @@ onMounted(async () => {
         </template>
 
         <template #main>
-          <SongUpload />
+          <SongUpload @upload-song="uploadSong" />
         </template>
       </BaseCard>
     </div>
@@ -37,7 +60,15 @@ onMounted(async () => {
         </template>
 
         <template #main>
-          <SongModify />
+          <ul class="mt:20>li~li">
+            <SongModify
+              v-for="song in songs"
+              :key="song.docID"
+              :song="song"
+              @edit-song="editSong"
+              @delete-song="deleteSong"
+            />
+          </ul>
         </template>
       </BaseCard>
     </div>

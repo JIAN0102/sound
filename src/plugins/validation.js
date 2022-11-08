@@ -30,6 +30,7 @@ export default {
           email: '電子郵件',
           password: '密碼',
           confirmPassword: '密碼',
+          modifiedName: '歌曲名稱',
         },
       }),
       classes: true,

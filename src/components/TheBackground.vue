@@ -63,14 +63,15 @@
     >
       <img
         class="h:full @rotate|.75s|linear|infinit"
-        src="assets/img/cd-character.svg"
+        src="assets/img/cd-character.png"
         alt="CD Cat"
       />
     </div>
+    <div class="abs inset:0 bg:radial-gradient(transparent|60%,black/.6)"></div>
   </div>
 
   <svg
-    class="fixed top:0 left:0 z:9999 pointer-events:none hide@<md"
+    class="hide! fixed top:0 left:0 z:9999 pointer-events:none hide@<md"
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
     height="100%"

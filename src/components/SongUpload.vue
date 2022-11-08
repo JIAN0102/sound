@@ -8,6 +8,8 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 
+const emit = defineEmits(['upload-song']);
+
 const isDragOver = ref(false);
 const uploads = reactive([]);
 
@@ -49,10 +51,12 @@ function uploadFile($event) {
           genre: '',
           commentCount: 0,
         };
-        song.url = await getDownloadURL(uploadTask.snapshot.ref);
 
+        song.url = await getDownloadURL(uploadTask.snapshot.ref);
         const songRef = await addDoc(songsCollection, song);
-        await getDoc(songRef);
+        const songSnapshot = await getDoc(songRef);
+
+        emit('upload-song', songSnapshot);
 
         uploads[uploadIndex].class = 'is-uploaded';
       }

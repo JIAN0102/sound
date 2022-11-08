@@ -27,7 +27,7 @@ async function logoutUser() {
 
 <template>
   <header
-    class="fixed top:0 left:0 z:999 flex jc:space-between ai:center w:full h:100 px:20 pointer-events:none {h:220;px:80}@md"
+    class="fixed top:0 left:0 z:999 flex jc:space-between ai:center w:full h:100 px:20 pointer-events:none {h:140;px:80}@md"
   >
     <RouterLink
       class="flex ai:center pointer-events:auto"
@@ -67,7 +67,7 @@ async function logoutUser() {
           >
         </div>
       </button>
-      <ul v-else class="flex ai:center gap-x:10">
+      <ul v-else class="flex ai:center gap-x:20">
         <li>
           <RouterLink
             class="group rel block bg:black rounded"
