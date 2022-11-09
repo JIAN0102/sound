@@ -6,7 +6,7 @@ import { auth, songsCollection } from '@/plugins/firebase';
 export const useSongStore = defineStore('song', () => {
   const songs = reactive([]);
 
-  async function getSong() {
+  async function getSongs() {
     songs.length = 0;
     const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
     const snapshot = await getDocs(q);
@@ -22,6 +22,6 @@ export const useSongStore = defineStore('song', () => {
 
   return {
     songs,
-    getSong,
+    getSongs,
   };
 });

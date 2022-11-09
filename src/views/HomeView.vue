@@ -1,5 +1,33 @@
 <script setup>
+import { ref, reactive, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
+import { songsCollection } from '@/plugins/firebase';
+import { query, orderBy, limit, getDocs } from 'firebase/firestore';
+
+const songs = reactive([]);
+const maxPerPage = ref(10);
+
+async function getSongs() {
+  const q = query(
+    songsCollection,
+    orderBy('modifiedName'),
+    limit(maxPerPage.value)
+  );
+  const snapshots = await getDocs(q);
+
+  snapshots.forEach((document) => {
+    songs.push({
+      ...document.data(),
+      docID: document.id,
+    });
+  });
+
+  console.log(snapshots);
+}
+
+onMounted(async () => {
+  await getSongs();
+});
 </script>
 
 <template>

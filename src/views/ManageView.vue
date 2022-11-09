@@ -1,16 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useSongStore } from '@/stores/song';
 import BaseCard from '@/components/BaseCard.vue';
 import SongUpload from '@/components/SongUpload.vue';
 import SongModify from '@/components/SongModify.vue';
+import { useSongStore } from '@/stores/song';
 
 const songStore = useSongStore();
-const { songs, getSong } = songStore;
+const { songs, getSongs } = songStore;
 
 const isLoading = ref(false);
 
-function uploadSong(document) {
+function addSong(document) {
   const song = {
     ...document.data(),
     docID: document.id,
@@ -31,8 +31,7 @@ function deleteSong(docID) {
 
 onMounted(async () => {
   isLoading.value = true;
-  await getSong();
-
+  await getSongs();
   setTimeout(() => {
     isLoading.value = false;
   }, 1000);
@@ -50,7 +49,7 @@ onMounted(async () => {
         </template>
 
         <template #main>
-          <SongUpload @upload-song="uploadSong" />
+          <SongUpload @add-song="addSong" />
         </template>
       </BaseCard>
     </div>
@@ -64,7 +63,7 @@ onMounted(async () => {
         </template>
 
         <template #main>
-          <div v-if="isLoading">讀取中...</div>
+          <div v-if="isLoading" class="f:16 fg:white">讀取中...</div>
           <ul v-else class="mt:20>li~li">
             <SongModify
               v-for="song in songs"
