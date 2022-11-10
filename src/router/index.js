@@ -20,7 +20,7 @@ const routes = [
     },
   },
   {
-    path: '/song',
+    path: '/song/:id',
     name: 'song',
     component: SongView,
   },

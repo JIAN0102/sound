@@ -31,6 +31,7 @@ export default {
           password: '密碼',
           confirmPassword: '密碼',
           modifiedName: '歌曲名稱',
+          comment: '評論',
         },
       }),
       classes: true,

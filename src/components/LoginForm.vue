@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
@@ -11,6 +11,10 @@ const { toggleModal } = modalStore;
 const userStore = useUserStore();
 const { login } = userStore;
 
+const schema = reactive({
+  email: 'required|email',
+  password: 'required|min:6|max:100',
+});
 const submission = ref(false);
 const showAlert = ref(false);
 const alertVarient = ref('');
@@ -53,7 +57,7 @@ async function onSubmit(values, { resetForm }) {
   >
     {{ alertMessage }}
   </div>
-  <VForm @submit="onSubmit">
+  <VForm :validation-schema="schema" @submit="onSubmit">
     <div>
       <label class="f:bold fg:white f:18@md" for="loginEmail">電子郵件</label>
       <VField
@@ -61,7 +65,6 @@ async function onSubmit(values, { resetForm }) {
         class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="email"
         name="email"
-        rules="required|email"
       />
       <ErrorMessage
         v-slot="{ message }"
@@ -83,7 +86,6 @@ async function onSubmit(values, { resetForm }) {
         class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="password"
         name="password"
-        rules="required|min:6|max:100"
       />
       <ErrorMessage
         v-slot="{ message }"

@@ -1,12 +1,12 @@
 <script setup>
 import { ref, reactive, onBeforeUnmount } from 'vue';
-import { auth, storage, songsCollection } from '@/plugins/firebase';
 import { addDoc, getDoc } from 'firebase/firestore';
 import {
   ref as storageRef,
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+import { auth, storage, songsCollection } from '@/plugins/firebase';
 
 const emit = defineEmits(['add-song']);
 

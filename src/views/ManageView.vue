@@ -1,14 +1,20 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
+import { query, where, getDocs } from 'firebase/firestore';
+import { auth, songsCollection } from '@/plugins/firebase';
 import BaseCard from '@/components/BaseCard.vue';
 import SongUpload from '@/components/SongUpload.vue';
 import SongModify from '@/components/SongModify.vue';
-import { useSongStore } from '@/stores/song';
 
-const songStore = useSongStore();
-const { songs, getSongs } = songStore;
-
+const songs = reactive([]);
 const isLoading = ref(false);
+
+async function getSongs() {
+  const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
+  const snapshot = await getDocs(q);
+
+  snapshot.forEach(addSong);
+}
 
 function addSong(document) {
   const song = {
@@ -39,7 +45,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="grid-cols:1 gap:30|40 p:100|0|210 p:180|80|210@md grid-cols:2@lg">
+  <div
+    class="r:60 grid-cols:1 gap:30|40 p:100|0|210 p:180|80|210@md grid-cols:2@lg"
+  >
     <div>
       <BaseCard>
         <template #header>

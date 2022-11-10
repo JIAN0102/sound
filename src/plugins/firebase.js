@@ -19,5 +19,13 @@ const storage = getStorage(app);
 
 const usersCollection = collection(db, 'users');
 const songsCollection = collection(db, 'songs');
+const commentsCollection = collection(db, 'comments');
 
-export { auth, db, storage, usersCollection, songsCollection };
+export {
+  auth,
+  db,
+  storage,
+  usersCollection,
+  songsCollection,
+  commentsCollection,
+};

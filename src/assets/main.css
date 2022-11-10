@@ -28,6 +28,15 @@ h6 {
   }
 }
 
+@keyframes noise {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 @keyframes rotate {
   100% {
     transform: rotate(360deg);

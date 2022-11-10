@@ -2,7 +2,6 @@
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-console.log(route);
 </script>
 
 <template>
@@ -12,7 +11,7 @@ console.log(route);
     ></div>
     <div class="abs inset:0 bg:linear-gradient(#333,transparent)"></div>
     <div
-      class="abs top:1/2 left:1/2 w:full opacity:.03 translate(-50%,-50%)|skewY(-12.5) {bg:url('assets/img/sound-text.svg');background-size:auto|100%}>div h:40vh>div:odd h:20vh>div:even"
+      class="abs top:1/2 left:1/2 w:full opacity:.03 translate(-50%,-50%)|skewY(-12.5) {bg:url('/assets/img/sound-text.svg');background-size:auto|100%}>div h:40vh>div:odd h:20vh>div:even"
     >
       <div class="@scroll|12.5s|linear|infinite"></div>
       <div class="@scrollReverse|5s|linear|infinite"></div>
@@ -29,7 +28,7 @@ console.log(route);
     >
       <img
         class="h:full @rotate|.75s|linear|infinit"
-        src="assets/img/cd-character.png"
+        src="/assets/img/cd-character.png"
         alt="CD Cat"
       />
     </div>

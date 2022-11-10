@@ -15,7 +15,7 @@
         class="abs top:0 left:0 w:45% h:full overflow:hidden bg:#777 rounded transform:left"
       >
         <div
-          class="abs inset:0 bg:url('assets/img/progress-arrow.svg') @progress|1.5s|linear|infinite"
+          class="abs inset:0 bg:url('/assets/img/progress-arrow.svg') @progress|1.5s|linear|infinite"
         ></div>
       </div>
       <div class="abs inset:0 pointer-events:none">

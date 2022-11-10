@@ -11,18 +11,21 @@ defineProps({
 
 <template>
   <div class="grid-col-span:4@xs">
-    <div
+    <RouterLink
       class="rel flex jc:space-between ai:center h:80 pl:30 pr:10 bg:black rounded"
+      :to="{
+        name: 'song',
+        params: {
+          id: song.docID,
+        },
+      }"
     >
-      <RouterLink class="flex:1 lines:1" :to="{ name: 'song' }">
+      <div class="flex:1 lines:1">
         <h3 class="f:bold fg:white f:18@md" :title="song.modifiedName">
           {{ song.modifiedName }}
         </h3>
-      </RouterLink>
-      <RouterLink
-        class="block w:140 h:60 bg:#333 rounded"
-        :to="{ name: 'song' }"
-      ></RouterLink>
-    </div>
+      </div>
+      <div class="block w:140 h:60 bg:#333 rounded"></div>
+    </RouterLink>
   </div>
 </template>

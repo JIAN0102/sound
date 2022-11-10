@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
-import { songsCollection } from '@/plugins/firebase';
 import {
   query,
   orderBy,
@@ -10,10 +9,11 @@ import {
   getDoc,
   getDocs,
 } from 'firebase/firestore';
+import { songsCollection } from '@/plugins/firebase';
 import SongItem from '@/components/SongItem.vue';
 
 const songs = reactive([]);
-const maxPerPage = ref(3);
+const maxPerPage = ref(10);
 const pendingRequest = ref(false);
 
 function handleScroll() {
@@ -63,8 +63,8 @@ async function getSongs() {
   pendingRequest.value = false;
 }
 
-onMounted(async () => {
-  await getSongs();
+onMounted(() => {
+  getSongs();
 
   window.addEventListener('scroll', handleScroll);
 });
