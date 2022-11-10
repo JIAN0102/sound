@@ -11,8 +11,20 @@ h6 {
 }
 
 @keyframes scroll {
+  0% {
+    background-position: 0 0;
+  }
   100% {
-    transform: translateX(100%);
+    background-position: -120vh 0;
+  }
+}
+
+@keyframes scrollReverse {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60vh 0;
   }
 }
 

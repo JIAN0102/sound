@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+console.log(route);
+</script>
 
 <template>
   <div class="fixed inset:0 overflow:hidden pointer-events:none">
@@ -7,59 +12,20 @@
     ></div>
     <div class="abs inset:0 bg:linear-gradient(#333,transparent)"></div>
     <div
-      class="abs top:1/2 left:1/2 font-family:countach f:bold fg:#e3e3e3 lh:1 white-space:nowrap opacity:.04 translate(-50%,-50%)|skewY(-12.5)"
+      class="abs top:1/2 left:1/2 w:full opacity:.03 translate(-50%,-50%)|skewY(-12.5) {bg:url('assets/img/sound-text.svg');background-size:auto|100%}>div h:40vh>div:odd h:20vh>div:even"
     >
-      <div
-        class="flex jc:center f:50vh {px:40;animation:scroll|12.5s|linear|infinite|reverse}>span"
-      >
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-      </div>
-      <div
-        class="flex jc:center mt:-6.5vh f:25vh {px:20;animation:scroll|5s|linear|infinite}>span"
-      >
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-      </div>
-      <div
-        class="flex jc:center mt:-10vh f:50vh {px:40;animation:scroll|7.5s|linear|infinite|reverse}>span"
-      >
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-      </div>
-      <div
-        class="flex jc:center mt:-6.5vh f:25vh {px:20;animation:scroll|2.5s|linear|infinite}>span"
-      >
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-      </div>
-      <div
-        class="flex jc:center mt:-10vh f:50vh {px:40;animation:scroll|10s|linear|infinite|reverse}>span"
-      >
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-        <span>SOUND</span>
-      </div>
+      <div class="@scroll|12.5s|linear|infinite"></div>
+      <div class="@scrollReverse|5s|linear|infinite"></div>
+      <div class="@scroll|7.5s|linear|infinite"></div>
+      <div class="@scrollReverse|2.5s|linear|infinite"></div>
+      <div class="@scroll|15s|linear|infinite"></div>
     </div>
     <div
-      class="abs top:15% bottom:-20% left:1/2 translateX(-50%) ~transform|1s bottom:-60%@md"
+      class="abs top:1/2 left:1/2 font-family:countach f:bold f:75vh fg:white lh:1 text-stroke:2|white white-space:nowrap translate(-50%,-50%)|skewY(-15)"
+    ></div>
+    <div
+      class="abs top:15% bottom:-20% left:1/2 translateX(-50%) ~transform|.75s bottom:-60%@md"
+      :class="{ 'translate(-50%,25%)|rotate(15deg)!': route.name !== 'home' }"
     >
       <img
         class="h:full @rotate|.75s|linear|infinit"
@@ -67,6 +33,5 @@
         alt="CD Cat"
       />
     </div>
-    <div class="abs inset:0 bg:radial-gradient(transparent|60%,black/.6)"></div>
   </div>
 </template>
