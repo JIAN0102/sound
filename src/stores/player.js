@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { Howl } from 'howler';
-import { formatTime } from '@/plugins/helper';
+import { formatTime } from '@/helpers';
 
 export const usePlayerStore = defineStore('player', () => {
   const currentSong = ref({});

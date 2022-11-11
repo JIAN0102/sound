@@ -7,9 +7,11 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { auth, storage, songsCollection } from '@/plugins/firebase';
-import SongUploadBar from '@/components/SongUploadBar.vue';
+import { useSongStore } from '@/stores/song';
+import SongUploadItem from '@/components/SongUploadItem.vue';
 
-const emit = defineEmits(['add-song']);
+const songStore = useSongStore();
+const { addSong } = songStore;
 
 const isDragOver = ref(false);
 const uploads = reactive([]);
@@ -52,12 +54,11 @@ function uploadFile($event) {
           genre: '無',
           commentCount: 0,
         };
-
         song.url = await getDownloadURL(uploadTask.snapshot.ref);
         const songRef = await addDoc(songsCollection, song);
         const songSnapshot = await getDoc(songRef);
 
-        emit('add-song', songSnapshot);
+        addSong(songSnapshot);
 
         uploads[uploadIndex].class = 'is-uploaded';
       }
@@ -93,7 +94,7 @@ onBeforeUnmount(() => {
     @change="uploadFile($event)"
   />
   <ul v-if="uploads.length" class="mt:20 mt:30@md mt:20>li~li">
-    <SongUploadBar
+    <SongUploadItem
       v-for="upload in uploads"
       :key="upload.name"
       :upload="upload"

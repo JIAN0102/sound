@@ -13,7 +13,7 @@ const { deleteComment } = commentStore;
 </script>
 
 <template>
-  <div class="rel p:30 bg:black r:30">
+  <li class="rel p:30 bg:black r:30">
     <button
       class="abs top:20 right:20 f:12 fg:white"
       type="button"
@@ -30,5 +30,5 @@ const { deleteComment } = commentStore;
     <div class="mt:20 f:14 fg:white lh:1.75 f:16@md">
       <p>{{ comment.content }}</p>
     </div>
-  </div>
+  </li>
 </template>

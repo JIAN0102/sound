@@ -1,15 +1,20 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
+import { addDoc, getDoc } from 'firebase/firestore';
+import { auth, commentsCollection } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
 import { useCommentStore } from '@/stores/comment';
-import CommentItem from '@/components/CommentItem.vue';
+import CommentPostItem from '@/components/CommentPostItem.vue';
+
+const route = useRoute();
 
 const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
 
 const commentStore = useCommentStore();
-const { comments, sort, sortedComments } = storeToRefs(commentStore);
+const { commentSort, sortedComments } = storeToRefs(commentStore);
 const { getComments, addComment } = commentStore;
 
 const submission = ref(false);
@@ -17,7 +22,17 @@ const submission = ref(false);
 async function onSubmit(values, { resetForm }) {
   submission.value = true;
 
-  await addComment(values);
+  const comment = {
+    content: values.comment,
+    datePosted: new Date().toString(),
+    songID: route.params.id,
+    name: auth.currentUser.displayName,
+    uid: auth.currentUser.uid,
+  };
+  const commentRef = await addDoc(commentsCollection, comment);
+  const commentSnapshot = await getDoc(commentRef);
+
+  await addComment(commentSnapshot);
 
   submission.value = false;
 
@@ -25,16 +40,18 @@ async function onSubmit(values, { resetForm }) {
 }
 
 onMounted(async () => {
-  getComments();
+  await getComments();
 });
 </script>
 
 <template>
   <div class="flex ai:center gap-x:20">
-    <span class="f:bold fg:white f:18@md">{{ comments.length }} 則留言</span>
+    <span class="f:bold fg:white f:18@md"
+      >{{ sortedComments.length }} 則留言</span
+    >
     <div class="flex:1">
       <select
-        v-model="sort"
+        v-model="commentSort"
         class="block w:full h:60 px:30 fg:white bg:black rounded outline:0 appearance:none b:#777:focus"
       >
         <option value="1">排序依據 (由新到舊)</option>
@@ -84,11 +101,11 @@ onMounted(async () => {
     </VForm>
     <div v-else class="fg:white">登入會員才能發表評論</div>
   </div>
-  <div class="mt:50>div:first mt:20>div~div">
-    <CommentItem
+  <ul class="mt:50 mt:20>li~li">
+    <CommentPostItem
       v-for="comment in sortedComments"
       :key="comment.docID"
       :comment="comment"
     />
-  </div>
+  </ul>
 </template>

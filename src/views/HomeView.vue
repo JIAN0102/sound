@@ -10,7 +10,7 @@ import {
   getDocs,
 } from 'firebase/firestore';
 import { songsCollection } from '@/plugins/firebase';
-import SongItem from '@/components/SongItem.vue';
+import SongCard from '@/components/SongCard.vue';
 
 const songs = reactive([]);
 const perPage = ref(9);
@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
     <div
       class="grid-cols:1 gap:40 grid-cols:9@xs grid-cols:13@lg grid-col-start:2>div:nth(4n+3)@xs&<lg grid-col-start:2>div:nth(6n+4)@lg"
     >
-      <SongItem v-for="song in songs" :key="song.docID" :song="song" />
+      <SongCard v-for="song in songs" :key="song.docID" :song="song" />
     </div>
   </div>
 </template>
