@@ -7,6 +7,7 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { auth, storage, songsCollection } from '@/plugins/firebase';
+import SongUploadBar from '@/components/SongUploadBar.vue';
 
 const emit = defineEmits(['add-song']);
 
@@ -92,23 +93,10 @@ onBeforeUnmount(() => {
     @change="uploadFile($event)"
   />
   <ul v-if="uploads.length" class="mt:20 mt:30@md mt:20>li~li">
-    <li v-for="upload in uploads" :key="upload.name" :class="upload.class">
-      <span class="f:14 fg:white f:16@md">{{ upload.name }}</span>
-      <div
-        class="rel h:40 mt:8 overflow:hidden bg:#555 background-size:40|40 rounded @progress|1.5s|linear|infinite rounded ~width|.1s"
-      >
-        <div
-          class="abs top:0 left:0 h:full overflow:hidden bg:#777 rounded ~width|.1s .is-error_{bg:#ee2828} .is-uploaded_{bg:linear-gradient(to|right,primary,secondary)}"
-          :style="{ width: `${upload.currentProgress}%` }"
-        >
-          <div
-            class="abs inset:0 bg:url('/assets/img/progress-arrow.svg') background-size:50|40 @progress|1.5s|linear|infinite"
-          ></div>
-        </div>
-        <div
-          class="abs top:1/2 left:10 w:20 h:20 bg:white round translateY(-50%)"
-        ></div>
-      </div>
-    </li>
+    <SongUploadBar
+      v-for="upload in uploads"
+      :key="upload.name"
+      :upload="upload"
+    />
   </ul>
 </template>

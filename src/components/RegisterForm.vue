@@ -5,7 +5,7 @@ import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
 
 const modalStore = useModalStore();
-const { type } = storeToRefs(modalStore);
+const { authType } = storeToRefs(modalStore);
 const { toggleModal } = modalStore;
 
 const userStore = useUserStore();
@@ -18,45 +18,23 @@ const schema = reactive({
   confirmPassword: 'confirmed:@password',
 });
 const submission = ref(false);
-const showAlert = ref(false);
-const alertVarient = ref('');
-const alertMessage = ref('');
 
 async function onSubmit(values, { resetForm }) {
   submission.value = true;
-  showAlert.value = true;
-  alertVarient.value = 'bg:blue';
-  alertMessage.value = '請稍等！正在為您建立帳號';
 
   try {
     await register(values);
-
     toggleModal();
     resetForm();
-
-    submission.value = false;
-    showAlert.value = false;
-    alertVarient.value = '';
-    alertMessage.value = '';
   } catch (err) {
-    const errorCode = err.code;
-    if (errorCode === 'auth/email-already-in-use') {
-      alertMessage.value = '這個信箱已有人使用，請試試其他信箱。';
-    }
-    submission.value = false;
-    alertVarient.value = 'bg:red';
+    console.log(err);
   }
+
+  submission.value = false;
 }
 </script>
 
 <template>
-  <div
-    v-if="showAlert"
-    class="p:16 f:bold fg:white t:center"
-    :class="alertVarient"
-  >
-    {{ alertMessage }}
-  </div>
   <VForm :validation-schema="schema" @submit="onSubmit">
     <div>
       <label class="f:bold fg:white f:18@md" for="registerName"
@@ -70,15 +48,15 @@ async function onSubmit(values, { resetForm }) {
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8"
         as="div"
         name="name"
       >
         <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
           >!</span
         >
-        <p class="f:13 fg:#ee2828">{{ message }}</p>
+        <p class="f:13 fg:danger">{{ message }}</p>
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -93,15 +71,15 @@ async function onSubmit(values, { resetForm }) {
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8"
         as="div"
         name="email"
       >
         <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
           >!</span
         >
-        <p class="f:13 fg:#ee2828">{{ message }}</p>
+        <p class="f:13 fg:danger">{{ message }}</p>
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -114,15 +92,15 @@ async function onSubmit(values, { resetForm }) {
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8"
         as="div"
         name="password"
       >
         <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
           >!</span
         >
-        <p class="f:13 fg:#ee2828">{{ message }}</p>
+        <p class="f:13 fg:danger">{{ message }}</p>
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -137,15 +115,15 @@ async function onSubmit(values, { resetForm }) {
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8"
         as="div"
         name="confirmPassword"
       >
         <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
+          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
           >!</span
         >
-        <p class="f:13 fg:#ee2828">{{ message }}</p>
+        <p class="f:13 fg:danger">{{ message }}</p>
       </ErrorMessage>
     </div>
     <button
@@ -154,18 +132,30 @@ async function onSubmit(values, { resetForm }) {
       :disabled="submission"
     >
       <div
-        class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{@bounce|1s|infinite}"
+        class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{animation:bounce|1s|infinite}"
       ></div>
       <div class="rel flex center-content h:60">
-        <span
-          class="abs top:1/2 left:14 w:32 h:32 bg:black rounded translateY(-50%)"
-        ></span>
+        <div
+          class="abs top:1/2 left:14 flex center-content w:32 h:32 bg:black round translateY(-50%)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8,8c1.7,0,3-1.3,3-3S9.7,2,8,2S5,3.3,5,5S6.3,8,8,8z M12.4,10H3.6C3,9.9,2.4,10.3,2.3,11 C2.1,11.6,2,12.4,2,13.1C2,13.5,2.1,14,2.7,14h10.6c0.6,0,0.7-0.5,0.7-0.9c0-0.7-0.1-1.4-0.3-2.1C13.6,10.3,13,9.9,12.4,10z"
+              fill="#fff"
+            />
+          </svg>
+        </div>
         <span class="f:bold f:18">註冊</span>
       </div>
     </button>
     <p class="mt:20 f:bold fg:white t:center f:18@md">
       已經有帳號了？
-      <span class="t:underline cursor:pointer" @click="type = 'login'"
+      <span class="t:underline cursor:pointer" @click="authType = 'login'"
         >登入</span
       >
     </p>

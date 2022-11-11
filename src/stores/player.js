@@ -13,7 +13,7 @@ export const usePlayerStore = defineStore('player', () => {
   const isSoundPlaying = ref(false);
   const isSoundLoaded = ref(false);
 
-  function createSong(song) {
+  function setSong(song) {
     if (sound.value instanceof Howl) {
       sound.value.unload();
       isSoundLoaded.value = false;
@@ -96,7 +96,7 @@ export const usePlayerStore = defineStore('player', () => {
     progress,
     isSoundPlaying,
     isSoundLoaded,
-    createSong,
+    setSong,
     toggleAudio,
     updateSeek,
     updateVolume,

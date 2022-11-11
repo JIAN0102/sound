@@ -22,29 +22,24 @@ export const useUserStore = defineStore('user', () => {
       email,
       password
     );
-
     const userRef = doc(usersCollection, userCredential.user.uid);
     await setDoc(userRef, {
       name,
       email,
     });
-
     await updateProfile(userCredential.user, {
       displayName: name,
     });
-
     toggleAuth();
   }
 
   async function login({ email, password }) {
     await signInWithEmailAndPassword(auth, email, password);
-
     toggleAuth();
   }
 
   async function logout() {
     await signOut(auth);
-
     toggleAuth();
   }
 

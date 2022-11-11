@@ -6,14 +6,14 @@ import LoginForm from '@/components/LoginForm.vue';
 import RegisterForm from '@/components/RegisterForm.vue';
 
 const modalStore = useModalStore();
-const { isOpen, type } = storeToRefs(modalStore);
+const { isModalOpen, authType } = storeToRefs(modalStore);
 const { toggleModal } = modalStore;
 </script>
 
 <template>
   <div
-    class="fixed inset:0 z:9998 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.1,white/.1|3px,white/.05|3px,white/.05|8px) bd:blur(7.5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
-    :class="{ 'is-open': isOpen }"
+    class="fixed inset:0 z:1000 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.1,white/.1|3px,white/.05|3px,white/.05|8px) bd:blur(7.5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
+    :class="{ 'is-open': isModalOpen }"
   >
     <div class="flex ai:center max-w:600 min-h:calc(100%-80px) m:40|auto">
       <div
@@ -33,8 +33,8 @@ const { toggleModal } = modalStore;
               <div class="pr:20 pr:30@md">
                 <h3
                   class="f:bold f:24 fg:#777 cursor:pointer f:28@md fg:white.is-active"
-                  :class="{ 'is-active': type === 'login' }"
-                  @click.prevent="type = 'login'"
+                  :class="{ 'is-active': authType === 'login' }"
+                  @click.prevent="authType = 'login'"
                 >
                   登入
                 </h3>
@@ -42,8 +42,8 @@ const { toggleModal } = modalStore;
               <div class="pl:20 bl:1|solid|white pl:30@md">
                 <h3
                   class="f:bold f:24 fg:#777 cursor:pointer f:28@md fg:white.is-active"
-                  :class="{ 'is-active': type === 'register' }"
-                  @click.prevent="type = 'register'"
+                  :class="{ 'is-active': authType === 'register' }"
+                  @click.prevent="authType = 'register'"
                 >
                   註冊
                 </h3>
@@ -52,7 +52,7 @@ const { toggleModal } = modalStore;
           </template>
 
           <template #main>
-            <LoginForm v-if="type === 'login'" />
+            <LoginForm v-if="authType === 'login'" />
             <RegisterForm v-else />
           </template>
         </BaseCard>

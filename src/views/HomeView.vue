@@ -13,7 +13,7 @@ import { songsCollection } from '@/plugins/firebase';
 import SongItem from '@/components/SongItem.vue';
 
 const songs = reactive([]);
-const maxPerPage = ref(9);
+const perPage = ref(9);
 const pendingRequest = ref(false);
 
 function handleScroll() {
@@ -41,14 +41,14 @@ async function getSongs() {
       songsCollection,
       orderBy('modifiedName'),
       startAfter(lastDoc),
-      limit(maxPerPage.value)
+      limit(perPage.value)
     );
     snapshots = await getDocs(q);
   } else {
     const q = query(
       songsCollection,
       orderBy('modifiedName'),
-      limit(maxPerPage.value)
+      limit(perPage.value)
     );
     snapshots = await getDocs(q);
   }
@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div
-    class="mt:100vh px:20 pt:80 pb:210 bg:linear-gradient(transparent,#333) px:80@md"
+    class="mt:100vh p:80|20|210 bg:linear-gradient(transparent,#333) px:80@md"
   >
     <div
       class="grid-cols:1 gap:40 grid-cols:9@xs grid-cols:13@lg grid-col-start:2>div:nth(4n+3)@xs&<lg grid-col-start:2>div:nth(6n+4)@lg"

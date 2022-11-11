@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import { useUserStore } from '@/stores/user';
 import { auth } from '@/plugins/firebase';
+import { useUserStore } from '@/stores/user';
 import TheBackground from '@/components/TheBackground.vue';
 import TheHeader from '@/components/TheHeader.vue';
 import SongPlayer from '@/components/SongPlayer.vue';

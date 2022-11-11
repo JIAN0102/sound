@@ -9,6 +9,14 @@ import SongModify from '@/components/SongModify.vue';
 const songs = reactive([]);
 const isLoading = ref(false);
 
+function addSong(document) {
+  const song = {
+    ...document.data(),
+    docID: document.id,
+  };
+  songs.push(song);
+}
+
 async function getSongs() {
   const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
   const snapshot = await getDocs(q);
@@ -18,14 +26,6 @@ async function getSongs() {
 
 function getSongIndex(docID) {
   return songs.findIndex((song) => song.docID === docID);
-}
-
-function addSong(document) {
-  const song = {
-    ...document.data(),
-    docID: document.id,
-  };
-  songs.push(song);
 }
 
 function editSong(docID, { modifiedName, genre }) {
@@ -41,10 +41,10 @@ function deleteSong(docID) {
 
 onMounted(async () => {
   isLoading.value = true;
+
   await getSongs();
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 1000);
+
+  isLoading.value = false;
 });
 </script>
 
