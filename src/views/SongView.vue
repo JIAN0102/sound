@@ -14,6 +14,7 @@ import {
 } from 'firebase/firestore';
 import { auth, songsCollection, commentsCollection } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
+import { usePlayerStore } from '@/stores/player';
 import BaseCard from '@/components/BaseCard.vue';
 
 const route = useRoute();
@@ -21,6 +22,9 @@ const router = useRouter();
 
 const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
+
+const playerStore = usePlayerStore();
+const { createSong } = playerStore;
 
 const song = ref({});
 const submission = ref(false);
@@ -109,7 +113,7 @@ onMounted(async () => {
 
   song.value = snapshot.data();
 
-  await getComments();
+  getComments();
 });
 </script>
 
@@ -145,8 +149,9 @@ onMounted(async () => {
             </div>
           </div>
           <button
-            class="group rel w:full mt:20 mt:30@md {pointer-events:none}:disabled"
-            type="submit"
+            class="group rel w:full mt:20 mt:30@md"
+            type="button"
+            @click.prevent="createSong(song)"
           >
             <div
               class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{animation:bounce|1s|infinite}"

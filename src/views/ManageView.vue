@@ -16,6 +16,10 @@ async function getSongs() {
   snapshot.forEach(addSong);
 }
 
+function getSongIndex(docID) {
+  return songs.findIndex((song) => song.docID === docID);
+}
+
 function addSong(document) {
   const song = {
     ...document.data(),
@@ -25,13 +29,13 @@ function addSong(document) {
 }
 
 function editSong(docID, { modifiedName, genre }) {
-  const index = songs.findIndex((song) => song.docID === docID);
+  const index = getSongIndex(docID);
   songs[index].modifiedName = modifiedName;
   songs[index].genre = genre;
 }
 
 function deleteSong(docID) {
-  const index = songs.findIndex((song) => song.docID === docID);
+  const index = getSongIndex(docID);
   songs.splice(index, 1);
 }
 
@@ -71,7 +75,28 @@ onMounted(async () => {
         </template>
 
         <template #main>
-          <div v-if="isLoading" class="f:16 fg:white">讀取中...</div>
+          <div v-if="isLoading">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w:24 h:24 mx:auto fg:white @rotate|1s|linear|infinite"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <circle
+                class="opacity:.25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity:.75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
           <ul v-else class="mt:20>li~li">
             <SongModify
               v-for="song in songs"

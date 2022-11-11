@@ -13,7 +13,7 @@ import { songsCollection } from '@/plugins/firebase';
 import SongItem from '@/components/SongItem.vue';
 
 const songs = reactive([]);
-const maxPerPage = ref(10);
+const maxPerPage = ref(9);
 const pendingRequest = ref(false);
 
 function handleScroll() {

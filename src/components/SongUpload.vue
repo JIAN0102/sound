@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
           :style="{ width: `${upload.currentProgress}%` }"
         >
           <div
-            class="abs inset:0 bg:url('assets/img/progress-arrow.svg') background-size:50|40 @progress|1.5s|linear|infinite"
+            class="abs inset:0 bg:url('/assets/img/progress-arrow.svg') background-size:50|40 @progress|1.5s|linear|infinite"
           ></div>
         </div>
         <div
