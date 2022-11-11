@@ -8,13 +8,15 @@ export const usePlayerStore = defineStore('player', () => {
   const sound = ref({});
   const seek = ref('00:00');
   const duration = ref('00:00');
+  const volume = ref(0.25);
   const progress = ref('0%');
-  const playing = ref(false);
-  const volume = ref(0.5);
+  const isSoundPlaying = ref(false);
+  const isSoundLoaded = ref(false);
 
   function createSong(song) {
     if (sound.value instanceof Howl) {
       sound.value.unload();
+      isSoundLoaded.value = false;
     }
 
     currentSong.value = song;
@@ -27,6 +29,12 @@ export const usePlayerStore = defineStore('player', () => {
 
     sound.value.play();
 
+    isSoundPlaying.value = true;
+
+    sound.value.on('load', () => {
+      isSoundLoaded.value = true;
+    });
+
     sound.value.on('play', () => {
       requestAnimationFrame(updateProgress);
     });
@@ -36,16 +44,14 @@ export const usePlayerStore = defineStore('player', () => {
     });
 
     sound.value.on('end', () => {
-      playing.value = false;
+      isSoundPlaying.value = false;
     });
-
-    playing.value = true;
   }
 
   function toggleAudio() {
-    if (sound.value.state && sound.value.state() === 'loaded') {
-      playing.value = !playing.value;
-      playing.value ? sound.value.play() : sound.value.pause();
+    if (isSoundLoaded.value) {
+      isSoundPlaying.value = !isSoundPlaying.value;
+      isSoundPlaying.value ? sound.value.play() : sound.value.pause();
     }
   }
 
@@ -54,13 +60,13 @@ export const usePlayerStore = defineStore('player', () => {
     duration.value = formatTime(sound.value.duration());
     progress.value = `${(sound.value.seek() / sound.value.duration()) * 100}%`;
 
-    if (playing.value) {
+    if (isSoundPlaying.value) {
       requestAnimationFrame(updateProgress);
     }
   }
 
   function updateSeek(event) {
-    if (sound.value.state && sound.value.state() === 'loaded') {
+    if (isSoundLoaded.value) {
       const { x, width } = event.currentTarget.getBoundingClientRect();
       const clientX = event.clientX - x;
       const percentage = clientX / width;
@@ -71,7 +77,7 @@ export const usePlayerStore = defineStore('player', () => {
   }
 
   function updateVolume(event) {
-    if (sound.value.state && sound.value.state() === 'loaded') {
+    if (isSoundLoaded.value) {
       const { x, width } = event.currentTarget.getBoundingClientRect();
       const clientX = event.clientX - x;
       const percentage = clientX / width;
@@ -86,9 +92,10 @@ export const usePlayerStore = defineStore('player', () => {
     sound,
     seek,
     duration,
-    progress,
-    playing,
     volume,
+    progress,
+    isSoundPlaying,
+    isSoundLoaded,
     createSong,
     toggleAudio,
     updateSeek,

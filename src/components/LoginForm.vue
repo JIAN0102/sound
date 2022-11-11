@@ -52,10 +52,22 @@ async function onSubmit(values, { resetForm }) {
 <template>
   <div
     v-if="showAlert"
-    class="p:16 f:bold fg:white t:center"
-    :class="alertVarient"
+    class="abs top:0 left:1/2 w:75% h:4 overflow:hidden bg:#777 translateX(-50%)"
   >
-    {{ alertMessage }}
+    <div
+      class="abs inset:0 transform:left @primaryIndeterminateTranslate|2s|linear|infinite"
+    >
+      <span
+        class="abs inset:0 bg:secondary @primaryIndeterminateScale|2s|linear|infinite"
+      ></span>
+    </div>
+    <div
+      class="abs inset:0 transform:left @auxiliaryIndeterminateTranslate|2s|linear|infinite"
+    >
+      <span
+        class="abs inset:0 bg:secondary @auxiliaryIndeterminateScale|2s|linear|infinite"
+      ></span>
+    </div>
   </div>
   <VForm :validation-schema="schema" @submit="onSubmit">
     <div>

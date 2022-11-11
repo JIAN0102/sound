@@ -48,7 +48,7 @@ function uploadFile($event) {
           displayName: auth.currentUser.displayName,
           originalName: uploadTask.snapshot.ref.name,
           modifiedName: uploadTask.snapshot.ref.name,
-          genre: '',
+          genre: '無',
           commentCount: 0,
         };
 

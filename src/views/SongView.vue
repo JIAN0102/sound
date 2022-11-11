@@ -232,7 +232,7 @@ onMounted(async () => {
                 </button>
               </div>
             </VForm>
-            <div v-else>登入會員才能發表評論</div>
+            <div v-else class="fg:white">登入會員才能發表評論</div>
           </div>
           <div class="mt:50>div:first mt:20>div~div">
             <div

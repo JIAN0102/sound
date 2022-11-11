@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { storage, songsCollection } from '@/plugins/firebase';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { ref as storageRef, deleteObject } from 'firebase/storage';
@@ -13,6 +13,9 @@ const props = defineProps({
 
 const emit = defineEmits(['edit-song', 'delete-song']);
 
+const schema = reactive({
+  modifiedName: 'required',
+});
 const showEditForm = ref(false);
 const submission = ref(false);
 const showAlert = ref(false);
@@ -84,14 +87,17 @@ async function onSubmit(values) {
       >
         {{ alertMessage }}
       </div>
-      <VForm :initial-values="song" @submit="onSubmit">
+      <VForm
+        :validation-schema="schema"
+        :initial-values="song"
+        @submit="onSubmit"
+      >
         <div>
           <label class="f:bold fg:white f:18@md">歌曲名稱</label>
           <VField
             class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 b:#777:focus"
             type="text"
             name="modifiedName"
-            rules="required"
           />
           <ErrorMessage
             v-slot="{ message }"
@@ -109,22 +115,17 @@ async function onSubmit(values) {
         <div class="mt:20">
           <label class="f:bold fg:white f:18@md">歌曲風格</label>
           <VField
-            class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 b:#777:focus"
-            type="text"
-            name="genre"
-          />
-          <ErrorMessage
-            v-slot="{ message }"
-            class="rel flex ai:center gap-x:6 mt:8"
-            as="div"
+            class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 appearance:none b:#777:focus"
+            as="select"
             name="genre"
           >
-            <span
-              class="flex center-content w:16 h:16 f:12 fg:white bg:#ee2828 round"
-              >!</span
-            >
-            <p class="f:13 fg:#ee2828">{{ message }}</p>
-          </ErrorMessage>
+            <option value="無">無</option>
+            <option value="抒情">抒情</option>
+            <option value="流行">流行</option>
+            <option value="搖滾">搖滾</option>
+            <option value="饒舌">饒舌</option>
+            <option value="古典">古典</option>
+          </VField>
         </div>
         <div
           class="abs bottom:0 left:1/2 flex w:240 h:60 overflow:hidden bg:black b:3|solid|#333 rounded translate(-50%,50%) {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
