@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, onBeforeUnmount } from 'vue';
+import { v4 as uuidv4 } from 'uuid';
 import { addDoc, getDoc } from 'firebase/firestore';
 import {
   ref as storageRef,
@@ -15,6 +16,7 @@ const { addSong } = songStore;
 
 const isDragOver = ref(false);
 const uploads = reactive([]);
+const upload = ref(null);
 
 function uploadFile($event) {
   isDragOver.value = false;
@@ -23,10 +25,12 @@ function uploadFile($event) {
     ? [...$event.dataTransfer.files]
     : [...$event.target.files];
 
+  upload.value.value = '';
+
   files.forEach((file) => {
     if (file.type !== 'audio/mpeg') return;
 
-    const songsRef = storageRef(storage, `songs/${file.name}`);
+    const songsRef = storageRef(storage, `songs/${uuidv4()}`);
     const uploadTask = uploadBytesResumable(songsRef, file);
     const uploadIndex =
       uploads.push({
@@ -47,12 +51,11 @@ function uploadFile($event) {
       },
       async () => {
         const song = {
+          uuid: uploadTask.snapshot.ref.name,
           uid: auth.currentUser.uid,
           displayName: auth.currentUser.displayName,
-          originalName: uploadTask.snapshot.ref.name,
-          modifiedName: uploadTask.snapshot.ref.name,
+          modifiedName: file.name,
           genre: '無',
-          commentCount: 0,
         };
         song.url = await getDownloadURL(uploadTask.snapshot.ref);
         const songRef = await addDoc(songsCollection, song);
@@ -88,6 +91,7 @@ onBeforeUnmount(() => {
   </label>
   <input
     id="upload"
+    ref="upload"
     class="hide"
     type="file"
     multiple

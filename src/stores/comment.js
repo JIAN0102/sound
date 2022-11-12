@@ -26,10 +26,11 @@ export const useCommentStore = defineStore('comment', () => {
   }
 
   async function getComments() {
+    comments.value = [];
+
     const q = query(commentsCollection, where('songID', '==', route.params.id));
     const snapshots = await getDocs(q);
 
-    comments.value = [];
     snapshots.forEach(addComment);
   }
 

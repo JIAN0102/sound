@@ -1,30 +1,51 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { doc, getDoc } from 'firebase/firestore';
+import { songsCollection } from '@/plugins/firebase';
 import { usePlayerStore } from '@/stores/player';
 
-defineProps({
-  song: {
-    type: Object,
-    required: true,
-  },
-});
+const route = useRoute();
+const router = useRouter();
 
 const playerStore = usePlayerStore();
 const { setSong } = playerStore;
+
+const song = ref({});
+
+onMounted(async () => {
+  const snapshot = await getDoc(doc(songsCollection, route.params.id));
+
+  if (!snapshot.exists()) {
+    router.push({
+      name: 'home',
+    });
+    return;
+  }
+
+  song.value = snapshot.data();
+});
 </script>
 
 <template>
   <div
-    class="rel grid-cols:2 t:center {content:'';abs;top:1/2;left:0;w:3;h:30;bg:#777;translateY(-50%)}>div~div::before"
+    class="rel grid-cols:3 t:center {content:'';abs;top:1/2;left:0;w:3;h:30;bg:#777;translateY(-50%)}>div~div::before"
   >
     <div class="rel">
-      <span class="f:12 fg:#777 f:16@md">上傳者</span>
+      <span class="f:12 fg:#777 f:16@md">歌曲名稱</span>
       <h3 class="mt:4 f:bold fg:white f:24@md">
-        {{ song.displayName }}
+        {{ song.modifiedName }}
       </h3>
     </div>
     <div class="rel">
       <span class="f:12 fg:#777 f:16@md">曲風</span>
       <h3 class="mt:4 f:bold fg:white f:24@md">{{ song.genre }}</h3>
+    </div>
+    <div class="rel">
+      <span class="f:12 fg:#777 f:16@md">上傳者</span>
+      <h3 class="mt:4 f:bold fg:white f:24@md">
+        {{ song.displayName }}
+      </h3>
     </div>
   </div>
   <button

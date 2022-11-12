@@ -102,7 +102,7 @@ async function onSubmit(values) {
       class="flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
     >
       <div class="flex:1 lines:1">
-        <h3 class="f:bold fg:white f:18@md" title="陳約翰 - 不過就這樣">
+        <h3 class="f:bold fg:white f:18@md" :title="song.modifiedName">
           {{ song.modifiedName }}
         </h3>
       </div>
@@ -117,7 +117,7 @@ async function onSubmit(values) {
         <button
           class="flex center-content w:1/2 h:full bg:white/.1:hover"
           type="button"
-          @click.prevent="deleteSong(song.docID, song.originalName)"
+          @click.prevent="deleteSong(song.docID, song.uuid)"
         ></button>
       </div>
     </div>

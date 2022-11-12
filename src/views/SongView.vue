@@ -1,29 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { doc, getDoc } from 'firebase/firestore';
-import { songsCollection } from '@/plugins/firebase';
 import BaseCard from '@/components/BaseCard.vue';
 import SongInformation from '@/components/SongInformation.vue';
 import CommentPost from '@/components/CommentPost.vue';
-
-const route = useRoute();
-const router = useRouter();
-
-const song = ref({});
-
-onMounted(async () => {
-  const snapshot = await getDoc(doc(songsCollection, route.params.id));
-
-  if (!snapshot.exists()) {
-    router.push({
-      name: 'home',
-    });
-    return;
-  }
-
-  song.value = snapshot.data();
-});
 </script>
 
 <template>
@@ -31,13 +9,13 @@ onMounted(async () => {
     <div>
       <BaseCard>
         <template #header>
-          <h1 class="f:bold f:24 fg:white t:center f:28@md">
-            {{ song.modifiedName }}
+          <h1 class="f:bold f:24 fg:white t:center {f:28;t:left}@md">
+            歌曲資訊
           </h1>
         </template>
 
         <template #main>
-          <SongInformation :song="song" />
+          <SongInformation />
         </template>
       </BaseCard>
     </div>

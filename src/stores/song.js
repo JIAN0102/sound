@@ -22,10 +22,11 @@ export const useSongStore = defineStore('song', () => {
   }
 
   async function getSongs() {
+    songs.value = [];
+
     const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
     const snapshot = await getDocs(q);
 
-    songs.value = [];
     snapshot.forEach(addSong);
   }
 
@@ -37,8 +38,8 @@ export const useSongStore = defineStore('song', () => {
     songs.value[index].genre = values.genre;
   }
 
-  async function deleteSong(docID, originalName) {
-    const songRef = storageRef(storage, `songs/${originalName}`);
+  async function deleteSong(docID, uuid) {
+    const songRef = storageRef(storage, `songs/${uuid}`);
 
     await deleteObject(songRef);
     await deleteDoc(doc(songsCollection, docID));

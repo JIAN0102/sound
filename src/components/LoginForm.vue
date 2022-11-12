@@ -24,6 +24,8 @@ async function onSubmit(values, { resetForm }) {
     await login(values);
     toggleModal();
     resetForm();
+
+    window.location.reload();
   } catch (err) {
     console.log(err);
   }
