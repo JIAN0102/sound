@@ -9,7 +9,7 @@ const route = useRoute();
 const router = useRouter();
 
 const playerStore = usePlayerStore();
-const { setSong } = playerStore;
+const { createSong } = playerStore;
 
 const song = ref({});
 
@@ -51,7 +51,7 @@ onMounted(async () => {
   <button
     class="group rel w:full mt:20 mt:30@md"
     type="button"
-    @click.prevent="setSong(song)"
+    @click.prevent="createSong(song)"
   >
     <div
       class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{animation:bounce|1s|infinite}"

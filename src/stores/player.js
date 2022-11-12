@@ -13,7 +13,12 @@ export const usePlayerStore = defineStore('player', () => {
   const isSoundPlaying = ref(false);
   const isSoundLoaded = ref(false);
 
-  function setSong(song) {
+  function createSong(song) {
+    if (currentSong.value === song) {
+      toggleAudio();
+      return;
+    }
+
     if (sound.value instanceof Howl) {
       sound.value.unload();
       isSoundLoaded.value = false;
@@ -29,13 +34,12 @@ export const usePlayerStore = defineStore('player', () => {
 
     sound.value.play();
 
-    isSoundPlaying.value = true;
-
     sound.value.on('load', () => {
       isSoundLoaded.value = true;
     });
 
     sound.value.on('play', () => {
+      isSoundPlaying.value = true;
       requestAnimationFrame(updateProgress);
     });
 
@@ -96,7 +100,7 @@ export const usePlayerStore = defineStore('player', () => {
     progress,
     isSoundPlaying,
     isSoundLoaded,
-    setSong,
+    createSong,
     toggleAudio,
     updateSeek,
     updateVolume,

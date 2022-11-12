@@ -32,14 +32,14 @@ const { toggleAudio, updateSeek, updateVolume } = playerStore;
             class="abs inset:0 bg:url('/assets/img/progress-arrow.svg') @progress|1.5s|linear|infinite"
           ></div>
         </div>
-        <div class="abs inset:0 f:bold fg:white pointer-events:none">
-          <span class="abs top:1/2 left:30 translateY(-50%)">{{ seek }}</span>
-          <span class="abs top:1/2 right:30 translateY(-50%)">{{
-            duration
-          }}</span>
-          <h2 class="abs top:1/2 left:1/2 f:18 translate(-50%,-50%)">
+        <div
+          class="abs inset:0 flex jc:space-between ai:center gap-x:20 px:30 f:bold fg:white pointer-events:none"
+        >
+          <span>{{ seek }}</span>
+          <h2 class="flex:1 t:center lines:1">
             {{ currentSong.modifiedName }}
           </h2>
+          <span>{{ duration }}</span>
         </div>
       </div>
     </div>
