@@ -12,7 +12,7 @@ const { toggleModal } = modalStore;
 
 <template>
   <div
-    class="fixed inset:0 z:1000 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.1,white/.1|3px,white/.05|3px,white/.05|8px) bd:blur(7.5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
+    class="fixed inset:0 z:1000 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.15,white/.15|3px,white/.05|3px,white/.05|8px) bd:blur(7.5) opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
     :class="{ 'is-open': isModalOpen }"
   >
     <div class="flex ai:center max-w:600 min-h:calc(100%-80px) m:40|auto">

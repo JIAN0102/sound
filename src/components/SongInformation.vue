@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { doc, getDoc } from 'firebase/firestore';
 import { songsCollection } from '@/plugins/firebase';
 import { usePlayerStore } from '@/stores/player';
@@ -9,6 +10,7 @@ const route = useRoute();
 const router = useRouter();
 
 const playerStore = usePlayerStore();
+const { currentSong, isSoundPlaying } = storeToRefs(playerStore);
 const { createSong } = playerStore;
 
 const song = ref({});
@@ -60,7 +62,8 @@ onMounted(async () => {
       <span
         class="abs top:1/2 left:14 w:32 h:32 bg:black rounded translateY(-50%)"
       ></span>
-      <span class="f:bold f:18">播放音樂</span>
+      <div v-if="song.uuid !== currentSong.uuid || !isSoundPlaying">播放</div>
+      <div v-else>暫停</div>
     </div>
   </button>
 </template>

@@ -9,12 +9,12 @@ export const usePlayerStore = defineStore('player', () => {
   const seek = ref('00:00');
   const duration = ref('00:00');
   const volume = ref(0.25);
-  const progress = ref('0%');
+  const progress = ref(0);
   const isSoundPlaying = ref(false);
   const isSoundLoaded = ref(false);
 
   function createSong(song) {
-    if (currentSong.value === song) {
+    if (currentSong.value.uuid === song.uuid) {
       toggleAudio();
       return;
     }
@@ -62,7 +62,7 @@ export const usePlayerStore = defineStore('player', () => {
   function updateProgress() {
     seek.value = formatTime(sound.value.seek());
     duration.value = formatTime(sound.value.duration());
-    progress.value = `${(sound.value.seek() / sound.value.duration()) * 100}%`;
+    progress.value = (sound.value.seek() / sound.value.duration()) * 100;
 
     if (isSoundPlaying.value) {
       requestAnimationFrame(updateProgress);

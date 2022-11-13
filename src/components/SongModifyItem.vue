@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue';
+import { RouterLink } from 'vue-router';
 import { useSongStore } from '@/stores/song';
 
 const props = defineProps({
@@ -101,11 +102,19 @@ async function onSubmit(values) {
       v-show="!isEditFormOpen"
       class="flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
     >
-      <div class="flex:1 lines:1">
+      <RouterLink
+        class="flex:1 lines:1"
+        :to="{
+          name: 'song',
+          params: {
+            id: song.docID,
+          },
+        }"
+      >
         <h3 class="f:bold fg:white f:18@md" :title="song.modifiedName">
           {{ song.modifiedName }}
         </h3>
-      </div>
+      </RouterLink>
       <div
         class="rel flex w:120 h:60 overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
       >

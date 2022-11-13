@@ -70,7 +70,7 @@ onMounted(async () => {
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="rel flex ai:center gap-x:6 mt:8"
+        class="abs bottom:-8 left:0 flex ai:center gap-x:6 translateY(100%)"
         as="div"
         name="comment"
       >

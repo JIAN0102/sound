@@ -23,9 +23,9 @@ const { toggleAudio, updateSeek, updateVolume } = playerStore;
     <div
       class="rel z:10 w:660 h:80 overflow:hidden bg:#333 b:10|solid|black rounded"
     >
-      <div class="abs inset:0 cursor:pointer" @click.prevent="updateSeek">
+      <div class="abs inset:0">
         <div
-          class="abs top:0 left:0 h:full pointer-events:none bg:#777 transform:left"
+          class="abs top:0 left:0 h:full bg:#777 transform:left"
           :style="{ width: progress }"
         >
           <div
@@ -33,12 +33,21 @@ const { toggleAudio, updateSeek, updateVolume } = playerStore;
           ></div>
         </div>
         <div
-          class="abs inset:0 flex jc:space-between ai:center gap-x:20 px:30 f:bold fg:white pointer-events:none"
+          class="abs inset:0 flex jc:space-between ai:center gap-x:20 px:30 f:bold fg:white"
         >
           <span>{{ seek }}</span>
-          <h2 class="flex:1 t:center lines:1">
+          <h2 class="flex:1 t:center lines:1 hide">
             {{ currentSong.modifiedName }}
           </h2>
+          <div class="rel flex:1 h:13 lines:1" @click.prevent="updateSeek">
+            <div
+              class="abs inset:0 bg:url('/assets/img/line.svg') opacity:.25"
+            ></div>
+            <div
+              class="abs inset:0 bg:url('/assets/img/line.svg')"
+              :style="{ width: `${progress}%` }"
+            ></div>
+          </div>
           <span>{{ duration }}</span>
         </div>
       </div>

@@ -14,13 +14,6 @@ import { auth, storage, songsCollection } from '@/plugins/firebase';
 export const useSongStore = defineStore('song', () => {
   const songs = ref([]);
 
-  function addSong(document) {
-    songs.value.push({
-      ...document.data(),
-      docID: document.id,
-    });
-  }
-
   async function getSongs() {
     songs.value = [];
 
@@ -28,6 +21,13 @@ export const useSongStore = defineStore('song', () => {
     const snapshot = await getDocs(q);
 
     snapshot.forEach(addSong);
+  }
+
+  function addSong(document) {
+    songs.value.push({
+      ...document.data(),
+      docID: document.id,
+    });
   }
 
   async function editSong(docID, values) {
@@ -50,8 +50,8 @@ export const useSongStore = defineStore('song', () => {
 
   return {
     songs,
-    addSong,
     getSongs,
+    addSong,
     editSong,
     deleteSong,
   };

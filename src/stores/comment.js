@@ -9,6 +9,7 @@ export const useCommentStore = defineStore('comment', () => {
 
   const comments = ref([]);
   const commentSort = ref('1');
+
   const sortedComments = computed(() =>
     comments.value.slice().sort((a, b) => {
       if (commentSort.value === '1') {
@@ -18,13 +19,6 @@ export const useCommentStore = defineStore('comment', () => {
     })
   );
 
-  function addComment(document) {
-    comments.value.push({
-      ...document.data(),
-      docID: document.id,
-    });
-  }
-
   async function getComments() {
     comments.value = [];
 
@@ -32,6 +26,13 @@ export const useCommentStore = defineStore('comment', () => {
     const snapshots = await getDocs(q);
 
     snapshots.forEach(addComment);
+  }
+
+  function addComment(document) {
+    comments.value.push({
+      ...document.data(),
+      docID: document.id,
+    });
   }
 
   async function deleteComment(docID) {
@@ -47,8 +48,8 @@ export const useCommentStore = defineStore('comment', () => {
     comments,
     commentSort,
     sortedComments,
-    addComment,
     getComments,
+    addComment,
     deleteComment,
   };
 });

@@ -15,18 +15,18 @@ h6 {
     background-position: 0 0;
   }
   100% {
-    background-position: -120vh 0;
+    background-position: -90vh 0;
   }
 }
 
-@keyframes scrollReverse {
+/* @keyframes scrollReverse {
   0% {
     background-position: 0 0;
   }
   100% {
     background-position: 60vh 0;
   }
-}
+} */
 
 @keyframes marquee {
   0% {
