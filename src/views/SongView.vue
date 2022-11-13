@@ -5,7 +5,9 @@ import CommentPost from '@/components/CommentPost.vue';
 </script>
 
 <template>
-  <div class="grid-cols:1 gap:30|40 p:100|0|210 p:180|80|210@md grid-cols:2@lg">
+  <div
+    class="grid-cols:1 gap:30|40 min-h:calc(100vh-180px) p:0|0|140 mt:180 bg:black rt:40 {p:0|80|140;rt:60}@md grid-cols:2@lg"
+  >
     <div>
       <BaseCard>
         <template #header>

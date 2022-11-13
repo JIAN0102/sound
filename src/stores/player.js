@@ -14,7 +14,7 @@ export const usePlayerStore = defineStore('player', () => {
   const isSoundLoaded = ref(false);
 
   function createSong(song) {
-    if (currentSong.value.uuid === song.uuid) {
+    if (song.uuid === currentSong.value.uuid) {
       toggleAudio();
       return;
     }
@@ -30,6 +30,7 @@ export const usePlayerStore = defineStore('player', () => {
       src: [song.url],
       html5: true,
       volume: volume.value,
+      loop: true,
     });
 
     sound.value.play();
@@ -79,9 +80,9 @@ export const usePlayerStore = defineStore('player', () => {
     }
   }
 
-  function updateSeek(percentage) {
+  function updateSeek(percent) {
     if (isSoundLoaded.value) {
-      const seconds = sound.value.duration() * percentage;
+      const seconds = sound.value.duration() * percent;
 
       sound.value.seek(seconds);
       sound.value.once('seek', () => {
@@ -94,10 +95,10 @@ export const usePlayerStore = defineStore('player', () => {
     if (isSoundLoaded.value) {
       const { x, width } = event.currentTarget.getBoundingClientRect();
       const clientX = event.clientX - x;
-      const percentage = clientX / width;
+      const percent = clientX / width;
 
-      volume.value = percentage;
-      sound.value.volume(percentage);
+      volume.value = percent;
+      sound.value.volume(percent);
     }
   }
 

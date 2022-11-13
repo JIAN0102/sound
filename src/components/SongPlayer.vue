@@ -39,7 +39,7 @@ function onDragStart(event) {
 
 function onDragging(event) {
   if (dragging.value) {
-    const { clientX } = event;
+    const clientX = getClientX(event);
     const sliderSize = slider.value.clientWidth;
     const sliderOffsetLeft = slider.value.getBoundingClientRect().left;
     let newPercent = (clientX - sliderOffsetLeft) / sliderSize;
@@ -79,7 +79,7 @@ function onSliderDown(event) {
 
 <template>
   <div
-    class="fixed bottom:0 left:0 right:0 z:997 flex overflow:hidden bg:black rt:40 {left:80;right:80;rt:60}@md"
+    class="fixed bottom:0 left:0 right:0 z:997 flex overflow:hidden bg:black b:1|solid|#333 bb:0 rt:40 {left:80;right:80;rt:60}@md"
   >
     <button
       class="w:80 h:60 bg:linear-gradient(to|right,primary,secondary) w:120@md"
