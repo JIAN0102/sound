@@ -62,8 +62,8 @@ onMounted(async () => {
       <span
         class="abs top:1/2 left:14 w:32 h:32 bg:black rounded translateY(-50%)"
       ></span>
-      <div v-if="song.uuid !== currentSong.uuid || !isSoundPlaying">播放</div>
-      <div v-else>暫停</div>
+      <div v-show="song.uuid !== currentSong.uuid || !isSoundPlaying">播放</div>
+      <div v-show="song.uuid === currentSong.uuid && isSoundPlaying">暫停</div>
     </div>
   </button>
 </template>

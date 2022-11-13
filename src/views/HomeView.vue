@@ -75,11 +75,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
-    class="mt:100vh p:80|20|210 bg:linear-gradient(transparent,#333) px:80@md"
-  >
+  <div class="mt:100vh p:80|20|210 px:80@md">
     <div
-      class="grid-cols:1 gap:40 grid-cols:9@xs grid-cols:13@lg grid-col-start:2>div:nth(4n+3)@xs&<lg grid-col-start:2>div:nth(6n+4)@lg"
+      class="grid-cols:1 gap-y:20 {grid-cols:9;gap:40}@xs grid-cols:13@lg grid-col-start:2>div:nth(4n+3)@xs&<lg grid-col-start:2>div:nth(6n+4)@lg"
     >
       <SongItem v-for="song in songs" :key="song.docID" :song="song" />
     </div>

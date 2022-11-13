@@ -4,16 +4,16 @@
       class="abs inset:0 bg:repeating-linear-gradient(40deg,#19191e,#19191e|3px,transparent|3px,transparent|8px)"
     ></div>
 
-    <div class="abs inset:0 bg:linear-gradient(#222,transparent)"></div>
+    <div class="abs inset:0 bg:linear-gradient(#282828,transparent)"></div>
 
     <div
-      class="abs top:1/2 left:1/2 w:150% opacity:.03 translate(-50%,-50%)|rotate(-12.5) {h:30vh;bg:url('/assets/img/sound-text.svg');background-size:auto|100%}>div"
+      class="abs top:1/2 left:1/2 w:150% opacity:.03 translate(-50%,-50%)|rotate(-12.5) {h:30vh;bg:url('/assets/img/sound-text.svg');background-size:auto|100%}>div @scroll|15s|linear|infinite>div:odd @scroll|15s|linear|infinite|reverse>div:even"
     >
-      <div class="@scroll|15s|linear|infinite"></div>
-      <div class="@scroll|15s|linear|infinite|reverse"></div>
-      <div class="@scroll|15s|linear|infinite"></div>
-      <div class="@scroll|15s|linear|infinite|reverse"></div>
-      <div class="@scroll|15s|linear|infinite"></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
 
     <div

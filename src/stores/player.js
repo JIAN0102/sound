@@ -43,13 +43,23 @@ export const usePlayerStore = defineStore('player', () => {
       requestAnimationFrame(updateProgress);
     });
 
-    sound.value.on('seek', () => {
-      requestAnimationFrame(updateProgress);
-    });
-
     sound.value.on('end', () => {
       isSoundPlaying.value = false;
     });
+  }
+
+  function playAudio() {
+    if (isSoundLoaded.value) {
+      isSoundPlaying.value = true;
+      sound.value.play();
+    }
+  }
+
+  function pauseAudio() {
+    if (isSoundLoaded.value) {
+      isSoundPlaying.value = false;
+      sound.value.pause();
+    }
   }
 
   function toggleAudio() {
@@ -69,14 +79,14 @@ export const usePlayerStore = defineStore('player', () => {
     }
   }
 
-  function updateSeek(event) {
+  function updateSeek(percentage) {
     if (isSoundLoaded.value) {
-      const { x, width } = event.currentTarget.getBoundingClientRect();
-      const clientX = event.clientX - x;
-      const percentage = clientX / width;
       const seconds = sound.value.duration() * percentage;
 
       sound.value.seek(seconds);
+      sound.value.once('seek', () => {
+        updateProgress();
+      });
     }
   }
 
@@ -101,6 +111,8 @@ export const usePlayerStore = defineStore('player', () => {
     isSoundPlaying,
     isSoundLoaded,
     createSong,
+    playAudio,
+    pauseAudio,
     toggleAudio,
     updateSeek,
     updateVolume,

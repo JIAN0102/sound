@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
 
 defineProps({
@@ -10,6 +11,7 @@ defineProps({
 });
 
 const playerStore = usePlayerStore();
+const { currentSong, isSoundPlaying } = storeToRefs(playerStore);
 const { createSong } = playerStore;
 </script>
 
@@ -36,7 +38,20 @@ const { createSong } = playerStore;
         class="block w:60 h:60 bg:#333 rounded"
         type="button"
         @click.prevent="createSong(song)"
-      ></button>
+      >
+        <div
+          v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
+          class="f:12 fg:white"
+        >
+          播放
+        </div>
+        <div
+          v-show="song.uuid === currentSong.uuid && isSoundPlaying"
+          class="f:12 fg:white"
+        >
+          暫停
+        </div>
+      </button>
     </div>
   </div>
 </template>
