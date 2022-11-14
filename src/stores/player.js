@@ -91,14 +91,10 @@ export const usePlayerStore = defineStore('player', () => {
     }
   }
 
-  function updateVolume(event) {
+  function updateVolume(percent) {
     if (isSoundLoaded.value) {
-      const { x, width } = event.currentTarget.getBoundingClientRect();
-      const clientX = event.clientX - x;
-      const percent = clientX / width;
-
-      volume.value = percent;
-      sound.value.volume(percent);
+      volume.value = percent.toFixed(2);
+      sound.value.volume(percent.toFixed(2));
     }
   }
 
