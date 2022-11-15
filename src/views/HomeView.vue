@@ -14,7 +14,7 @@ import SongItem from '@/components/SongItem.vue';
 
 const songs = reactive([]);
 const perPage = ref(9);
-const pendingRequest = ref(false);
+const isPending = ref(false);
 
 function handleScroll() {
   const { scrollTop, offsetHeight } = document.documentElement;
@@ -27,9 +27,9 @@ function handleScroll() {
 }
 
 async function getSongs() {
-  if (pendingRequest.value) return;
+  if (isPending.value) return;
 
-  pendingRequest.value = true;
+  isPending.value = true;
 
   let snapshots;
 
@@ -60,12 +60,11 @@ async function getSongs() {
     });
   });
 
-  pendingRequest.value = false;
+  isPending.value = false;
 }
 
 onMounted(() => {
   getSongs();
-
   window.addEventListener('scroll', handleScroll);
 });
 

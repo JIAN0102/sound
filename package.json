@@ -12,6 +12,7 @@
     "@master/normal.css": "^2.0.0-beta.4",
     "@vee-validate/i18n": "^4.7.2",
     "@vee-validate/rules": "^4.7.2",
+    "date-fns": "^2.29.3",
     "firebase": "^9.13.0",
     "howler": "^2.2.3",
     "pinia": "^2.0.23",

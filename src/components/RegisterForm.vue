@@ -138,17 +138,7 @@ async function onSubmit(values, { resetForm }) {
         <div
           class="abs top:1/2 left:14 flex center-content w:32 h:32 bg:black round translateY(-50%)"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M8,8c1.7,0,3-1.3,3-3S9.7,2,8,2S5,3.3,5,5S6.3,8,8,8z M12.4,10H3.6C3,9.9,2.4,10.3,2.3,11 C2.1,11.6,2,12.4,2,13.1C2,13.5,2.1,14,2.7,14h10.6c0.6,0,0.7-0.5,0.7-0.9c0-0.7-0.1-1.4-0.3-2.1C13.6,10.3,13,9.9,12.4,10z"
-              fill="#fff"
-            />
-          </svg>
+          <img src="/assets/img/icon-user.svg" alt="" />
         </div>
         <span class="f:bold f:18">註冊</span>
       </div>

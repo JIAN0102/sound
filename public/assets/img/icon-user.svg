@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-icon-user">
+      <rect width="24" height="24"/>
+    </clipPath>
+  </defs>
+  <g id="icon-user" clip-path="url(#clip-icon-user)">
+    <path id="Path_1057" data-name="Path 1057" d="M12.115,9.49a4.7,4.7,0,1,0-5.577,0A7.337,7.337,0,0,0,2,16.265a.735.735,0,0,0,1.47,0,5.858,5.858,0,1,1,11.716,0,.735.735,0,1,0,1.47,0A7.343,7.343,0,0,0,12.115,9.49ZM6.091,5.7A3.235,3.235,0,1,1,9.326,8.938,3.239,3.239,0,0,1,6.091,5.7Z" transform="translate(3 3)" fill="#fff"/>
+  </g>
+</svg>

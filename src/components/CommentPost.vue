@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { addDoc, getDoc } from 'firebase/firestore';
+import { addDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, commentsCollection } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
 import { useCommentStore } from '@/stores/comment';
@@ -24,7 +24,7 @@ async function onSubmit(values, { resetForm }) {
 
   const comment = {
     content: values.comment,
-    datePosted: new Date().toString(),
+    createdAt: serverTimestamp(),
     songID: route.params.id,
     name: auth.currentUser.displayName,
     uid: auth.currentUser.uid,

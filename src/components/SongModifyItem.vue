@@ -62,7 +62,7 @@ async function onSubmit(values) {
           </ErrorMessage>
         </div>
         <div class="mt:20">
-          <label class="f:bold fg:white f:18@md">歌曲風格</label>
+          <label class="f:bold fg:white f:18@md">曲風</label>
           <VField
             class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 appearance:none b:#777:focus"
             as="select"
@@ -80,14 +80,14 @@ async function onSubmit(values) {
           class="abs bottom:0 left:1/2 flex w:240 h:60 overflow:hidden bg:black b:3|solid|#333 rounded translate(-50%,50%) {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
         >
           <button
-            class="flex center-content w:1/2 h:full fg:white bg:white/.1:hover"
+            class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
             type="submit"
             :disabled="submission"
           >
             確定
           </button>
           <button
-            class="flex center-content w:1/2 h:full fg:white bg:white/.1:hover"
+            class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
             type="button"
             :disabled="submission"
             @click="isEditFormOpen = !isEditFormOpen"
@@ -116,15 +116,15 @@ async function onSubmit(values) {
         </h3>
       </RouterLink>
       <div
-        class="rel flex w:120 h:60 overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
+        class="rel flex w:90 h:60 overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:20;bg:#333;translate(-50%,-50%)}::before"
       >
         <button
-          class="flex center-content w:1/2 h:full bg:white/.1:hover"
+          class="flex center-content w:1/2 h:full bg:#111:hover"
           type="button"
           @click="isEditFormOpen = !isEditFormOpen"
         ></button>
         <button
-          class="flex center-content w:1/2 h:full bg:white/.1:hover"
+          class="flex center-content w:1/2 h:full bg:#111:hover"
           type="button"
           @click.prevent="deleteSong(song.docID, song.uuid)"
         ></button>

@@ -6,7 +6,7 @@ import { useSlider } from '@/composables/useSlider';
 const playerStore = usePlayerStore();
 const { currentSong, seek, duration, progress } = storeToRefs(playerStore);
 
-const emit = defineEmits(['on-drag-start', 'update-position', 'on-drag-end']);
+const emit = defineEmits(['drag-start', 'update', 'drag-end']);
 const { slider, onSliderDown } = useSlider(emit);
 </script>
 
@@ -21,11 +21,16 @@ const { slider, onSliderDown } = useSlider(emit);
       class="abs top:0 left:0 h:full bg:#333 bg:url('/assets/img/progress-arrow.svg') @progress|1s|linear|infinite"
       :style="{ width: `${progress}%` }"
     ></div>
-    <div class="rel flex jc:space-between ai:center h:full pointer-events:none">
+    <div
+      class="rel flex jc:space-between ai:center gap-x:30 h:full pointer-events:none"
+    >
       <span class="hide@<md">{{ seek }}</span>
-      <h2>
-        {{ currentSong.modifiedName }}
-      </h2>
+      <div class="flex:1 t:center lines:1">
+        <h2 v-if="currentSong.modifiedName">
+          {{ currentSong.modifiedName }}
+        </h2>
+        <h2 v-else>尚無播放的曲目</h2>
+      </div>
       <span class="hide@<md">{{ duration }}</span>
     </div>
   </div>

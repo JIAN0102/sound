@@ -6,11 +6,12 @@ import { formatTime } from '@/helpers';
 export const usePlayerStore = defineStore('player', () => {
   const currentSong = ref({});
   const sound = ref({});
-  const seek = ref('00:00');
-  const duration = ref('00:00');
+  const seek = ref('0:00');
+  const duration = ref('0:00');
   const volume = ref(0.25);
   const progress = ref(0);
   const isSoundPlaying = ref(false);
+  const cacheSoundPlaying = ref(false);
   const isSoundLoaded = ref(false);
 
   function createSong(song) {
@@ -41,31 +42,22 @@ export const usePlayerStore = defineStore('player', () => {
 
     sound.value.on('play', () => {
       isSoundPlaying.value = true;
+      cacheSoundPlaying.value = true;
       requestAnimationFrame(updateProgress);
     });
-
-    sound.value.on('end', () => {
-      isSoundPlaying.value = false;
-    });
   }
 
-  function playAudio() {
-    if (isSoundLoaded.value) {
-      isSoundPlaying.value = true;
-      sound.value.play();
-    }
-  }
-
-  function pauseAudio() {
-    if (isSoundLoaded.value) {
-      isSoundPlaying.value = false;
-      sound.value.pause();
+  function checkAudioStatus() {
+    if (isSoundLoaded.value && cacheSoundPlaying.value) {
+      isSoundPlaying.value = !isSoundPlaying.value;
+      isSoundPlaying.value ? sound.value.play() : sound.value.pause();
     }
   }
 
   function toggleAudio() {
     if (isSoundLoaded.value) {
       isSoundPlaying.value = !isSoundPlaying.value;
+      cacheSoundPlaying.value = !cacheSoundPlaying.value;
       isSoundPlaying.value ? sound.value.play() : sound.value.pause();
     }
   }
@@ -106,10 +98,10 @@ export const usePlayerStore = defineStore('player', () => {
     volume,
     progress,
     isSoundPlaying,
+    cacheSoundPlaying,
     isSoundLoaded,
     createSong,
-    playAudio,
-    pauseAudio,
+    checkAudioStatus,
     toggleAudio,
     updateSeek,
     updateVolume,

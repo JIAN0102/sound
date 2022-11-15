@@ -28,7 +28,7 @@ export function useSlider(emit) {
   }
 
   function onDragStart(event) {
-    emit('on-drag-start');
+    emit('drag-start');
 
     dragging.value = true;
 
@@ -37,7 +37,7 @@ export function useSlider(emit) {
     const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
     const newPercent = (clientX - sliderOffsetLeft) / sliderSize;
 
-    emit('update-position', newPercent);
+    emit('update', newPercent);
   }
 
   function onDragging(event) {
@@ -53,13 +53,13 @@ export function useSlider(emit) {
         newPercent = 1;
       }
 
-      emit('update-position', newPercent);
+      emit('update', newPercent);
     }
   }
 
   function onDragEnd() {
     if (dragging.value) {
-      emit('on-drag-end');
+      emit('drag-end');
 
       dragging.value = false;
 

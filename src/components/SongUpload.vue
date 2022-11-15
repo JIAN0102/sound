@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, onBeforeUnmount } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
-import { addDoc, getDoc } from 'firebase/firestore';
+import { addDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import {
   ref as storageRef,
   uploadBytesResumable,
@@ -18,12 +18,12 @@ const isDragOver = ref(false);
 const uploads = reactive([]);
 const upload = ref(null);
 
-function uploadFile($event) {
+function uploadFile(event) {
   isDragOver.value = false;
 
-  const files = $event.dataTransfer
-    ? [...$event.dataTransfer.files]
-    : [...$event.target.files];
+  const files = event.dataTransfer
+    ? [...event.dataTransfer.files]
+    : [...event.target.files];
 
   upload.value.value = '';
 
@@ -51,10 +51,11 @@ function uploadFile($event) {
       },
       async () => {
         const song = {
+          createdAt: serverTimestamp(),
           uuid: uploadTask.snapshot.ref.name,
           uid: auth.currentUser.uid,
           displayName: auth.currentUser.displayName,
-          modifiedName: file.name,
+          modifiedName: file.name.replace(/\.[^/\\.]+$/, ''),
           genre: '無',
         };
         song.url = await getDownloadURL(uploadTask.snapshot.ref);
@@ -78,15 +79,16 @@ onBeforeUnmount(() => {
 
 <template>
   <label
-    class="flex center-content aspect:3/2 f:bold fg:white bg:black r:30 b:4|solid|transparent aspect:2/1@xs f:20@md {bg:#222;b:secondary}:is(:hover,.is-drag-over)"
+    class="flex flex:col center-content gap-y:10 aspect:3/2 f:bold fg:white b:2|dashed|#555 r:30 aspect:2/1@xs f:20@md ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
     :class="{ 'is-drag-over': isDragOver }"
     for="upload"
     @dragend.prevent.stop="isDragOver = false"
     @dragover.prevent.stop="isDragOver = true"
     @dragenter.prevent.stop="isDragOver = true"
     @dragleave.prevent.stop="isDragOver = false"
-    @drop.prevent.stop="uploadFile($event)"
+    @drop.prevent.stop="uploadFile"
   >
+    <img class="w:32 w:40@md" src="/assets/img/icon-upload.svg" alt="" />
     點擊上傳或拖拉檔案至此
   </label>
   <input
@@ -95,7 +97,7 @@ onBeforeUnmount(() => {
     class="hide"
     type="file"
     multiple
-    @change="uploadFile($event)"
+    @change="uploadFile"
   />
   <ul v-if="uploads.length" class="mt:20 mt:30@md mt:20>li~li">
     <SongUploadItem

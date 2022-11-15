@@ -18,8 +18,26 @@ const { createSong } = playerStore;
 <template>
   <div class="grid-col-span:4@xs">
     <div
-      class="rel flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:#333 rounded"
+      class="rel flex jc:space-between ai:center gap-x:20 h:80 pl:10 pr:30 bg:#333 rounded"
     >
+      <button
+        class="flex center-content w:60 h:60 bg:black rounded"
+        type="button"
+        @click.prevent="createSong(song)"
+      >
+        <div
+          v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
+          class="f:12 fg:white"
+        >
+          <img src="/assets/img/icon-play.svg" alt="" />
+        </div>
+        <div
+          v-show="song.uuid === currentSong.uuid && isSoundPlaying"
+          class="f:12 fg:white"
+        >
+          <img src="/assets/img/icon-pause.svg" alt="" />
+        </div>
+      </button>
       <RouterLink
         class="flex:1 lines:1"
         :to="{
@@ -34,24 +52,6 @@ const { createSong } = playerStore;
           {{ song.modifiedName }}
         </h3>
       </RouterLink>
-      <button
-        class="block w:60 h:60 bg:black rounded"
-        type="button"
-        @click.prevent="createSong(song)"
-      >
-        <div
-          v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
-          class="f:12 fg:white"
-        >
-          播放
-        </div>
-        <div
-          v-show="song.uuid === currentSong.uuid && isSoundPlaying"
-          class="f:12 fg:white"
-        >
-          暫停
-        </div>
-      </button>
     </div>
   </div>
 </template>

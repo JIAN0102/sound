@@ -1,7 +1,10 @@
 <script setup>
+import { computed } from 'vue';
+import { formatDistanceToNow } from 'date-fns';
+import { zhTW } from 'date-fns/locale';
 import { useCommentStore } from '@/stores/comment';
 
-defineProps({
+const props = defineProps({
   comment: {
     type: Object,
     required: true,
@@ -10,6 +13,13 @@ defineProps({
 
 const commentStore = useCommentStore();
 const { deleteComment } = commentStore;
+
+const formattedTime = computed(() => {
+  return formatDistanceToNow(props.comment.createdAt.toDate(), {
+    addSuffix: true,
+    locale: zhTW,
+  });
+});
 </script>
 
 <template>
@@ -24,7 +34,7 @@ const { deleteComment } = commentStore;
     <div class="flex ai:flex-end gap-x:8">
       <h3 class="f:bold fg:white f:18@md">{{ comment.name }}</h3>
       <span class="f:12 fg:#777 f:14@md">
-        {{ comment.datePosted }}
+        {{ formattedTime }}
       </span>
     </div>
     <div class="mt:20 f:14 fg:white lh:1.75 f:16@md">

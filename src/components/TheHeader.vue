@@ -50,17 +50,7 @@ async function handleClick() {
           <div
             class="flex center-content w:32 h:32 bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8,8c1.7,0,3-1.3,3-3S9.7,2,8,2S5,3.3,5,5S6.3,8,8,8z M12.4,10H3.6C3,9.9,2.4,10.3,2.3,11 C2.1,11.6,2,12.4,2,13.1C2,13.5,2.1,14,2.7,14h10.6c0.6,0,0.7-0.5,0.7-0.9c0-0.7-0.1-1.4-0.3-2.1C13.6,10.3,13,9.9,12.4,10z"
-                fill="#fff"
-              />
-            </svg>
+            <img src="/assets/img/icon-user.svg" alt="" />
           </div>
           <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}"
             >登入 / 註冊</span
@@ -80,17 +70,7 @@ async function handleClick() {
               <div
                 class="flex center-content w:32 h:32 bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M8,15c-0.6,0-1.2-0.5-1.2-1.2v-0.7c-0.6-0.1-1.1-0.4-1.6-0.7l-0.5,0.5 c-0.5,0.4-1.2,0.4-1.6-0.1c-0.4-0.4-0.4-1.1,0-1.5l0.5-0.5C3.2,10.3,3,9.7,2.9,9.2H2.2C1.5,9.2,1,8.6,1,8s0.5-1.2,1.2-1.2h0.7 C3,6.3,3.2,5.7,3.6,5.2L3.1,4.7C2.6,4.2,2.7,3.5,3.2,3.1c0.4-0.4,1.1-0.4,1.5,0l0.5,0.5C5.7,3.2,6.3,3,6.8,2.9V2.2 C6.8,1.5,7.4,1,8,1s1.2,0.5,1.2,1.2v0.7c0.6,0.1,1.1,0.4,1.6,0.7l0.5-0.5c0.5-0.4,1.2-0.4,1.6,0.1c0.4,0.4,0.4,1.1,0,1.5l-0.5,0.5 c0.3,0.5,0.5,1.1,0.7,1.6h0.7C14.5,6.8,15,7.4,15,8s-0.5,1.2-1.2,1.2h-0.7c-0.1,0.6-0.4,1.1-0.7,1.6l0.5,0.5 c0.4,0.5,0.4,1.2-0.1,1.6c-0.4,0.4-1.1,0.4-1.5,0l-0.5-0.5c-0.5,0.3-1.1,0.5-1.6,0.7v0.7C9.2,14.5,8.6,15,8,15z M8,5.1 C6.4,5.1,5.1,6.4,5.1,8s1.3,2.9,2.9,2.9s2.9-1.3,2.9-2.9l0,0C10.9,6.4,9.6,5.1,8,5.1z"
-                    fill="#fff"
-                  />
-                </svg>
+                <img class="w:18" src="/assets/img/icon-setting.svg" alt="" />
               </div>
               <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}">
                 管理歌曲</span
@@ -100,10 +80,12 @@ async function handleClick() {
         </li>
         <li>
           <button
-            class="w:60 h:60 bg:black round"
+            class="flex center-content w:60 h:60 bg:black round"
             type="button"
             @click.prevent="handleClick"
-          ></button>
+          >
+            <img src="/assets/img/icon-logout.svg" alt="" />
+          </button>
         </li>
       </ul>
     </nav>
