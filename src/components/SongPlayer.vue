@@ -5,7 +5,12 @@ import SongPlayerTimeline from '@/components/SongPlayerTimeline.vue';
 import SongPlayerVolume from '@/components/SongPlayerVolume.vue';
 
 const playerStore = usePlayerStore();
-const { checkAudioStatus, updateSeek, updateVolume } = playerStore;
+const {
+  checkAudioStatusDragStart,
+  checkAudioStatusDragEnd,
+  updateSeek,
+  updateVolume,
+} = playerStore;
 </script>
 
 <template>
@@ -14,9 +19,9 @@ const { checkAudioStatus, updateSeek, updateVolume } = playerStore;
   >
     <SongPlayerButton />
     <SongPlayerTimeline
-      @drag-start="checkAudioStatus"
+      @drag-start="checkAudioStatusDragStart"
       @update="updateSeek"
-      @drag-end="checkAudioStatus"
+      @drag-end="checkAudioStatusDragEnd"
     />
     <SongPlayerVolume @update="updateVolume" />
   </div>

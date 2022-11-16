@@ -1,7 +1,5 @@
 <template>
   <div class="fixed inset:0 overflow:hidden pointer-events:none">
-    <!-- <div class="abs inset:0 bg:linear-gradient(#222,#333)"></div> -->
-
     <div
       class="abs inset:0 bg:repeating-linear-gradient(40deg,#222,#222|3px,#111|3px,#111|8px)"
     ></div>
@@ -17,13 +15,9 @@
     </div>
 
     <div
-      class="abs top:15% bottom:-15% left:1/2 translateX(-50%) ~transform|.75s bottom:-40%@xs bottom:-60%@md"
+      class="abs top:15% bottom:-15% left:1/2 translateX(-50%) bottom:-40%@xs bottom:-60%@md"
     >
-      <img
-        class="h:full @rotate|30s|linear|infinit"
-        src="/assets/img/cd-character.png"
-        alt="Character"
-      />
+      <img class="h:full" src="/assets/img/cd-character.png" alt="Character" />
     </div>
   </div>
 </template>

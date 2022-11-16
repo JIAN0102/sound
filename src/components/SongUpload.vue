@@ -16,7 +16,7 @@ const { addSong } = songStore;
 
 const isDragOver = ref(false);
 const uploads = reactive([]);
-const upload = ref(null);
+const uploadInput = ref(null);
 
 function uploadFile(event) {
   isDragOver.value = false;
@@ -25,7 +25,7 @@ function uploadFile(event) {
     ? [...event.dataTransfer.files]
     : [...event.target.files];
 
-  upload.value.value = '';
+  uploadInput.value.value = '';
 
   files.forEach((file) => {
     if (file.type !== 'audio/mpeg') return;
@@ -93,7 +93,7 @@ onBeforeUnmount(() => {
   </label>
   <input
     id="upload"
-    ref="upload"
+    ref="uploadInput"
     class="hide"
     type="file"
     multiple

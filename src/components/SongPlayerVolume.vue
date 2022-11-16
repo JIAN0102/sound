@@ -14,7 +14,7 @@ const { slider, onSliderDown } = useSlider(emit);
   <div
     ref="slider"
     class="rel w:120 h:60 overflow:hidden cursor:pointer hide@<md"
-    @mousedown="onSliderDown"
+    @mousedown.left="onSliderDown"
     @touchstart="onSliderDown"
   >
     <div
@@ -22,7 +22,8 @@ const { slider, onSliderDown } = useSlider(emit);
       :style="{ width: `${volume * 100}%` }"
     ></div>
     <div class="abs top:1/2 left:20 w:24 h:24 translateY(-50%)">
-      <img src="/assets/img/icon-volume.svg" alt="" />
+      <img v-if="volume === 0" src="/assets/img/icon-muted.svg" alt="" />
+      <img v-else src="/assets/img/icon-volume.svg" alt="" />
     </div>
   </div>
 </template>

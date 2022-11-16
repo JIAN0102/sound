@@ -14,7 +14,7 @@ const { slider, onSliderDown } = useSlider(emit);
   <div
     ref="slider"
     class="rel flex:1 h:60 px:30 f:bold fg:white cursor:pointer"
-    @mousedown="onSliderDown"
+    @mousedown.left="onSliderDown"
     @touchstart="onSliderDown"
   >
     <div

@@ -4,12 +4,12 @@ import { getFirestore, collection } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBdwB8YhoZOJQBbBT6ZlCMJv92Bp0XBLMk',
-  authDomain: 'sound-1b087.firebaseapp.com',
-  projectId: 'sound-1b087',
-  storageBucket: 'sound-1b087.appspot.com',
-  messagingSenderId: '289619239789',
-  appId: '1:289619239789:web:ae28ba476d49c8a4457064',
+  apiKey: 'AIzaSyD2Xh-tLW319MZ1iQU1bhhLQidQrIn5bvU',
+  authDomain: 'music-433a3.firebaseapp.com',
+  projectId: 'music-433a3',
+  storageBucket: 'music-433a3.appspot.com',
+  messagingSenderId: '216809921607',
+  appId: '1:216809921607:web:f8cf022f229d8dbc10e562',
 };
 
 const app = initializeApp(firebaseConfig);

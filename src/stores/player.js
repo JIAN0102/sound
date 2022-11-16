@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { Howl } from 'howler';
 import { formatTime } from '@/helpers';
@@ -8,11 +8,15 @@ export const usePlayerStore = defineStore('player', () => {
   const sound = ref({});
   const seek = ref('0:00');
   const duration = ref('0:00');
-  const volume = ref(0.25);
+  const volume = ref(0.1);
   const progress = ref(0);
-  const isSoundPlaying = ref(false);
   const cacheSoundPlaying = ref(false);
   const isSoundLoaded = ref(false);
+
+  const isSoundPlaying = computed(() => {
+    if (!isSoundLoaded.value) return false;
+    return sound.value.playing();
+  });
 
   function createSong(song) {
     if (song.uuid === currentSong.value.uuid) {
@@ -32,33 +36,40 @@ export const usePlayerStore = defineStore('player', () => {
       html5: true,
       volume: volume.value,
       loop: true,
+      onplay() {
+        requestAnimationFrame(updateProgress);
+      },
+      onseek() {
+        requestAnimationFrame(updateProgress);
+      },
+      onload() {
+        isSoundLoaded.value = true;
+      },
     });
 
     sound.value.play();
-
-    sound.value.on('load', () => {
-      isSoundLoaded.value = true;
-    });
-
-    sound.value.on('play', () => {
-      isSoundPlaying.value = true;
-      cacheSoundPlaying.value = true;
-      requestAnimationFrame(updateProgress);
-    });
   }
 
-  function checkAudioStatus() {
-    if (isSoundLoaded.value && cacheSoundPlaying.value) {
-      isSoundPlaying.value = !isSoundPlaying.value;
-      isSoundPlaying.value ? sound.value.play() : sound.value.pause();
+  function checkAudioStatusDragStart() {
+    if (isSoundLoaded.value) {
+      cacheSoundPlaying.value = isSoundPlaying.value;
+      sound.value.pause();
+    }
+  }
+
+  function checkAudioStatusDragEnd() {
+    if (
+      isSoundLoaded.value &&
+      !isSoundPlaying.value &&
+      cacheSoundPlaying.value
+    ) {
+      sound.value.play();
     }
   }
 
   function toggleAudio() {
     if (isSoundLoaded.value) {
-      isSoundPlaying.value = !isSoundPlaying.value;
-      cacheSoundPlaying.value = !cacheSoundPlaying.value;
-      isSoundPlaying.value ? sound.value.play() : sound.value.pause();
+      sound.value.playing() ? sound.value.pause() : sound.value.play();
     }
   }
 
@@ -73,20 +84,16 @@ export const usePlayerStore = defineStore('player', () => {
   }
 
   function updateSeek(percent) {
-    if (isSoundLoaded.value) {
+    if (isSoundLoaded.value && !isSoundPlaying.value) {
       const seconds = sound.value.duration() * percent;
-
       sound.value.seek(seconds);
-      sound.value.once('seek', () => {
-        updateProgress();
-      });
     }
   }
 
   function updateVolume(percent) {
     if (isSoundLoaded.value) {
-      volume.value = percent.toFixed(2);
-      sound.value.volume(percent.toFixed(2));
+      volume.value = percent;
+      sound.value.volume(percent);
     }
   }
 
@@ -99,9 +106,9 @@ export const usePlayerStore = defineStore('player', () => {
     progress,
     isSoundPlaying,
     cacheSoundPlaying,
-    isSoundLoaded,
     createSong,
-    checkAudioStatus,
+    checkAudioStatusDragStart,
+    checkAudioStatusDragEnd,
     toggleAudio,
     updateSeek,
     updateVolume,

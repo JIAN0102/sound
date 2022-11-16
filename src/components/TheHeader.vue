@@ -106,7 +106,15 @@ async function handleClick() {
     :class="{ 'block!': isMenuOpen }"
   >
     <ul class="f:bold f:20 fg:white t:center">
-      <li @click.prevent="toggleModal">登入 / 註冊</li>
+      <li v-if="isLoggedIn">
+        <RouterLink
+          class="group rel block bg:black rounded"
+          :to="{ name: 'manage' }"
+        >
+          管理歌曲
+        </RouterLink>
+      </li>
+      <li v-else @click.prevent="toggleModal">登入 / 註冊</li>
     </ul>
   </nav>
 </template>
