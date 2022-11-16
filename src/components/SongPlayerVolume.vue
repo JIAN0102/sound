@@ -1,13 +1,74 @@
 <script setup>
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
-import { useSlider } from '@/composables/useSlider';
 
 const playerStore = usePlayerStore();
 const { volume } = storeToRefs(playerStore);
+const { updateVolume } = playerStore;
 
-const emit = defineEmits(['drag-start', 'update', 'drag-end']);
-const { slider, onSliderDown } = useSlider(emit);
+const dragging = ref(false);
+const slider = ref(null);
+
+function onSliderDown(event) {
+  event.preventDefault();
+
+  onDragStart(event);
+
+  window.addEventListener('mousemove', onDragging);
+  window.addEventListener('touchmove', onDragging);
+  window.addEventListener('mouseup', onDragEnd);
+  window.addEventListener('touchend', onDragEnd);
+}
+
+function getClientX(event) {
+  let clientX;
+
+  if (event.type.startsWith('touch')) {
+    clientX = event.touches[0].clientX;
+  } else {
+    clientX = event.clientX;
+  }
+
+  return clientX;
+}
+
+function onDragStart(event) {
+  dragging.value = true;
+
+  const clientX = getClientX(event);
+  const sliderSize = slider.value?.clientWidth;
+  const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
+  const newPercent = (clientX - sliderOffsetLeft) / sliderSize;
+
+  updateVolume(newPercent);
+}
+
+function onDragging(event) {
+  if (dragging.value) {
+    const clientX = getClientX(event);
+    const sliderSize = slider.value?.clientWidth;
+    const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
+    let newPercent = (clientX - sliderOffsetLeft) / sliderSize;
+
+    if (newPercent < 0) {
+      newPercent = 0;
+    } else if (newPercent > 1) {
+      newPercent = 1;
+    }
+
+    updateVolume(newPercent);
+  }
+}
+
+function onDragEnd() {
+  if (dragging.value) {
+    dragging.value = false;
+
+    window.removeEventListener('mousemove', onDragging);
+    window.removeEventListener('touchmove', onDragging);
+  }
+}
 </script>
 
 <template>
@@ -22,8 +83,8 @@ const { slider, onSliderDown } = useSlider(emit);
       :style="{ width: `${volume * 100}%` }"
     ></div>
     <div class="abs top:1/2 left:20 w:24 h:24 translateY(-50%)">
-      <img v-if="volume === 0" src="/assets/img/icon-muted.svg" alt="" />
-      <img v-else src="/assets/img/icon-volume.svg" alt="" />
+      <img v-show="volume === 0" src="/assets/img/icon-muted.svg" alt="" />
+      <img v-show="volume !== 0" src="/assets/img/icon-volume.svg" alt="" />
     </div>
   </div>
 </template>

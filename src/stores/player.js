@@ -1,13 +1,13 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { Howl } from 'howler';
-import { formatTime } from '@/helpers';
 
 export const usePlayerStore = defineStore('player', () => {
+  const dragging = ref(false);
   const currentSong = ref({});
   const sound = ref({});
-  const seek = ref('0:00');
-  const duration = ref('0:00');
+  const seek = ref(0);
+  const duration = ref(0);
   const volume = ref(0.1);
   const progress = ref(0);
   const cacheSoundPlaying = ref(false);
@@ -49,33 +49,25 @@ export const usePlayerStore = defineStore('player', () => {
     sound.value.play();
   }
 
-  function checkAudioStatusByDragStart() {
+  function recordAudioStatusAndPauseAudio() {
     if (isSoundLoaded.value) {
       cacheSoundPlaying.value = isSoundPlaying.value;
       sound.value.pause();
     }
   }
 
-  function checkAudioStatusByDragEnd() {
-    if (
-      isSoundLoaded.value &&
-      !isSoundPlaying.value &&
-      cacheSoundPlaying.value
-    ) {
-      sound.value.play();
-    }
-  }
-
   function toggleAudio() {
     if (isSoundLoaded.value) {
-      sound.value.playing() ? sound.value.pause() : sound.value.play();
+      isSoundPlaying.value ? sound.value.pause() : sound.value.play();
     }
   }
 
   function updateProgress() {
-    seek.value = formatTime(sound.value.seek());
-    duration.value = formatTime(sound.value.duration());
-    progress.value = (sound.value.seek() / sound.value.duration()) * 100;
+    if (dragging.value) return;
+
+    seek.value = sound.value.seek();
+    duration.value = sound.value.duration();
+    progress.value = sound.value.seek() / sound.value.duration();
 
     if (isSoundPlaying.value) {
       requestAnimationFrame(updateProgress);
@@ -83,9 +75,13 @@ export const usePlayerStore = defineStore('player', () => {
   }
 
   function updateSeek(percent) {
-    if (isSoundLoaded.value && !isSoundPlaying.value) {
+    if (isSoundLoaded.value) {
       const seconds = sound.value.duration() * percent;
       sound.value.seek(seconds);
+
+      if (cacheSoundPlaying.value && !isSoundPlaying.value) {
+        sound.value.play();
+      }
     }
   }
 
@@ -97,6 +93,7 @@ export const usePlayerStore = defineStore('player', () => {
   }
 
   return {
+    dragging,
     currentSong,
     sound,
     seek,
@@ -104,10 +101,10 @@ export const usePlayerStore = defineStore('player', () => {
     volume,
     progress,
     cacheSoundPlaying,
+    isSoundLoaded,
     isSoundPlaying,
     createSong,
-    checkAudioStatusByDragStart,
-    checkAudioStatusByDragEnd,
+    recordAudioStatusAndPauseAudio,
     toggleAudio,
     updateSeek,
     updateVolume,
