@@ -8,7 +8,7 @@
     </clipPath>
   </defs>
   <g id="icon-play" clip-path="url(#clip-icon-play)">
-    <g id="play" transform="translate(2 2)" clip-path="url(#clip-path)">
+    <g id="play" transform="translate(3 2)" clip-path="url(#clip-path)">
       <g id="Group_1136" data-name="Group 1136" transform="translate(2.853 2.168)">
         <g id="Group_1134" data-name="Group 1134" transform="translate(7.147 7.832)">
           <path id="Path_1040" data-name="Path 1040" d="M0,0" fill="#fff"/>

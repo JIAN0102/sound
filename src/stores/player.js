@@ -13,10 +13,9 @@ export const usePlayerStore = defineStore('player', () => {
   const cacheSoundPlaying = ref(false);
   const isSoundLoaded = ref(false);
 
-  const isSoundPlaying = computed(() => {
-    if (!isSoundLoaded.value) return false;
-    return sound.value.playing();
-  });
+  const isSoundPlaying = computed(() =>
+    isSoundLoaded.value ? sound.value.playing() : false
+  );
 
   function createSong(song) {
     if (song.uuid === currentSong.value.uuid) {
@@ -50,14 +49,14 @@ export const usePlayerStore = defineStore('player', () => {
     sound.value.play();
   }
 
-  function checkAudioStatusDragStart() {
+  function checkAudioStatusByDragStart() {
     if (isSoundLoaded.value) {
       cacheSoundPlaying.value = isSoundPlaying.value;
       sound.value.pause();
     }
   }
 
-  function checkAudioStatusDragEnd() {
+  function checkAudioStatusByDragEnd() {
     if (
       isSoundLoaded.value &&
       !isSoundPlaying.value &&
@@ -104,11 +103,11 @@ export const usePlayerStore = defineStore('player', () => {
     duration,
     volume,
     progress,
-    isSoundPlaying,
     cacheSoundPlaying,
+    isSoundPlaying,
     createSong,
-    checkAudioStatusDragStart,
-    checkAudioStatusDragEnd,
+    checkAudioStatusByDragStart,
+    checkAudioStatusByDragEnd,
     toggleAudio,
     updateSeek,
     updateVolume,

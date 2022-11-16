@@ -6,8 +6,8 @@ import SongPlayerVolume from '@/components/SongPlayerVolume.vue';
 
 const playerStore = usePlayerStore();
 const {
-  checkAudioStatusDragStart,
-  checkAudioStatusDragEnd,
+  checkAudioStatusByDragStart,
+  checkAudioStatusByDragEnd,
   updateSeek,
   updateVolume,
 } = playerStore;
@@ -19,9 +19,9 @@ const {
   >
     <SongPlayerButton />
     <SongPlayerTimeline
-      @drag-start="checkAudioStatusDragStart"
+      @drag-start="checkAudioStatusByDragStart"
       @update="updateSeek"
-      @drag-end="checkAudioStatusDragEnd"
+      @drag-end="checkAudioStatusByDragEnd"
     />
     <SongPlayerVolume @update="updateVolume" />
   </div>

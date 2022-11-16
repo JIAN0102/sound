@@ -73,8 +73,8 @@ onMounted(async () => {
       class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{animation:bounce|1s|infinite}"
     ></div>
     <div class="rel flex center-content h:60">
-      <span
-        class="abs top:1/2 left:14 flex center-content w:32 h:32 bg:black rounded translateY(-50%)"
+      <div
+        class="abs top:1/2 left:10 flex center-content w:40 h:40 bg:black rounded translateY(-50%)"
       >
         <img
           v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
@@ -88,7 +88,7 @@ onMounted(async () => {
           src="/assets/img/icon-pause.svg"
           alt=""
         />
-      </span>
+      </div>
       <h4
         v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
         class="f:bold"

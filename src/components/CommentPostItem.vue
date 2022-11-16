@@ -37,7 +37,7 @@ const formattedTime = computed(() => {
         {{ formattedTime }}
       </span>
     </div>
-    <div class="mt:20 f:14 fg:white lh:1.75 f:16@md">
+    <div class="mt:10 f:14 fg:white lh:1.75 f:16@md">
       <p>{{ comment.content }}</p>
     </div>
   </li>

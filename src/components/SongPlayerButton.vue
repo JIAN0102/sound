@@ -13,11 +13,19 @@ const { toggleAudio } = playerStore;
     type="button"
     @click.prevent="toggleAudio"
   >
-    <div v-show="!isSoundPlaying" class="translate(3,2)">
-      <img class="w:28" src="/assets/img/icon-play-black.svg" alt="" />
-    </div>
-    <div v-show="isSoundPlaying" class="translate(3,2)">
-      <img class="w:28" src="/assets/img/icon-pause-black.svg" alt="" />
+    <div class="translate(4,3)">
+      <img
+        v-show="!isSoundPlaying"
+        class="w:28"
+        src="/assets/img/icon-play-black.svg"
+        alt=""
+      />
+      <img
+        v-show="isSoundPlaying"
+        class="w:28"
+        src="/assets/img/icon-pause-black.svg"
+        alt=""
+      />
     </div>
   </button>
 </template>

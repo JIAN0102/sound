@@ -8,7 +8,7 @@
     </clipPath>
   </defs>
   <g id="icon-play-black" clip-path="url(#clip-icon-play-black)">
-    <g id="play" transform="translate(2 2)" clip-path="url(#clip-path)">
+    <g id="play" transform="translate(3 2)" clip-path="url(#clip-path)">
       <path id="Path_1042" data-name="Path 1042" d="M-7.881-10.9a2.156,2.156,0,0,0-1.708.29c-.491.4-.413,1.769-.413,1.769V2.593s-.089,1.59.714,2.126,2.857-.686,2.857-.686L2.833-1.794A1.988,1.988,0,0,0,3.57-3.133a2.146,2.146,0,0,0-.736-1.384Z" transform="translate(12.859 13.133)"/>
     </g>
   </g>

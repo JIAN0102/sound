@@ -88,7 +88,7 @@ async function onSubmit(values, { resetForm }) {
       ></div>
       <div class="rel flex center-content h:60">
         <div
-          class="abs top:1/2 left:14 flex center-content w:32 h:32 bg:black round translateY(-50%)"
+          class="abs top:1/2 left:10 flex center-content w:40 h:40 bg:black round translateY(-50%)"
         >
           <img src="/assets/img/icon-user.svg" alt="" />
         </div>

@@ -13,9 +13,9 @@ export const useCommentStore = defineStore('comment', () => {
   const sortedComments = computed(() =>
     comments.value.slice().sort((a, b) => {
       if (commentSort.value === '1') {
-        return new Date(b.datePosted) - new Date(a.datePosted);
+        return b.createdAt - a.createdAt;
       }
-      return new Date(a.datePosted) - new Date(b.datePosted);
+      return a.createdAt - b.createdAt;
     })
   );
 
