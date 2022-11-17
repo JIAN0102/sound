@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
@@ -26,6 +26,13 @@ async function handleClick() {
     });
   }
 }
+
+watch(
+  () => route.name,
+  () => {
+    isMenuOpen.value = false;
+  }
+);
 </script>
 
 <template>
@@ -102,18 +109,29 @@ async function handleClick() {
   </header>
 
   <nav
-    class="fixed top:20 left:10 right:10 z:998 hide pt:80 pb:40 bg:black r:30"
-    :class="{ 'block!': isMenuOpen }"
+    class="fixed top:20 left:10 right:10 z:998 pt:80 pb:40 bg:black r:30 opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
+    :class="{ 'is-open': isMenuOpen }"
   >
-    <ul class="f:bold f:20 fg:white t:center">
-      <li v-if="isLoggedIn">
-        <RouterLink
-          class="group rel block bg:black rounded"
-          :to="{ name: 'manage' }"
-        >
-          管理歌曲
-        </RouterLink>
-      </li>
+    <ul class="f:20 fg:white t:center">
+      <template v-if="isLoggedIn">
+        <li>
+          <RouterLink
+            class="group rel block bg:black rounded"
+            :to="{ name: 'manage' }"
+          >
+            管理歌曲
+          </RouterLink>
+        </li>
+        <li>
+          <button
+            class="flex center-content mt:10 mx:auto bg:black round"
+            type="button"
+            @click.prevent="handleClick"
+          >
+            <img src="/assets/img/icon-logout.svg" alt="" />登出
+          </button>
+        </li>
+      </template>
       <li v-else @click.prevent="toggleModal">登入 / 註冊</li>
     </ul>
   </nav>

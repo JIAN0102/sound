@@ -39,8 +39,8 @@ async function onSubmit(values, { resetForm }) {
   resetForm();
 }
 
-onMounted(async () => {
-  await getComments();
+onMounted(() => {
+  getComments();
 });
 </script>
 
@@ -59,8 +59,8 @@ onMounted(async () => {
       </select>
     </div>
   </div>
-  <div class="mt:20">
-    <VForm v-if="isLoggedIn" class="rel" @submit="onSubmit">
+  <div class="rel mt:20">
+    <VForm v-if="isLoggedIn" @submit="onSubmit">
       <VField
         class="block w:full h:200 p:30 fg:white bg:black r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder"
         placeholder="發表你對這首歌的感受吧！"
@@ -99,9 +99,11 @@ onMounted(async () => {
         </button>
       </div>
     </VForm>
-    <div v-else class="fg:white">登入會員才能發表評論</div>
+    <h3 v-else class="f:bold fg:white t:center f:18@md">
+      登入會員才能發表評論
+    </h3>
   </div>
-  <ul class="mt:50 mt:20>li~li">
+  <ul v-if="sortedComments.length" class="mt:50 mt:20>li~li">
     <CommentPostItem
       v-for="comment in sortedComments"
       :key="comment.docID"

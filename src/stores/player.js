@@ -11,8 +11,10 @@ export const usePlayerStore = defineStore('player', () => {
   const volume = ref(0.1);
   const progress = ref(0);
   const cacheSoundPlaying = ref(false);
-  const isSoundLoaded = ref(false);
 
+  const isSoundLoaded = computed(() =>
+    sound.value.state ? sound.value.state() === 'loaded' : false
+  );
   const isSoundPlaying = computed(() =>
     isSoundLoaded.value ? sound.value.playing() : false
   );
@@ -34,11 +36,7 @@ export const usePlayerStore = defineStore('player', () => {
       src: [song.url],
       html5: true,
       volume: volume.value,
-      loop: true,
       onplay() {
-        requestAnimationFrame(updateProgress);
-      },
-      onseek() {
         requestAnimationFrame(updateProgress);
       },
       onload() {
@@ -49,17 +47,15 @@ export const usePlayerStore = defineStore('player', () => {
     sound.value.play();
   }
 
-  function recordAudioStatusAndPauseAudio() {
-    if (isSoundLoaded.value) {
-      cacheSoundPlaying.value = isSoundPlaying.value;
-      sound.value.pause();
-    }
+  function toggleAudio() {
+    if (!isSoundLoaded.value) return;
+
+    isSoundPlaying.value ? sound.value.pause() : sound.value.play();
   }
 
-  function toggleAudio() {
-    if (isSoundLoaded.value) {
-      isSoundPlaying.value ? sound.value.pause() : sound.value.play();
-    }
+  function recordAudioStatusAndPauseAudio() {
+    cacheSoundPlaying.value = isSoundPlaying.value;
+    sound.value.pause();
   }
 
   function updateProgress() {
@@ -75,21 +71,19 @@ export const usePlayerStore = defineStore('player', () => {
   }
 
   function updateSeek(percent) {
-    if (isSoundLoaded.value) {
-      const seconds = sound.value.duration() * percent;
-      sound.value.seek(seconds);
+    const seconds = sound.value.duration() * percent;
+    sound.value.seek(seconds);
 
-      if (cacheSoundPlaying.value && !isSoundPlaying.value) {
-        sound.value.play();
-      }
+    if (cacheSoundPlaying.value && !isSoundPlaying.value) {
+      sound.value.play();
     }
   }
 
   function updateVolume(percent) {
-    if (isSoundLoaded.value) {
-      volume.value = percent;
-      sound.value.volume(percent);
-    }
+    if (!isSoundLoaded.value) return;
+
+    volume.value = percent;
+    sound.value.volume(percent);
   }
 
   return {
@@ -100,12 +94,12 @@ export const usePlayerStore = defineStore('player', () => {
     duration,
     volume,
     progress,
-    cacheSoundPlaying,
     isSoundLoaded,
+    cacheSoundPlaying,
     isSoundPlaying,
     createSong,
-    recordAudioStatusAndPauseAudio,
     toggleAudio,
+    recordAudioStatusAndPauseAudio,
     updateSeek,
     updateVolume,
   };

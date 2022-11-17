@@ -1,7 +1,7 @@
 <template>
   <div class="fixed inset:0 overflow:hidden pointer-events:none">
     <div
-      class="abs inset:0 bg:repeating-linear-gradient(40deg,#222,#222|3px,#111|3px,#111|8px)"
+      class="abs inset:0 bg:repeating-linear-gradient(40deg,#262626,#262626|3px,#161616|3px,#161616|8px)"
     ></div>
 
     <div
