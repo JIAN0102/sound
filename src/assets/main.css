@@ -31,6 +31,10 @@ h6 {
   transition: opacity .5s;
 }
 
+.page-leave-active {
+  transition-delay: .5s;
+}
+
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
