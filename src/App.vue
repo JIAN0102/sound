@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 import { auth } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
@@ -12,8 +12,15 @@ import AuthModal from '@/components/AuthModal.vue';
 const userStore = useUserStore();
 const { toggleAuth } = userStore;
 
-function beforeEnter() {
-  document.body.scrollTop = 0;
+const isTransitionPage = ref(true);
+
+function onBeforeEnter() {
+  window.scrollTo(0, 0);
+  isTransitionPage.value = false;
+}
+
+function onBeforeLeave() {
+  isTransitionPage.value = true;
 }
 
 onMounted(() => {
@@ -30,7 +37,13 @@ onMounted(() => {
 
   <main class="rel">
     <RouterView v-slot="{ Component, route }">
-      <transition name="page" mode="out-in" @before-enter="beforeEnter">
+      <transition
+        name="page"
+        mode="out-in"
+        :duration="1000"
+        @before-enter="onBeforeEnter"
+        @before-leave="onBeforeLeave"
+      >
         <component :is="Component" :key="route.path" />
       </transition>
     </RouterView>
@@ -40,5 +53,5 @@ onMounted(() => {
 
   <AuthModal />
 
-  <TheLoading />
+  <TheLoading :is-transition-page="isTransitionPage" />
 </template>

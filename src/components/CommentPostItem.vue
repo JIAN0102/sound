@@ -29,18 +29,18 @@ const formattedTime = computed(() => {
 </script>
 
 <template>
-  <li class="rel p:30 bg:black r:30">
+  <li class="rel py:15">
     <button
       v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
-      class="abs top:20 right:20 f:12 fg:white"
+      class="abs top:15 right:0 f:12 fg:white"
       type="button"
-      @click="deleteComment(comment.docID)"
+      @click.prevent="deleteComment(comment.docID)"
     >
       刪除
     </button>
     <div class="flex ai:flex-end gap-x:8">
       <h3 class="f:bold fg:white f:18@md">{{ comment.name }}</h3>
-      <span class="f:12 fg:#777 f:14@md">
+      <span class="f:12 fg:#777">
         {{ formattedTime }}
       </span>
     </div>

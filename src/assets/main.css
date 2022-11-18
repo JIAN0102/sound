@@ -1,5 +1,6 @@
 @import '@master/normal.css';
 @import 'animate.css';
+@import 'transition.css';
 
 h1,
 h2,
@@ -9,33 +10,4 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: inherit;
-}
-
-.v-enter-active,
-.v-leave-active {
-  transition: opacity .5s;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-
-.v-enter-to,
-.v-leave-from {
-  opacity: 1;
-}
-
-.page-enter-active,
-.page-leave-active {
-  transition: opacity .5s;
-}
-
-.page-leave-active {
-  transition-delay: .5s;
-}
-
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
 }

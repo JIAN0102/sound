@@ -103,25 +103,27 @@ watch(
     </button>
   </header>
 
-  <nav
-    class="fixed top:20 left:10 right:10 z:998 pt:60 pb:40 bg:black r:30 opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
-    :class="{ 'is-open': isMenuOpen }"
-  >
-    <ul class="f:20 fg:white t:center mt:10>li~li">
-      <template v-if="isLoggedIn">
-        <li>
-          <RouterLink
-            class="group rel block bg:black rounded"
-            :to="{ name: 'manage' }"
-          >
-            管理歌曲
-          </RouterLink>
-        </li>
-        <li>
-          <button type="button" @click.prevent="handleClick">登出</button>
-        </li>
-      </template>
-      <li v-else @click.prevent="toggleModal">登入 / 註冊</li>
-    </ul>
-  </nav>
+  <transition name="fade">
+    <nav
+      v-show="isMenuOpen"
+      class="fixed top:20 left:10 right:10 z:998 pt:60 pb:40 bg:black r:30"
+    >
+      <ul class="f:20 fg:white t:center mt:10>li~li">
+        <template v-if="isLoggedIn">
+          <li>
+            <RouterLink
+              class="group rel block bg:black rounded"
+              :to="{ name: 'manage' }"
+            >
+              管理歌曲
+            </RouterLink>
+          </li>
+          <li>
+            <button type="button" @click.prevent="handleClick">登出</button>
+          </li>
+        </template>
+        <li v-else @click.prevent="toggleModal">登入 / 註冊</li>
+      </ul>
+    </nav>
+  </transition>
 </template>

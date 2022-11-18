@@ -103,7 +103,7 @@ onMounted(() => {
       登入會員才能發表評論
     </h3>
   </div>
-  <ul v-if="sortedComments.length" class="mt:50 mt:20>li~li">
+  <ul v-if="sortedComments.length" class="mt:50 p:20|30 bg:black r:30">
     <CommentPostItem
       v-for="comment in sortedComments"
       :key="comment.docID"

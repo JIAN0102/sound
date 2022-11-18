@@ -11,7 +11,7 @@ const { toggleModal } = modalStore;
 </script>
 
 <template>
-  <transition>
+  <transition name="fade">
     <div
       v-if="isModalOpen"
       class="fixed inset:0 z:1000 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.15,white/.15|3px,white/.05|3px,white/.05|8px) bd:blur(7.5)"
