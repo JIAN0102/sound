@@ -109,10 +109,10 @@ watch(
   </header>
 
   <nav
-    class="fixed top:20 left:10 right:10 z:998 pt:80 pb:40 bg:black r:30 opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
+    class="fixed top:20 left:10 right:10 z:998 pt:60 pb:40 bg:black r:30 opacity:0 invisible ~opacity|.3s,visibility|.3s {opacity:1;visible}.is-open"
     :class="{ 'is-open': isMenuOpen }"
   >
-    <ul class="f:20 fg:white t:center">
+    <ul class="f:20 fg:white t:center mt:10>li~li">
       <template v-if="isLoggedIn">
         <li>
           <RouterLink
@@ -123,13 +123,7 @@ watch(
           </RouterLink>
         </li>
         <li>
-          <button
-            class="flex center-content mt:10 mx:auto bg:black round"
-            type="button"
-            @click.prevent="handleClick"
-          >
-            <img src="/assets/img/icon-logout.svg" alt="" />登出
-          </button>
+          <button type="button" @click.prevent="handleClick">登出</button>
         </li>
       </template>
       <li v-else @click.prevent="toggleModal">登入 / 註冊</li>

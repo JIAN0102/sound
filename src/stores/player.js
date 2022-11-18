@@ -27,7 +27,6 @@ export const usePlayerStore = defineStore('player', () => {
 
     if (sound.value instanceof Howl) {
       sound.value.unload();
-      isSoundLoaded.value = false;
     }
 
     currentSong.value = song;
@@ -38,9 +37,6 @@ export const usePlayerStore = defineStore('player', () => {
       volume: volume.value,
       onplay() {
         requestAnimationFrame(updateProgress);
-      },
-      onload() {
-        isSoundLoaded.value = true;
       },
     });
 

@@ -39,8 +39,3 @@ h6 {
 .page-leave-to {
   opacity: 0;
 }
-
-.nested-enter-active,
-.nested-leave-active {
-  transition: 1s;
-}

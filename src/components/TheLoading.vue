@@ -17,13 +17,13 @@ watch(
 </script>
 
 <template>
-  <transition name="nested" mode="out-in">
-    <div v-show="show" class="fixed inset:0 z:999 flex center-content">
+  <transition name="loading" mode="out-in" :duration="1000">
+    <div v-if="show" class="fixed inset:0 z:999 flex center-content">
       <div
-        class="abs inset:0 bg:black translateX(0) :is(.nested-enter-active,.nested-leave-active)_{transition:all|1s} .nested-enter-from_{translateX(-100%)} .nested-leave-to_{translateX(100%)}"
+        class="abs inset:0 bg:black translateX(0) :is(.loading-enter-active,.loading-leave-active)_{transition:all|1s} .loading-enter-from_{translateX(-100%)} .loading-leave-to_{translateX(100%)}"
       ></div>
       <div
-        class="abs inset:0 bg:black translateX(100%) :is(.nested-enter-active,.nested-leave-active)_{transition:all|1s} .nested-enter-from_{translateX(-100%)} {abs;top:0;w:50%;h:full}>svg"
+        class="abs inset:0 bg:black translateX(100%) :is(.loading-enter-active,.loading-leave-active)_{transition:all|1s} .loading-enter-from_{translateX(-100%)} {abs;top:0;w:50%;h:full}>svg"
       >
         <svg
           class="right:0"
@@ -60,7 +60,7 @@ watch(
         </svg>
       </div>
       <div
-        class="abs inset:0 bg:black translateX(-100%) :is(.nested-enter-active,.nested-leave-active)_{transition:all|1s} .nested-leave-to_{translateX(100%)} {abs;top:0;w:50%;h:full}>svg"
+        class="abs inset:0 bg:black translateX(-100%) :is(.loading-enter-active,.loading-leave-active)_{transition:all|1s} .loading-leave-to_{translateX(100%)} {abs;top:0;w:50%;h:full}>svg"
       >
         <svg
           class="right:0"
