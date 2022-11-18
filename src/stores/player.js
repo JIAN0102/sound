@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { Howl } from 'howler';
+import debounce from 'lodash.debounce';
 
 export const usePlayerStore = defineStore('player', () => {
   const dragging = ref(false);
@@ -43,15 +44,17 @@ export const usePlayerStore = defineStore('player', () => {
     sound.value.play();
   }
 
+  function pauseAudio() {
+    if (isSoundPlaying.value) {
+      console.log('pauseAudio');
+      sound.value.pause();
+    }
+  }
+
   function toggleAudio() {
     if (!isSoundLoaded.value) return;
 
     isSoundPlaying.value ? sound.value.pause() : sound.value.play();
-  }
-
-  function recordAudioStatusAndPauseAudio() {
-    cacheSoundPlaying.value = isSoundPlaying.value;
-    sound.value.pause();
   }
 
   function updateProgress() {
@@ -66,14 +69,14 @@ export const usePlayerStore = defineStore('player', () => {
     }
   }
 
-  function updateSeek(percent) {
+  const updateSeek = debounce((percent) => {
+    console.log('updateSeek');
+    if (dragging.value || isSoundPlaying.value) return;
+
     const seconds = sound.value.duration() * percent;
     sound.value.seek(seconds);
-
-    if (cacheSoundPlaying.value && !isSoundPlaying.value) {
-      sound.value.play();
-    }
-  }
+    sound.value.play();
+  }, 250);
 
   function updateVolume(percent) {
     if (!isSoundLoaded.value) return;
@@ -94,8 +97,8 @@ export const usePlayerStore = defineStore('player', () => {
     cacheSoundPlaying,
     isSoundPlaying,
     createSong,
+    pauseAudio,
     toggleAudio,
-    recordAudioStatusAndPauseAudio,
     updateSeek,
     updateVolume,
   };

@@ -4,12 +4,12 @@ import { getFirestore, collection } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBK3RgGAAA55BWGxswVYC7LQ5w3rGdWg8U',
-  authDomain: 'music-22e46.firebaseapp.com',
-  projectId: 'music-22e46',
-  storageBucket: 'music-22e46.appspot.com',
-  messagingSenderId: '610467619693',
-  appId: '1:610467619693:web:385508805c5e10d7f8b064',
+  apiKey: 'AIzaSyDXqTV6UjZd4lWZiWFq8ihK_gm6j-4uE8A',
+  authDomain: 'sound-ebc19.firebaseapp.com',
+  projectId: 'sound-ebc19',
+  storageBucket: 'sound-ebc19.appspot.com',
+  messagingSenderId: '291203938606',
+  appId: '1:291203938606:web:c402f52640f870a11e22bf',
 };
 
 const app = initializeApp(firebaseConfig);

@@ -7,7 +7,7 @@ import { formatTime } from '@/helpers';
 const playerStore = usePlayerStore();
 const { dragging, currentSong, seek, duration, progress, isSoundLoaded } =
   storeToRefs(playerStore);
-const { recordAudioStatusAndPauseAudio, updateSeek } = playerStore;
+const { pauseAudio, updateSeek } = playerStore;
 
 const slider = ref(null);
 
@@ -39,7 +39,7 @@ function getClientX(event) {
 function onDragStart(event) {
   dragging.value = true;
 
-  recordAudioStatusAndPauseAudio();
+  pauseAudio();
 
   const clientX = getClientX(event);
   const sliderSize = slider.value?.clientWidth;
@@ -95,7 +95,7 @@ function onDragEnd() {
       class="rel flex jc:space-between ai:center gap-x:30 h:full pointer-events:none"
     >
       <span class="hide@<md">{{ formatTime(seek) }}</span>
-      <div class="flex:1 t:center lines:1">
+      <div class="flex:1 t:center">
         <h2 v-if="currentSong.modifiedName">
           {{ currentSong.modifiedName }}
         </h2>
