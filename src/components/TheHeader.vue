@@ -1,12 +1,11 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { RouterLink, useRoute, useRouter } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
 
 const route = useRoute();
-const router = useRouter();
 
 const modalStore = useModalStore();
 const { toggleModal } = modalStore;
@@ -20,11 +19,7 @@ const isMenuOpen = ref(false);
 async function handleClick() {
   await logout();
 
-  if (route.meta.requiresAuth) {
-    router.push({
-      name: 'home',
-    });
-  }
+  window.location.reload();
 }
 
 watch(

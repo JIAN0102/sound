@@ -122,12 +122,16 @@ async function onSubmit(values) {
           class="flex center-content w:1/2 h:full bg:#111:hover"
           type="button"
           @click="isEditFormOpen = !isEditFormOpen"
-        ></button>
+        >
+          <img src="/assets/img/icon-edit.svg" alt="" />
+        </button>
         <button
           class="flex center-content w:1/2 h:full bg:#111:hover"
           type="button"
           @click.prevent="deleteSong(song.docID, song.uuid)"
-        ></button>
+        >
+          <img src="/assets/img/icon-delete.svg" alt="" />
+        </button>
       </div>
     </div>
   </li>

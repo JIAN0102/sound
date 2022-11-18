@@ -1,8 +1,11 @@
 <script setup>
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 import { formatDistanceToNow } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
+import { useUserStore } from '@/stores/user';
 import { useCommentStore } from '@/stores/comment';
+import { auth } from '@/plugins/firebase';
 
 const props = defineProps({
   comment: {
@@ -10,6 +13,9 @@ const props = defineProps({
     required: true,
   },
 });
+
+const userStore = useUserStore();
+const { isLoggedIn } = storeToRefs(userStore);
 
 const commentStore = useCommentStore();
 const { deleteComment } = commentStore;
@@ -25,6 +31,7 @@ const formattedTime = computed(() => {
 <template>
   <li class="rel p:30 bg:black r:30">
     <button
+      v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
       class="abs top:20 right:20 f:12 fg:white"
       type="button"
       @click="deleteComment(comment.docID)"
