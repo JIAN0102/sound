@@ -12,10 +12,6 @@ import { auth, usersCollection } from '@/plugins/firebase';
 export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false);
 
-  function toggleAuth() {
-    isLoggedIn.value = !isLoggedIn.value;
-  }
-
   async function register({ name, email, password }) {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -31,22 +27,21 @@ export const useUserStore = defineStore('user', () => {
     await updateProfile(userCredential.user, {
       displayName: name,
     });
-    toggleAuth();
+    isLoggedIn.value = true;
   }
 
   async function login({ email, password }) {
     await signInWithEmailAndPassword(auth, email, password);
-    toggleAuth();
+    isLoggedIn.value = true;
   }
 
   async function logout() {
     await signOut(auth);
-    toggleAuth();
+    isLoggedIn.value = false;
   }
 
   return {
     isLoggedIn,
-    toggleAuth,
     register,
     login,
     logout,

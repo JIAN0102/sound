@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive } from 'vue';
-import { RouterLink } from 'vue-router';
 import { useSongStore } from '@/stores/song';
 
 const props = defineProps({
@@ -69,11 +68,13 @@ async function onSubmit(values) {
             name="genre"
           >
             <option value="無">無</option>
-            <option value="抒情">抒情</option>
             <option value="流行">流行</option>
             <option value="搖滾">搖滾</option>
             <option value="饒舌">饒舌</option>
             <option value="古典">古典</option>
+            <option value="藍調">藍調</option>
+            <option value="爵士">爵士</option>
+            <option value="鄉村">鄉村</option>
           </VField>
         </div>
         <div
@@ -90,7 +91,7 @@ async function onSubmit(values) {
             class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
             type="button"
             :disabled="submission"
-            @click="isEditFormOpen = !isEditFormOpen"
+            @click.prevent="isEditFormOpen = !isEditFormOpen"
           >
             取消
           </button>
@@ -102,26 +103,18 @@ async function onSubmit(values) {
       v-show="!isEditFormOpen"
       class="flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
     >
-      <RouterLink
-        class="flex:1 lines:1"
-        :to="{
-          name: 'song',
-          params: {
-            id: song.docID,
-          },
-        }"
-      >
+      <div class="flex:1 lines:1">
         <h3 class="f:bold fg:white f:18@md" :title="song.modifiedName">
           {{ song.modifiedName }}
         </h3>
-      </RouterLink>
+      </div>
       <div
         class="rel flex w:90 h:60 overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:20;bg:#333;translate(-50%,-50%)}::before"
       >
         <button
           class="flex center-content w:1/2 h:full bg:#111:hover"
           type="button"
-          @click="isEditFormOpen = !isEditFormOpen"
+          @click.prevent="isEditFormOpen = !isEditFormOpen"
         >
           <img src="/assets/img/icon-edit.svg" alt="" />
         </button>

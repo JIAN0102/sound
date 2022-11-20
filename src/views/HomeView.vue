@@ -74,7 +74,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="p:60|20|140 mt:calc(100vh-160px) bg:black rt:40 {px:80;rt:60}@md">
+  <div class="p:60|20|100 mt:100vh bg:black rt:40 {px:80;rt:60}@md">
     <div
       class="grid-cols:1 gap-y:20 {grid-cols:9;gap:40}@xs grid-cols:13@lg grid-col-start:2>div:nth(4n+3)@xs&<lg grid-col-start:2>div:nth(6n+4)@lg"
     >

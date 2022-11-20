@@ -8,11 +8,11 @@ export const useCommentStore = defineStore('comment', () => {
   const route = useRoute();
 
   const comments = ref([]);
-  const commentSort = ref('1');
+  const commentSort = ref('descending');
 
   const sortedComments = computed(() =>
     comments.value.slice().sort((a, b) => {
-      if (commentSort.value === '1') {
+      if (commentSort.value === 'descending') {
         return b.createdAt - a.createdAt;
       }
       return a.createdAt - b.createdAt;

@@ -32,11 +32,11 @@ const formattedTime = computed(() => {
   <li class="rel py:15">
     <button
       v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
-      class="abs top:15 right:0 f:12 fg:white"
+      class="abs top:10 right:0"
       type="button"
       @click.prevent="deleteComment(comment.docID)"
     >
-      刪除
+      <img src="/assets/img/icon-delete.svg" alt="" />
     </button>
     <div class="flex ai:flex-end gap-x:8">
       <h3 class="f:bold fg:white f:18@md">{{ comment.name }}</h3>

@@ -6,7 +6,6 @@ import { useUserStore } from '@/stores/user';
 
 const modalStore = useModalStore();
 const { authType } = storeToRefs(modalStore);
-const { toggleModal } = modalStore;
 
 const userStore = useUserStore();
 const { login } = userStore;
@@ -17,14 +16,11 @@ const schema = reactive({
 });
 const submission = ref(false);
 
-async function onSubmit(values, { resetForm }) {
+async function onSubmit(values) {
   submission.value = true;
 
   try {
     await login(values);
-    toggleModal();
-    resetForm();
-
     window.location.reload();
   } catch (err) {
     console.log(err);
@@ -90,14 +86,16 @@ async function onSubmit(values, { resetForm }) {
         <div
           class="abs top:1/2 left:10 flex center-content w:40 h:40 bg:black round translateY(-50%)"
         >
-          <img src="/assets/img/icon-user.svg" alt="" />
+          <img class="w:20" src="/assets/img/icon-user.svg" alt="" />
         </div>
         <span class="f:bold f:18">登入</span>
       </div>
     </button>
     <p class="mt:20 f:bold fg:white t:center f:18@md">
       還沒有帳號嗎？
-      <span class="t:underline cursor:pointer" @click="authType = 'register'"
+      <span
+        class="t:underline cursor:pointer"
+        @click.prevent="authType = 'register'"
         >註冊</span
       >
     </p>

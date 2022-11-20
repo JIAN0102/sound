@@ -18,12 +18,11 @@ const isMenuOpen = ref(false);
 
 async function handleClick() {
   await logout();
-
   window.location.reload();
 }
 
 watch(
-  () => route.name,
+  () => route.path,
   () => {
     isMenuOpen.value = false;
   }
@@ -52,7 +51,7 @@ watch(
           <div
             class="flex center-content w:32 h:32 bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
           >
-            <img src="/assets/img/icon-user.svg" alt="" />
+            <img class="w:20" src="/assets/img/icon-user.svg" alt="" />
           </div>
           <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}"
             >登入 / 註冊</span
@@ -75,7 +74,7 @@ watch(
                 <img class="w:18" src="/assets/img/icon-setting.svg" alt="" />
               </div>
               <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}">
-                管理歌曲</span
+                上傳歌曲</span
               >
             </div>
           </RouterLink>
@@ -95,7 +94,7 @@ watch(
     <button
       class="rel flex flex:col center-content w:48 h:36 pointer-events:auto bg:black rounded hide@md {block;w:8;h:2;bg:white}>span mt:3>span~span"
       type="button"
-      @click="isMenuOpen = !isMenuOpen"
+      @click.prevent="isMenuOpen = !isMenuOpen"
     >
       <span></span>
       <span></span>
@@ -103,20 +102,15 @@ watch(
     </button>
   </header>
 
-  <transition name="fade">
+  <Transition name="fade">
     <nav
       v-show="isMenuOpen"
-      class="fixed top:20 left:10 right:10 z:998 pt:60 pb:40 bg:black r:30"
+      class="fixed top:0 left:0 z:998 pt:80 pb:40 w:full bg:black rb:40"
     >
-      <ul class="f:20 fg:white t:center mt:10>li~li">
+      <ul class="f:20 fg:white t:center mt:15>li~li">
         <template v-if="isLoggedIn">
           <li>
-            <RouterLink
-              class="group rel block bg:black rounded"
-              :to="{ name: 'manage' }"
-            >
-              管理歌曲
-            </RouterLink>
+            <RouterLink :to="{ name: 'manage' }">上傳歌曲</RouterLink>
           </li>
           <li>
             <button type="button" @click.prevent="handleClick">登出</button>
@@ -125,5 +119,5 @@ watch(
         <li v-else @click.prevent="toggleModal">登入 / 註冊</li>
       </ul>
     </nav>
-  </transition>
+  </Transition>
 </template>

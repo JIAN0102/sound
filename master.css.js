@@ -1,12 +1,7 @@
 export default {
   colors: {
     primary: '#fd9d02',
-    secondary: '#f4db0d',
+    secondary: '#fff645',
     danger: '#ee2828',
-  },
-  values: {
-    FontFamily: {
-      countach: 'countach, sans-serif',
-    },
   },
 };

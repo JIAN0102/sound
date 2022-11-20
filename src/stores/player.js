@@ -46,7 +46,6 @@ export const usePlayerStore = defineStore('player', () => {
 
   function pauseAudio() {
     if (isSoundPlaying.value) {
-      console.log('pauseAudio');
       sound.value.pause();
     }
   }
@@ -70,7 +69,6 @@ export const usePlayerStore = defineStore('player', () => {
   }
 
   const updateSeek = debounce((percent) => {
-    console.log('updateSeek');
     if (dragging.value || isSoundPlaying.value) return;
 
     const seconds = sound.value.duration() * percent;

@@ -6,7 +6,7 @@ import SongModify from '@/components/SongModify.vue';
 
 <template>
   <div
-    class="grid-cols:1 gap:30|40 min-h:calc(100vh-140px) p:0|0|140 mt:140 bg:black rt:40 {p:0|80|140;rt:60}@md grid-cols:2@lg"
+    class="grid-cols:1 gap:30|40 min-h:calc(100vh-100px) p:0|0|100 mt:100 bg:black rt:40 {min-h:calc(100vh-140px);p:0|80|140;mt:140;rt:60}@md grid-cols:2@lg"
   >
     <div>
       <BaseCard>

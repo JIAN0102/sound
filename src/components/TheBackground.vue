@@ -15,7 +15,6 @@ watch(
   (newVal) => {
     if (newVal) {
       rotateCDAnime.value.play();
-
       gsap.to(rotateCDAnime.value, {
         timeScale: 1,
         duration: 3,
@@ -48,7 +47,7 @@ onMounted(() => {
     ></div>
 
     <div
-      class="abs top:1/2 left:1/2 w:150% opacity:.04 translate(-50%,-50%)|rotate(-12.5) {h:30vh;bg:url('/assets/img/sound-text.svg');background-size:auto|100%}>div @scroll|12.5s|linear|infinite>div:odd @scroll|12.5s|linear|infinite|reverse>div:even"
+      class="abs top:1/2 left:1/2 w:150% opacity:.04 translate(-50%,-50%)|rotate(-12.5) {h:30vh;bg:url('/assets/img/sound-text.svg');background-size:auto|100%}>div @scroll|25s|linear|infinite>div:odd @scroll|25s|linear|infinite|reverse>div:even"
     >
       <div></div>
       <div></div>

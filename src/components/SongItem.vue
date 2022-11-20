@@ -1,18 +1,32 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
 
-defineProps({
+const props = defineProps({
   song: {
     type: Object,
     required: true,
   },
 });
 
+const router = useRouter();
+
 const playerStore = usePlayerStore();
 const { currentSong, isSoundPlaying } = storeToRefs(playerStore);
 const { createSong } = playerStore;
+
+function handleClick() {
+  if (!isSoundPlaying.value) {
+    createSong(props.song);
+  }
+  router.push({
+    name: 'song',
+    params: {
+      id: props.song.docID,
+    },
+  });
+}
 </script>
 
 <template>
@@ -38,20 +52,15 @@ const { createSong } = playerStore;
           <img src="/assets/img/icon-pause.svg" alt="" />
         </div>
       </button>
-      <RouterLink
-        class="flex:1 lines:1"
-        :to="{
-          name: 'song',
-          params: {
-            id: song.docID,
-          },
-        }"
+      <div
+        class="flex:1 lines:1 cursor:pointer"
         :title="song.modifiedName"
+        @click.prevent="handleClick"
       >
         <h3 class="f:bold fg:white f:18@md">
           {{ song.modifiedName }}
         </h3>
-      </RouterLink>
+      </div>
     </div>
   </div>
 </template>

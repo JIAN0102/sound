@@ -16,7 +16,7 @@ const { addSong } = songStore;
 
 const isDragOver = ref(false);
 const uploads = reactive([]);
-const uploadInput = ref(null);
+const uploadRef = ref(null);
 
 function uploadFile(event) {
   isDragOver.value = false;
@@ -25,7 +25,7 @@ function uploadFile(event) {
     ? [...event.dataTransfer.files]
     : [...event.target.files];
 
-  uploadInput.value.value = '';
+  uploadRef.value.value = '';
 
   files.forEach((file) => {
     if (file.type !== 'audio/mpeg') return;
@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
 
 <template>
   <label
-    class="flex flex:col center-content gap-y:10 aspect:3/2 f:bold fg:white b:2|dashed|#555 r:30 aspect:2/1@xs f:20@md ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
+    class="flex flex:col center-content gap-y:10 aspect:3/2 b:2|dashed|#555 r:30 aspect:2/1@xs f:20@md ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
     :class="{ 'is-drag-over': isDragOver }"
     for="upload"
     @dragend.prevent.stop="isDragOver = false"
@@ -89,11 +89,14 @@ onBeforeUnmount(() => {
     @drop.prevent.stop="uploadFile"
   >
     <img class="w:32 w:40@md" src="/assets/img/icon-upload.svg" alt="" />
-    點擊上傳或拖拉檔案至此
+    <h3 class="f:bold fg:white t:center">
+      點擊上傳或拖拉檔案至此<br />
+      <span class="f:14 fg:#777">限 10MB 以下的 mp3 檔案</span>
+    </h3>
   </label>
   <input
     id="upload"
-    ref="uploadInput"
+    ref="uploadRef"
     class="hide"
     type="file"
     multiple

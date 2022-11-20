@@ -15,7 +15,6 @@ function onSliderDown(event) {
   if (!isSoundLoaded.value) return;
 
   event.preventDefault();
-
   onDragStart(event);
 
   window.addEventListener('mousemove', onDragging);
@@ -95,7 +94,7 @@ function onDragEnd() {
       class="rel flex jc:space-between ai:center gap-x:30 h:full pointer-events:none"
     >
       <span class="hide@<md">{{ formatTime(seek) }}</span>
-      <div class="flex:1 t:center">
+      <div class="flex:1 t:center lines:1">
         <h2 v-if="currentSong.modifiedName">
           {{ currentSong.modifiedName }}
         </h2>
