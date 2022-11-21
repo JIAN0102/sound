@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { addDoc, getDoc, serverTimestamp } from 'firebase/firestore';
@@ -21,6 +21,9 @@ const { getComments, addComment } = commentStore;
 const modalStore = useModalStore();
 const { toggleModal } = modalStore;
 
+const schema = reactive({
+  comment: 'required',
+});
 const submission = ref(false);
 
 const greeting = computed(() =>
@@ -57,7 +60,7 @@ onMounted(() => {
 <template>
   <div class="flex ai:center gap-x:20">
     <span class="fg:white">{{ sortedComments.length }} 則留言</span>
-    <div class="flex:1">
+    <div class="rel flex:1">
       <select
         v-model="commentSort"
         class="block w:full h:60 px:30 fg:white bg:black b:3|solid|transparent rounded outline:0 appearance:none b:#777:focus"
@@ -68,42 +71,43 @@ onMounted(() => {
     </div>
   </div>
   <div class="rel mt:20">
-    <VForm @submit="onSubmit">
-      <VField
-        class="block w:full h:200 p:30 fg:white bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder"
-        :placeholder="greeting"
-        as="textarea"
-        name="comment"
-        rules="required"
-        :disabled="!isLoggedIn"
-      />
-      <div
-        v-if="isLoggedIn"
-        class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
-      >
-        <button
-          class="w:1/2 fg:white bg:white/.1:hover"
-          type="submit"
-          :disabled="submission"
+    <VForm :validation-schema="schema" @submit="onSubmit">
+      <VField v-slot="{ field }" name="comment">
+        <textarea
+          v-bind="field"
+          class="block w:full h:200 p:30 fg:white bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder"
+          type="text"
+          :placeholder="greeting"
+          :disabled="!isLoggedIn"
+        ></textarea>
+        <div
+          v-if="isLoggedIn"
+          class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
         >
-          留言
-        </button>
+          <button
+            class="w:1/2 fg:white bg:white/.1:hover"
+            type="submit"
+            :disabled="submission"
+          >
+            留言
+          </button>
+          <button
+            class="w:1/2 fg:white bg:white/.1:hover"
+            type="reset"
+            :disabled="submission"
+          >
+            取消
+          </button>
+        </div>
         <button
-          class="w:1/2 fg:white bg:white/.1:hover"
-          type="reset"
-          :disabled="submission"
+          v-else
+          class="block w:160 h:60 mt:-30 mx:auto fg:white bg:black b:3|solid|#333 rounded"
+          type="button"
+          @click.prevent="toggleModal"
         >
-          取消
+          登入 / 註冊
         </button>
-      </div>
-      <button
-        v-else
-        class="block w:160 h:60 mt:-30 mx:auto fg:white bg:black b:3|solid|#333 rounded"
-        type="button"
-        @click.prevent="toggleModal"
-      >
-        登入 / 註冊
-      </button>
+      </VField>
     </VForm>
   </div>
   <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:black r:30">

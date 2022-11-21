@@ -47,20 +47,32 @@ async function onSubmit(values) {
           <div>
             <label class="f:bold fg:white f:18@md">歌曲名稱</label>
             <VField
-              class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 b:#777:focus"
-              type="text"
+              v-slot="{ field, errorMessage, meta }"
               name="title"
               label="歌曲名稱"
-            />
-            <ErrorMessage
-              v-slot="{ message }"
-              class="rel flex ai:center gap-x:6 mt:8 f:13 fg:danger"
-              as="div"
-              name="title"
             >
-              <IconAlert />
-              {{ message }}
-            </ErrorMessage>
+              <div class="rel">
+                <input
+                  v-bind="field"
+                  id="registerName"
+                  class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 b:#777:focus"
+                  :class="{ 'b:danger!': !meta.valid && meta.touched }"
+                  type="text"
+                />
+                <div
+                  v-if="!meta.valid && meta.touched"
+                  class="abs top:1/2 right:20 fg:danger translateY(-50%)"
+                >
+                  <IconAlert />
+                </div>
+              </div>
+              <div
+                v-if="!meta.valid && meta.touched"
+                class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
+              >
+                {{ errorMessage }}
+              </div>
+            </VField>
           </div>
           <div class="mt:20">
             <label class="f:bold fg:white f:18@md">曲風</label>

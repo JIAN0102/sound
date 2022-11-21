@@ -1,7 +1,6 @@
 import {
   Form as VForm,
   Field as VField,
-  ErrorMessage,
   defineRule,
   configure,
 } from 'vee-validate';
@@ -13,7 +12,6 @@ export default {
   install(app) {
     app.component('VForm', VForm);
     app.component('VField', VField);
-    app.component('ErrorMessage', ErrorMessage);
 
     defineRule('required', required);
     defineRule('min', min);
@@ -23,6 +21,7 @@ export default {
 
     configure({
       generateMessage: localize({ zh_TW: zhTW }),
+      validateOnInput: true,
     });
 
     setLocale('zh_TW');

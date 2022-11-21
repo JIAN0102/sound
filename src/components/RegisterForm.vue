@@ -5,6 +5,7 @@ import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
 import IconUser from '@/components/icons/IconUser.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
+import IconCheck from '@/components/icons/IconCheck.vue';
 
 const modalStore = useModalStore();
 const { authType } = storeToRefs(modalStore);
@@ -40,83 +41,147 @@ async function onSubmit(values) {
       <label class="f:bold fg:white f:18@md" for="registerName"
         >該如何稱呼你？</label
       >
-      <VField
-        id="registerName"
-        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-        type="text"
-        name="name"
-        label="姓名"
-      />
-      <ErrorMessage
-        v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
-        as="div"
-        name="name"
-      >
-        <IconAlert />
-        {{ message }}
-      </ErrorMessage>
+      <VField v-slot="{ field, errorMessage, meta }" name="name" label="姓名">
+        <div class="rel">
+          <input
+            v-bind="field"
+            id="registerName"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
+            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            type="text"
+          />
+          <div
+            v-if="!meta.valid && meta.touched"
+            class="abs top:1/2 right:20 fg:danger translateY(-50%)"
+          >
+            <IconAlert />
+          </div>
+          <div
+            v-if="meta.valid && meta.touched && meta.dirty"
+            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+          >
+            <IconCheck />
+          </div>
+        </div>
+        <div
+          v-if="!meta.valid && meta.touched"
+          class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
+        >
+          {{ errorMessage }}
+        </div>
+      </VField>
     </div>
     <div class="mt:20">
       <label class="f:bold fg:white f:18@md" for="registerEmail"
         >你的電子郵件是什麼？</label
       >
       <VField
-        id="registerEmail"
-        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-        type="email"
+        v-slot="{ field, errorMessage, meta }"
         name="email"
         label="電子郵件"
-      />
-      <ErrorMessage
-        v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
-        as="div"
-        name="email"
       >
-        <IconAlert />
-        {{ message }}
-      </ErrorMessage>
+        <div class="rel">
+          <input
+            v-bind="field"
+            id="registerEmail"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
+            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            type="email"
+          />
+          <div
+            v-if="!meta.valid && meta.touched"
+            class="abs top:1/2 right:20 fg:danger translateY(-50%)"
+          >
+            <IconAlert />
+          </div>
+          <div
+            v-if="meta.valid && meta.touched && meta.dirty"
+            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+          >
+            <IconCheck />
+          </div>
+        </div>
+        <div
+          v-if="!meta.valid && meta.touched"
+          class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
+        >
+          {{ errorMessage }}
+        </div>
+      </VField>
     </div>
     <div class="mt:20">
       <label class="f:bold fg:white f:18@md" for="registerPassword">密碼</label>
       <VField
-        id="registerPassword"
-        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-        type="password"
+        v-slot="{ field, errorMessage, meta }"
         name="password"
         label="密碼"
-      />
-      <ErrorMessage
-        v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
-        as="div"
-        name="password"
       >
-        <IconAlert />
-        {{ message }}
-      </ErrorMessage>
+        <div class="rel">
+          <input
+            v-bind="field"
+            id="registerPassword"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
+            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            type="password"
+          />
+          <div
+            v-if="!meta.valid && meta.touched"
+            class="abs top:1/2 right:20 fg:danger translateY(-50%)"
+          >
+            <IconAlert />
+          </div>
+          <div
+            v-if="meta.valid && meta.touched && meta.dirty"
+            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+          >
+            <IconCheck />
+          </div>
+        </div>
+        <div
+          v-if="!meta.valid && meta.touched"
+          class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
+        >
+          {{ errorMessage }}
+        </div>
+      </VField>
     </div>
     <div class="mt:20">
       <label class="f:bold fg:white f:18@md" for="registerConfirmPassword"
         >確認密碼</label
       >
       <VField
-        id="registerConfirmPassword"
-        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-        type="password"
+        v-slot="{ field, errorMessage, meta }"
         name="confirmPassword"
         label="密碼"
-      />
-      <ErrorMessage
-        v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
-        as="div"
-        name="confirmPassword"
       >
-        <IconAlert />
-        {{ message }}
-      </ErrorMessage>
+        <div class="rel">
+          <input
+            v-bind="field"
+            id="registerConfirmPassword"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
+            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            type="password"
+          />
+          <div
+            v-if="!meta.valid && meta.touched"
+            class="abs top:1/2 right:20 fg:danger translateY(-50%)"
+          >
+            <IconAlert />
+          </div>
+          <div
+            v-if="meta.valid && meta.touched && meta.dirty"
+            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+          >
+            <IconCheck />
+          </div>
+        </div>
+        <div
+          v-if="!meta.valid && meta.touched"
+          class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
+        >
+          {{ errorMessage }}
+        </div>
+      </VField>
     </div>
     <button
       class="group rel w:full mt:40 {pointer-events:none}:disabled"

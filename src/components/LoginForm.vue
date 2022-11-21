@@ -36,41 +36,59 @@ async function onSubmit(values) {
   <VForm :validation-schema="schema" @submit="onSubmit">
     <div>
       <label class="f:bold fg:white f:18@md" for="loginEmail">電子郵件</label>
-      <VField
-        id="loginEmail"
-        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-        type="email"
-        name="email"
-        label="電子郵件"
-      />
-      <ErrorMessage
-        v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
-        as="div"
-        name="email"
-      >
-        <IconAlert />
-        {{ message }}
-      </ErrorMessage>
+      <VField v-slot="{ field, errorMessage, meta }" name="email" label="姓名">
+        <div class="rel">
+          <input
+            v-bind="field"
+            id="loginEmail"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
+            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            type="email"
+          />
+          <div
+            v-if="!meta.valid && meta.touched"
+            class="abs top:1/2 right:20 fg:danger translateY(-50%)"
+          >
+            <IconAlert />
+          </div>
+        </div>
+        <div
+          v-if="!meta.valid && meta.touched"
+          class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
+        >
+          {{ errorMessage }}
+        </div>
+      </VField>
     </div>
     <div class="mt:20">
       <label class="f:bold fg:white f:18@md" for="loginPassword">密碼</label>
       <VField
-        id="loginPassword"
-        class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-        type="password"
+        v-slot="{ field, errorMessage, meta }"
         name="password"
         label="密碼"
-      />
-      <ErrorMessage
-        v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
-        as="div"
-        name="password"
       >
-        <IconAlert />
-        {{ message }}
-      </ErrorMessage>
+        <div class="rel">
+          <input
+            v-bind="field"
+            id="loginPassword"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
+            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            type="password"
+          />
+          <div
+            v-if="!meta.valid && meta.touched"
+            class="abs top:1/2 right:20 fg:danger translateY(-50%)"
+          >
+            <IconAlert />
+          </div>
+        </div>
+        <div
+          v-if="errorMessage"
+          class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
+        >
+          {{ errorMessage }}
+        </div>
+      </VField>
     </div>
     <button
       class="group rel w:full mt:40 {pointer-events:none}:disabled"
