@@ -23,7 +23,6 @@ export const useUserStore = defineStore('user', () => {
       name,
       email,
     });
-
     await updateProfile(userCredential.user, {
       displayName: name,
     });

@@ -7,6 +7,8 @@ import { zhTW } from 'date-fns/locale';
 import { doc, getDoc } from 'firebase/firestore';
 import { songsCollection } from '@/plugins/firebase';
 import { usePlayerStore } from '@/stores/player';
+import IconPlay from '@/components/icons/IconPlay.vue';
+import IconPause from '@/components/icons/IconPause.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -74,33 +76,18 @@ onMounted(async () => {
     ></div>
     <div class="rel flex center-content h:60">
       <div
-        class="abs top:1/2 left:10 flex center-content w:40 h:40 bg:black rounded translateY(-50%)"
+        class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black rounded translateY(-50%)"
       >
-        <img
-          v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
-          class="w:18"
-          src="/assets/img/icon-play.svg"
-          alt=""
-        />
-        <img
-          v-show="song.uuid === currentSong.uuid && isSoundPlaying"
-          class="w:18"
-          src="/assets/img/icon-pause.svg"
-          alt=""
-        />
+        <IconPause v-if="song.uuid === currentSong.uuid && isSoundPlaying" />
+        <IconPlay v-else />
       </div>
       <h4
-        v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
-        class="f:bold"
-      >
-        播放
-      </h4>
-      <h4
-        v-show="song.uuid === currentSong.uuid && isSoundPlaying"
+        v-if="song.uuid === currentSong.uuid && isSoundPlaying"
         class="f:bold"
       >
         暫停
       </h4>
+      <h4 v-else class="f:bold">播放</h4>
     </div>
   </button>
 </template>

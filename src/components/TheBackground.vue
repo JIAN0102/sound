@@ -7,7 +7,7 @@ import { usePlayerStore } from '@/stores/player';
 const playerStore = usePlayerStore();
 const { isSoundPlaying } = storeToRefs(playerStore);
 
-const character = ref(null);
+const characterRef = ref(null);
 const rotateCDAnime = ref(null);
 
 watch(
@@ -30,7 +30,7 @@ watch(
 
 onMounted(() => {
   rotateCDAnime.value = gsap
-    .to(character.value, {
+    .to(characterRef.value, {
       rotation: 360,
       duration: 0.75,
       ease: 'none',
@@ -47,7 +47,7 @@ onMounted(() => {
     ></div>
 
     <div
-      class="abs top:1/2 left:1/2 w:150% opacity:.04 translate(-50%,-50%)|rotate(-12.5) {h:30vh;bg:url('/assets/img/sound-text.svg');background-size:auto|100%}>div @scroll|25s|linear|infinite>div:odd @scroll|25s|linear|infinite|reverse>div:even"
+      class="abs top:1/2 left:1/2 w:120% opacity:.04 translate(-50%,-50%)|rotate(-12.5) {h:30vh;bg:url('/assets/img/sound-text.svg');background-size:auto|100%}>div @scroll|25s|linear|infinite>div:odd @scroll|25s|linear|infinite|reverse>div:even"
     >
       <div></div>
       <div></div>
@@ -60,7 +60,7 @@ onMounted(() => {
       class="abs top:15% bottom:-15% left:1/2 translateX(-50%) bottom:-40%@xs bottom:-60%@md"
     >
       <img
-        ref="character"
+        ref="characterRef"
         class="h:full"
         src="/assets/img/cd-character.png"
         alt="Character"

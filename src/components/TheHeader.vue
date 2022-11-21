@@ -4,6 +4,9 @@ import { RouterLink, useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
+import IconUser from '@/components/icons/IconUser.vue';
+import IconUpload from '@/components/icons/IconUpload.vue';
+import IconLogout from '@/components/icons/IconLogout.vue';
 
 const route = useRoute();
 
@@ -49,9 +52,9 @@ watch(
         ></div>
         <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:30">
           <div
-            class="flex center-content w:32 h:32 bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
+            class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
           >
-            <img class="w:20" src="/assets/img/icon-user.svg" alt="" />
+            <IconUser />
           </div>
           <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}"
             >登入 / 註冊</span
@@ -69,9 +72,9 @@ watch(
             ></div>
             <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:30">
               <div
-                class="flex center-content w:32 h:32 bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
+                class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
               >
-                <img class="w:18" src="/assets/img/icon-setting.svg" alt="" />
+                <IconUpload />
               </div>
               <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}">
                 上傳歌曲</span
@@ -81,22 +84,21 @@ watch(
         </li>
         <li>
           <button
-            class="flex center-content w:60 h:60 bg:black round"
+            class="flex center-content w:60 h:60 fg:white bg:black round"
             type="button"
             @click.prevent="handleClick"
           >
-            <img src="/assets/img/icon-logout.svg" alt="" />
+            <IconLogout />
           </button>
         </li>
       </ul>
     </nav>
 
     <button
-      class="rel flex flex:col center-content w:48 h:36 pointer-events:auto bg:black rounded hide@md {block;w:8;h:2;bg:white}>span mt:3>span~span"
+      class="rel flex flex:col center-content w:40 h:40 pointer-events:auto hide@md {block;w:40;h:1;bg:white}>span mt:5>span~span"
       type="button"
       @click.prevent="isMenuOpen = !isMenuOpen"
     >
-      <span></span>
       <span></span>
       <span></span>
     </button>

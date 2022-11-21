@@ -3,6 +3,8 @@ import { ref, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
+import IconUser from '@/components/icons/IconUser.vue';
+import IconAlert from '@/components/icons/IconAlert.vue';
 
 const modalStore = useModalStore();
 const { authType } = storeToRefs(modalStore);
@@ -43,18 +45,16 @@ async function onSubmit(values) {
         class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="text"
         name="name"
+        label="姓名"
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
         as="div"
         name="name"
       >
-        <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
-          >!</span
-        >
-        <p class="f:13 fg:danger">{{ message }}</p>
+        <IconAlert />
+        {{ message }}
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -66,18 +66,16 @@ async function onSubmit(values) {
         class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="email"
         name="email"
+        label="電子郵件"
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
         as="div"
         name="email"
       >
-        <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
-          >!</span
-        >
-        <p class="f:13 fg:danger">{{ message }}</p>
+        <IconAlert />
+        {{ message }}
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -87,18 +85,16 @@ async function onSubmit(values) {
         class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="password"
         name="password"
+        label="密碼"
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
         as="div"
         name="password"
       >
-        <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
-          >!</span
-        >
-        <p class="f:13 fg:danger">{{ message }}</p>
+        <IconAlert />
+        {{ message }}
       </ErrorMessage>
     </div>
     <div class="mt:20">
@@ -110,18 +106,16 @@ async function onSubmit(values) {
         class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
         type="password"
         name="confirmPassword"
+        label="密碼"
       />
       <ErrorMessage
         v-slot="{ message }"
-        class="flex ai:center gap-x:6 mt:8"
+        class="flex ai:center gap-x:6 mt:8 f:13 fg:danger"
         as="div"
         name="confirmPassword"
       >
-        <span
-          class="flex center-content w:16 h:16 f:12 fg:white bg:danger round"
-          >!</span
-        >
-        <p class="f:13 fg:danger">{{ message }}</p>
+        <IconAlert />
+        {{ message }}
       </ErrorMessage>
     </div>
     <button
@@ -134,9 +128,9 @@ async function onSubmit(values) {
       ></div>
       <div class="rel flex center-content h:60">
         <div
-          class="abs top:1/2 left:10 flex center-content w:40 h:40 bg:black round translateY(-50%)"
+          class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black round translateY(-50%)"
         >
-          <img class="w:20" src="/assets/img/icon-user.svg" alt="" />
+          <IconUser />
         </div>
         <span class="f:bold f:18">註冊</span>
       </div>

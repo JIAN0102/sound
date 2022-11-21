@@ -21,20 +21,8 @@ export default {
     defineRule('email', email);
     defineRule('confirmed', confirmed);
 
-    localize({ zh_TW: zhTW });
-
     configure({
-      generateMessage: localize('zh_TW', {
-        names: {
-          name: '姓名',
-          email: '電子郵件',
-          password: '密碼',
-          confirmPassword: '密碼',
-          modifiedName: '歌曲名稱',
-          comment: '評論',
-        },
-      }),
-      classes: true,
+      generateMessage: localize({ zh_TW: zhTW }),
     });
 
     setLocale('zh_TW');

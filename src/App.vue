@@ -15,10 +15,13 @@ import AuthModal from '@/components/AuthModal.vue';
 const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
 
+const isNewPage = ref(false);
 const theLoadingRef = ref(null);
 const theTransitionRef = ref(null);
 
 function onEnter(el, done) {
+  if (!isNewPage.value) return;
+
   const {
     transitionRef,
     transitionOverlayRef,
@@ -51,6 +54,8 @@ function onEnter(el, done) {
 }
 
 function onLeave(el, done) {
+  isNewPage.value = true;
+
   const {
     transitionRef,
     transitionOverlayRef,

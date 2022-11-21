@@ -16,9 +16,9 @@ const { toggleModal } = modalStore;
       v-if="isModalOpen"
       class="fixed inset:0 z:1000 overflow-x:hidden overflow-y:auto bg:repeating-linear-gradient(40deg,white/.15,white/.15|3px,white/.05|3px,white/.05|8px) bd:blur(7.5)"
     >
-      <div class="flex ai:center max-w:600 min-h:calc(100%-80px) m:40|auto">
+      <div class="flex ai:center max-w:600 min-h:calc(100%-120px) m:60|auto">
         <div
-          class="rel w:full translateY(0) ~transform|.5s :is(.fade-enter-from,.fade-leave-to)_{translateY(15%)}"
+          class="rel w:full ~transform|.5s :is(.fade-enter-from,.fade-leave-to)_{translateY(15%)}"
         >
           <button
             class="abs top:20 right:20 z:10 w:40 h:40 b:3|solid|#333 round {top:30;right:30}@md {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"

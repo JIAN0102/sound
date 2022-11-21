@@ -6,6 +6,7 @@ import { zhTW } from 'date-fns/locale';
 import { useUserStore } from '@/stores/user';
 import { useCommentStore } from '@/stores/comment';
 import { auth } from '@/plugins/firebase';
+import IconDelete from '@/components/icons/IconDelete.vue';
 
 const props = defineProps({
   comment: {
@@ -32,11 +33,11 @@ const formattedTime = computed(() => {
   <li class="rel py:15">
     <button
       v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
-      class="abs top:10 right:0"
+      class="abs top:10 right:0 fg:white"
       type="button"
       @click.prevent="deleteComment(comment.docID)"
     >
-      <img src="/assets/img/icon-delete.svg" alt="" />
+      <IconDelete />
     </button>
     <div class="flex ai:flex-end gap-x:8">
       <h3 class="f:bold fg:white f:18@md">{{ comment.name }}</h3>

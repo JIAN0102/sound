@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
+import IconVolume from '@/components/icons/IconVolume.vue';
+import IconMuted from '@/components/icons/IconMuted.vue';
 
 const playerStore = usePlayerStore();
 const { volume } = storeToRefs(playerStore);
@@ -82,9 +84,9 @@ function onDragEnd() {
       class="abs top:0 left:0 h:full bg:#333 transform:left"
       :style="{ width: `${volume * 100}%` }"
     ></div>
-    <div class="abs top:1/2 left:20 w:24 h:24 translateY(-50%)">
-      <img v-show="volume === 0" src="/assets/img/icon-muted.svg" alt="" />
-      <img v-show="volume !== 0" src="/assets/img/icon-volume.svg" alt="" />
+    <div class="abs top:1/2 left:20 w:24 h:24 fg:white translateY(-50%)">
+      <IconMuted v-if="volume === 0" />
+      <IconVolume v-else />
     </div>
   </div>
 </template>

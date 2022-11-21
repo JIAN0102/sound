@@ -2,6 +2,8 @@
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
+import IconPlay from '@/components/icons/IconPlay.vue';
+import IconPause from '@/components/icons/IconPause.vue';
 
 const props = defineProps({
   song: {
@@ -35,22 +37,12 @@ function handleClick() {
       class="rel flex jc:space-between ai:center gap-x:20 h:80 pl:10 pr:30 bg:#333 rounded"
     >
       <button
-        class="flex center-content w:60 h:60 bg:black rounded"
+        class="flex center-content w:60 h:60 fg:white bg:black rounded"
         type="button"
         @click.prevent="createSong(song)"
       >
-        <div
-          v-show="song.uuid !== currentSong.uuid || !isSoundPlaying"
-          class="f:12 fg:white"
-        >
-          <img src="/assets/img/icon-play.svg" alt="" />
-        </div>
-        <div
-          v-show="song.uuid === currentSong.uuid && isSoundPlaying"
-          class="f:12 fg:white"
-        >
-          <img src="/assets/img/icon-pause.svg" alt="" />
-        </div>
+        <IconPause v-if="song.uuid === currentSong.uuid && isSoundPlaying" />
+        <IconPlay v-else />
       </button>
       <div
         class="flex:1 lines:1 cursor:pointer"
