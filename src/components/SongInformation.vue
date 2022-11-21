@@ -19,7 +19,7 @@ const { createSong } = playerStore;
 
 const song = ref({});
 
-const formattedTime = computed(() => {
+const formattedCreatedAt = computed(() => {
   if (!song.value.createdAt) return;
 
   return formatDistanceToNow(song.value.createdAt.toDate(), {
@@ -44,25 +44,25 @@ onMounted(async () => {
 
 <template>
   <h1 class="f:bold f:24 fg:white t:center f:28@md">
-    {{ song.modifiedName }}
+    {{ song.title }}
   </h1>
   <div
     class="rel grid-cols:3 mt:20 t:center mt:30@md {content:'';abs;top:1/2;left:0;w:3;h:30;bg:#777;translateY(-50%)}>div~div::before"
   >
     <div class="rel">
-      <span class="f:12 fg:#777 f:16@md">曲風</span>
-      <h3 class="mt:4 f:bold fg:white f:24@md">{{ song.genre }}</h3>
+      <span class="f:12 fg:#777 f:14@md">曲風</span>
+      <h3 class="mt:4 f:bold fg:white f:20@md">{{ song.genre }}</h3>
     </div>
     <div class="rel">
-      <span class="f:12 fg:#777 f:16@md">上傳者</span>
-      <h3 class="mt:4 f:bold fg:white f:24@md">
+      <span class="f:12 fg:#777 f:14@md">上傳者</span>
+      <h3 class="mt:4 f:bold fg:white f:20@md">
         {{ song.displayName }}
       </h3>
     </div>
     <div class="rel">
-      <span class="f:12 fg:#777 f:16@md">上傳時間</span>
-      <h3 class="mt:4 f:bold fg:white f:24@md">
-        {{ formattedTime }}
+      <span class="f:12 fg:#777 f:14@md">上傳時間</span>
+      <h3 class="mt:4 f:bold fg:white f:20@md">
+        {{ formattedCreatedAt }}
       </h3>
     </div>
   </div>

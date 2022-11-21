@@ -84,7 +84,7 @@ function onDragEnd() {
       class="abs top:0 left:0 h:full bg:#333 transform:left"
       :style="{ width: `${volume * 100}%` }"
     ></div>
-    <div class="abs top:1/2 left:20 w:24 h:24 fg:white translateY(-50%)">
+    <div class="abs top:1/2 left:20 fg:white translateY(-50%)">
       <IconMuted v-if="volume === 0" />
       <IconVolume v-else />
     </div>

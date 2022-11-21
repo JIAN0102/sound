@@ -34,7 +34,7 @@ export const useSongStore = defineStore('song', () => {
     await updateDoc(doc(songsCollection, docID), values);
 
     const index = songs.value.findIndex((song) => song.docID === docID);
-    songs.value[index].modifiedName = values.modifiedName;
+    songs.value[index].title = values.title;
     songs.value[index].genre = values.genre;
   }
 

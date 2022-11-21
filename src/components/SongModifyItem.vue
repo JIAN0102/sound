@@ -16,7 +16,7 @@ const songStore = useSongStore();
 const { editSong, deleteSong } = songStore;
 
 const schema = reactive({
-  modifiedName: 'required',
+  title: 'required',
 });
 const isEditFormOpen = ref(false);
 const submission = ref(false);
@@ -49,14 +49,14 @@ async function onSubmit(values) {
             <VField
               class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 b:#777:focus"
               type="text"
-              name="modifiedName"
+              name="title"
               label="歌曲名稱"
             />
             <ErrorMessage
               v-slot="{ message }"
               class="rel flex ai:center gap-x:6 mt:8 f:13 fg:danger"
               as="div"
-              name="modifiedName"
+              name="title"
             >
               <IconAlert />
               {{ message }}
@@ -107,8 +107,8 @@ async function onSubmit(values) {
       class="flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
     >
       <div class="flex:1 lines:1">
-        <h3 class="f:bold fg:white f:18@md" :title="song.modifiedName">
-          {{ song.modifiedName }}
+        <h3 class="f:bold fg:white f:18@md" :title="song.title">
+          {{ song.title }}
         </h3>
       </div>
       <div

@@ -24,9 +24,9 @@ function onEnter(el, done) {
 
   const {
     transitionRef,
-    transitionOverlayRef,
-    transitionArrowFrontRef,
-    transitionArrowBackRef,
+    transitionBackgroundRef,
+    transitionArrowRef,
+    transitionSlashRef,
   } = theTransitionRef.value;
 
   const tl = gsap.timeline({
@@ -38,19 +38,32 @@ function onEnter(el, done) {
     },
   });
 
-  tl.set(transitionOverlayRef, {
-    x: '0',
+  tl.set([transitionBackgroundRef, transitionSlashRef], {
+    opacity: 1,
   })
-    .set(transitionArrowFrontRef, {
-      x: '100%',
+    .set(transitionArrowRef, {
+      x: '-33.33333%',
     })
-    .set(transitionArrowBackRef, {
-      x: '-100%',
+    .to(transitionBackgroundRef, {
+      opacity: 0,
+      duration: 0.5,
     })
-    .to([transitionOverlayRef, transitionArrowBackRef], {
-      x: '100%',
-      duration: 0.85,
-    });
+    .to(
+      transitionArrowRef,
+      {
+        x: '33.33333%',
+        duration: 1,
+      },
+      0
+    )
+    .to(
+      transitionSlashRef,
+      {
+        opacity: 0,
+        duration: 0.5,
+      },
+      0.25
+    );
 }
 
 function onLeave(el, done) {
@@ -58,9 +71,9 @@ function onLeave(el, done) {
 
   const {
     transitionRef,
-    transitionOverlayRef,
-    transitionArrowFrontRef,
-    transitionArrowBackRef,
+    transitionBackgroundRef,
+    transitionArrowRef,
+    transitionSlashRef,
   } = theTransitionRef.value;
 
   const tl = gsap.timeline({
@@ -73,21 +86,21 @@ function onLeave(el, done) {
   tl.set(transitionRef, {
     autoAlpha: 1,
   })
-    .set(
-      [transitionOverlayRef, transitionArrowFrontRef, transitionArrowBackRef],
-      {
-        x: '-100%',
-      }
-    )
-    .to(transitionOverlayRef, {
-      x: 0,
-      duration: 0.85,
+    .set([transitionBackgroundRef, transitionSlashRef], {
+      opacity: 0,
+    })
+    .set(transitionArrowRef, {
+      x: '-100%',
+    })
+    .to([transitionBackgroundRef, transitionSlashRef], {
+      opacity: 1,
+      duration: 0.5,
     })
     .to(
-      transitionArrowFrontRef,
+      transitionArrowRef,
       {
-        x: '100%',
-        duration: 0.85,
+        x: '-33.33333%',
+        duration: 1,
       },
       0
     );

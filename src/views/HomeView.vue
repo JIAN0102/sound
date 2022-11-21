@@ -39,17 +39,13 @@ async function getSongs() {
     );
     const q = query(
       songsCollection,
-      orderBy('modifiedName'),
+      orderBy('title'),
       startAfter(lastDoc),
       limit(perPage.value)
     );
     snapshots = await getDocs(q);
   } else {
-    const q = query(
-      songsCollection,
-      orderBy('modifiedName'),
-      limit(perPage.value)
-    );
+    const q = query(songsCollection, orderBy('title'), limit(perPage.value));
     snapshots = await getDocs(q);
   }
 
@@ -76,7 +72,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="p:60|20|100 mt:100vh bg:black rt:40 {px:80;rt:60}@md">
     <div
-      class="grid-cols:1 gap-y:20 {grid-cols:9;gap:40}@xs grid-cols:13@lg grid-col-start:2>div:nth(4n+3)@xs&<lg grid-col-start:2>div:nth(6n+4)@lg"
+      class="grid-cols:1 gap-y:20 {grid-cols:13;gap:40}@sm grid-col-start:2>div:nth(4n+3)@sm&<lg grid-col-start:2>div:nth(6n+4)@lg"
     >
       <SongItem v-for="song in songs" :key="song.docID" :song="song" />
     </div>

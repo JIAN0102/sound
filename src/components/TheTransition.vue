@@ -1,97 +1,77 @@
 <script setup>
 import { ref } from 'vue';
+import IconTransitionArrow from '@/components/icons/IconTransitionArrow.vue';
 
 const transitionRef = ref(null);
-const transitionOverlayRef = ref(null);
-const transitionArrowFrontRef = ref(null);
-const transitionArrowBackRef = ref(null);
+const transitionBackgroundRef = ref(null);
+const transitionArrowRef = ref(null);
+const transitionSlashRef = ref(null);
 
 defineExpose({
   transitionRef,
-  transitionOverlayRef,
-  transitionArrowFrontRef,
-  transitionArrowBackRef,
+  transitionBackgroundRef,
+  transitionArrowRef,
+  transitionSlashRef,
 });
 </script>
 
 <template>
   <div ref="transitionRef" class="fixed inset:0 z:1001 opacity:0 invisible">
-    <div ref="transitionOverlayRef" class="abs inset:0 bg:black"></div>
-    <div
-      ref="transitionArrowFrontRef"
-      class="abs inset:0 bg:black {abs;top:0;w:50%;h:full}>svg"
-    >
-      <svg
-        class="right:0"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1080 1080"
-        preserveAspectRatio="none"
-      >
-        <polygon
-          points="900,0 0,0 180,540 0,1080 900,1080 1080,540"
-          fill="#565656"
-        />
-      </svg>
-      <svg
-        class="left:1/2 translateX(-50%)"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1080 1080"
-        preserveAspectRatio="none"
-      >
-        <polygon
-          points="900,0 0,0 180,540 0,1080 900,1080 1080,540"
-          fill="#232323"
-        />
-      </svg>
-      <svg
-        class="left:0"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1080 1080"
-        preserveAspectRatio="none"
-      >
-        <polygon
-          points="900,0 0,0 180,540 0,1080 900,1080 1080,540"
-          fill="#0f0f0f"
-        />
-      </svg>
+    <div ref="transitionBackgroundRef" class="abs inset:0 bg:#0f0f0f"></div>
+    <div ref="transitionArrowRef" class="abs top:0 left:0 w:300% h:full">
+      <div
+        class="abs top:0 left:1/2 w:2/3 h:full bg:#0f0f0f translateX(-50%)"
+      ></div>
+      <div class="abs top:0 right:0 w:1/3 h:full {abs;top:0;w:50%;h:full}>div">
+        <div class="right:0">
+          <IconTransitionArrow
+            :width="'100%'"
+            :height="'100%'"
+            :color="'#565656'"
+          />
+        </div>
+        <div class="left:1/2 translateX(-50%)">
+          <IconTransitionArrow
+            :width="'100%'"
+            :height="'100%'"
+            :color="'#232323'"
+          />
+        </div>
+        <div class="left:0">
+          <IconTransitionArrow
+            :width="'100%'"
+            :height="'100%'"
+            :color="'#0f0f0f'"
+          />
+        </div>
+      </div>
+      <div class="abs top:0 left:0 w:1/3 h:full {abs;top:0;w:50%;h:full}>div">
+        <div class="right:0">
+          <IconTransitionArrow
+            :width="'100%'"
+            :height="'100%'"
+            :color="'#0f0f0f'"
+          />
+        </div>
+        <div class="left:1/2 translateX(-50%)">
+          <IconTransitionArrow
+            :width="'100%'"
+            :height="'100%'"
+            :color="'#232323'"
+          />
+        </div>
+        <div class="left:0">
+          <IconTransitionArrow
+            :width="'100%'"
+            :height="'100%'"
+            :color="'#565656'"
+          />
+        </div>
+      </div>
     </div>
     <div
-      ref="transitionArrowBackRef"
-      class="abs inset:0 bg:black {abs;top:0;w:50%;h:full}>svg"
-    >
-      <svg
-        class="right:0"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1080 1080"
-        preserveAspectRatio="none"
-      >
-        <polygon
-          points="900,0 0,0 180,540 0,1080 900,1080 1080,540"
-          fill="#0f0f0f"
-        />
-      </svg>
-      <svg
-        class="left:1/2 translateX(-50%)"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1080 1080"
-        preserveAspectRatio="none"
-      >
-        <polygon
-          points="900,0 0,0 180,540 0,1080 900,1080 1080,540"
-          fill="#232323"
-        />
-      </svg>
-      <svg
-        class="left:0"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1080 1080"
-        preserveAspectRatio="none"
-      >
-        <polygon
-          points="900,0 0,0 180,540 0,1080 900,1080 1080,540"
-          fill="#565656"
-        />
-      </svg>
-    </div>
+      ref="transitionSlashRef"
+      class="abs inset:0 bg:repeating-linear-gradient(40deg,#0f0f0f,#0f0f0f|3px,transparent|3px,transparent|8px)"
+    ></div>
   </div>
 </template>

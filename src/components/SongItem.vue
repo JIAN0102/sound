@@ -32,7 +32,7 @@ function handleClick() {
 </script>
 
 <template>
-  <div class="grid-col-span:4@xs">
+  <div class="grid-col-span:6@sm grid-col-span:4@lg">
     <div
       class="rel flex jc:space-between ai:center gap-x:20 h:80 pl:10 pr:30 bg:#333 rounded"
     >
@@ -46,11 +46,11 @@ function handleClick() {
       </button>
       <div
         class="flex:1 lines:1 cursor:pointer"
-        :title="song.modifiedName"
+        :title="song.title"
         @click.prevent="handleClick"
       >
         <h3 class="f:bold fg:white f:18@md">
-          {{ song.modifiedName }}
+          {{ song.title }}
         </h3>
       </div>
     </div>

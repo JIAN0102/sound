@@ -56,7 +56,7 @@ function uploadFile(event) {
           uuid: uploadTask.snapshot.ref.name,
           uid: auth.currentUser.uid,
           displayName: auth.currentUser.displayName,
-          modifiedName: file.name.replace(/\.[^/\\.]+$/, ''),
+          title: file.name.replace(/\.[^/\\.]+$/, ''),
           genre: '無',
         };
         song.url = await getDownloadURL(uploadTask.snapshot.ref);

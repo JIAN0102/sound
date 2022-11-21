@@ -95,8 +95,8 @@ function onDragEnd() {
     >
       <span class="hide@<md">{{ formatTime(seek) }}</span>
       <div class="flex:1 t:center lines:1">
-        <h2 v-if="currentSong.modifiedName">
-          {{ currentSong.modifiedName }}
+        <h2 v-if="currentSong.title">
+          {{ currentSong.title }}
         </h2>
         <h2 v-else>尚無播放的曲目</h2>
       </div>
