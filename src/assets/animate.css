@@ -3,7 +3,7 @@
     background-position: 0 0;
   }
   100% {
-    background-position: -186vh 0;
+    background-position: -410vh 0;
   }
 }
 
@@ -23,6 +23,33 @@
   70% {
     width: 100%;
     height: 100%;
+  }
+}
+
+@keyframes rotate{
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes backgorundColor {
+  0% {
+    background-color: #fff645;
+  }
+  25% {
+    background-color: #fd9d02;
+  }
+  50% {
+    background-color: #fff645;
+  }
+  75% {
+    background-color: #fd9d02;
+  }
+  100% {
+    background-color: #fff645;
   }
 }
 

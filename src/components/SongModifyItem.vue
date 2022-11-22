@@ -1,9 +1,11 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { useSongStore } from '@/stores/song';
+import IconLoading from '@/components/icons/IconLoading.vue';
 import IconEdit from '@/components/icons/IconEdit.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
+import IconSelectArrow from '@/components/icons/IconSelectArrow.vue';
 
 const props = defineProps({
   song: {
@@ -20,6 +22,7 @@ const schema = reactive({
 });
 const isEditFormOpen = ref(false);
 const submission = ref(false);
+const isPending = ref(false);
 
 async function onSubmit(values) {
   submission.value = true;
@@ -30,8 +33,18 @@ async function onSubmit(values) {
     console.log(err);
   }
 
-  isEditFormOpen.value = false;
-  submission.value = false;
+  setTimeout(() => {
+    isEditFormOpen.value = false;
+    submission.value = false;
+  }, 500);
+}
+
+function handleClick(docID, uuid) {
+  isPending.value = true;
+  setTimeout(async () => {
+    await deleteSong(docID, uuid);
+    isPending.value = false;
+  }, 500);
 }
 </script>
 
@@ -76,20 +89,25 @@ async function onSubmit(values) {
           </div>
           <div class="mt:20">
             <label class="f:bold fg:white f:18@md">曲風</label>
-            <VField
-              class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 appearance:none b:#777:focus"
-              as="select"
-              name="genre"
-            >
-              <option value="無">無</option>
-              <option value="流行">流行</option>
-              <option value="搖滾">搖滾</option>
-              <option value="饒舌">饒舌</option>
-              <option value="古典">古典</option>
-              <option value="藍調">藍調</option>
-              <option value="爵士">爵士</option>
-              <option value="鄉村">鄉村</option>
-            </VField>
+            <div class="rel">
+              <VField
+                class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 appearance:none b:#777:focus"
+                as="select"
+                name="genre"
+              >
+                <option value="無">無</option>
+                <option value="流行">流行</option>
+                <option value="搖滾">搖滾</option>
+                <option value="饒舌">饒舌</option>
+                <option value="古典">古典</option>
+                <option value="藍調">藍調</option>
+                <option value="爵士">爵士</option>
+                <option value="鄉村">鄉村</option>
+              </VField>
+              <div class="abs top:1/2 right:24 fg:white translateY(-50%)">
+                <IconSelectArrow :width="16" :height="16" />
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -100,7 +118,8 @@ async function onSubmit(values) {
             type="submit"
             :disabled="submission"
           >
-            確定
+            <IconLoading v-if="submission" />
+            <span v-else>確定</span>
           </button>
           <button
             class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
@@ -136,9 +155,10 @@ async function onSubmit(values) {
         <button
           class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
           type="button"
-          @click.prevent="deleteSong(song.docID, song.uuid)"
+          @click.prevent="handleClick(song.docID, song.uuid)"
         >
-          <IconDelete />
+          <IconLoading v-if="isPending" />
+          <IconDelete v-else />
         </button>
       </div>
     </div>

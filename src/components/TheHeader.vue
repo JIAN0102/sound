@@ -47,8 +47,11 @@ watch(
         type="button"
         @click.prevent="toggleModal"
       >
-        <div
+        <!-- <div
           class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded opacity:0 translate(-50%,-50%) ~opacity|.2s .group:hover_{opacity:1;animation:bounce|1s|infinite}"
+        ></div> -->
+        <div
+          class="abs inset:0 rounded @backgorundColor|2s|linear|infinite opacity:0 ~opacity|.3s .group:hover_{opacity:1}"
         ></div>
         <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:30">
           <div
@@ -67,8 +70,11 @@ watch(
             class="group rel block bg:black rounded"
             :to="{ name: 'manage' }"
           >
-            <div
+            <!-- <div
               class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded opacity:0 translate(-50%,-50%) ~opacity|.2s .group:hover_{opacity:1;animation:bounce|1s|infinite}"
+            ></div> -->
+            <div
+              class="abs inset:0 rounded @backgorundColor|2s|linear|infinite opacity:0 ~opacity|.3s .group:hover_{opacity:1}"
             ></div>
             <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:30">
               <div

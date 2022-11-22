@@ -44,20 +44,20 @@ function onEnter(el, done) {
     .set(transitionArrowRef, {
       x: '-33.33333%',
     })
-    .to(transitionBackgroundRef, {
-      opacity: 0,
-      duration: 0.5,
+    .to(transitionArrowRef, {
+      x: '33.33333%',
+      duration: 0.75,
     })
     .to(
-      transitionArrowRef,
+      transitionSlashRef,
       {
-        x: '33.33333%',
-        duration: 1,
+        opacity: 0,
+        duration: 0.5,
       },
       0
     )
     .to(
-      transitionSlashRef,
+      transitionBackgroundRef,
       {
         opacity: 0,
         duration: 0.5,
@@ -100,7 +100,7 @@ function onLeave(el, done) {
       transitionArrowRef,
       {
         x: '-33.33333%',
-        duration: 1,
+        duration: 0.75,
       },
       0
     );

@@ -7,6 +7,8 @@ import { auth, commentsCollection } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
 import { useCommentStore } from '@/stores/comment';
 import { useModalStore } from '@/stores/modal';
+import IconLoading from '@/components/icons/IconLoading.vue';
+import IconSelectArrow from '@/components/icons/IconSelectArrow.vue';
 import CommentPostItem from '@/components/CommentPostItem.vue';
 
 const route = useRoute();
@@ -45,11 +47,11 @@ async function onSubmit(values, { resetForm }) {
   const commentRef = await addDoc(commentsCollection, comment);
   const commentSnapshot = await getDoc(commentRef);
 
-  await addComment(commentSnapshot);
-
-  submission.value = false;
-
-  resetForm();
+  setTimeout(async () => {
+    await addComment(commentSnapshot);
+    submission.value = false;
+    resetForm();
+  }, 500);
 }
 
 onMounted(() => {
@@ -68,6 +70,9 @@ onMounted(() => {
         <option value="descending">排序依據 (由新到舊)</option>
         <option value="ascending">排序依據 (由舊到新)</option>
       </select>
+      <div class="abs top:1/2 right:24 fg:white translateY(-50%)">
+        <IconSelectArrow :width="16" :height="16" />
+      </div>
     </div>
   </div>
   <div class="rel mt:20">
@@ -78,21 +83,22 @@ onMounted(() => {
           class="block w:full h:200 p:30 fg:white bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder"
           type="text"
           :placeholder="greeting"
-          :disabled="!isLoggedIn"
+          :disabled="!isLoggedIn || submission"
         ></textarea>
         <div
           v-if="isLoggedIn"
           class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
         >
           <button
-            class="w:1/2 fg:white bg:white/.1:hover"
+            class="flex center-content w:1/2 fg:white bg:white/.1:hover"
             type="submit"
             :disabled="submission"
           >
-            留言
+            <IconLoading v-if="submission" />
+            <span v-else>留言</span>
           </button>
           <button
-            class="w:1/2 fg:white bg:white/.1:hover"
+            class="flex center-content w:1/2 fg:white bg:white/.1:hover"
             type="reset"
             :disabled="submission"
           >

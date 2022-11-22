@@ -12,7 +12,7 @@ defineProps({
     <span class="f:14 fg:white f:16@md">{{ upload.name }}</span>
     <div class="rel h:40 mt:8 bg:#555 rounded">
       <div
-        class="abs top:0 left:0 h:full overflow:hidden bg:#777 rounded ~width|.1s .is-error_{bg:danger} .is-uploaded_{bg:linear-gradient(to|right,primary,secondary)}"
+        class="abs top:0 left:0 h:full overflow:hidden bg:#777 rounded ~width|.1s .is-error_{bg:danger} .is-uploaded_{bg:linear-gradient(to|right,secondary,primary)}"
         :style="{ width: `${upload.currentProgress}%` }"
       >
         <div

@@ -67,12 +67,12 @@ onMounted(async () => {
     </div>
   </div>
   <button
-    class="group rel w:full mt:20 mt:30@md"
+    class="group rel w:full mt:20 rounded bg:primary mt:30@md @backgorundColor|2s|linear|infinite:hover"
     type="button"
     @click.prevent="createSong(song)"
   >
     <div
-      class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{animation:bounce|1s|infinite}"
+      class="abs inset:0 rounded opacity:0 @backgorundColor|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
     ></div>
     <div class="rel flex center-content h:60">
       <div

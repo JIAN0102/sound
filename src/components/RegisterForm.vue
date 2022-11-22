@@ -3,6 +3,7 @@ import { ref, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
+import IconLoading from '@/components/icons/IconLoading.vue';
 import IconUser from '@/components/icons/IconUser.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
 import IconCheck from '@/components/icons/IconCheck.vue';
@@ -21,17 +22,19 @@ const schema = reactive({
 });
 const submission = ref(false);
 
-async function onSubmit(values) {
+function onSubmit(values) {
   submission.value = true;
 
-  try {
-    await register(values);
-    window.location.reload();
-  } catch (err) {
-    console.log(err);
-  }
+  setTimeout(async () => {
+    try {
+      await register(values);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
 
-  submission.value = false;
+    submission.value = false;
+  }, 500);
 }
 </script>
 
@@ -58,7 +61,7 @@ async function onSubmit(values) {
           </div>
           <div
             v-if="meta.valid && meta.touched && meta.dirty"
-            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+            class="abs top:1/2 right:20 fg:primary translateY(-50%)"
           >
             <IconCheck />
           </div>
@@ -96,7 +99,7 @@ async function onSubmit(values) {
           </div>
           <div
             v-if="meta.valid && meta.touched && meta.dirty"
-            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+            class="abs top:1/2 right:20 fg:primary translateY(-50%)"
           >
             <IconCheck />
           </div>
@@ -132,7 +135,7 @@ async function onSubmit(values) {
           </div>
           <div
             v-if="meta.valid && meta.touched && meta.dirty"
-            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+            class="abs top:1/2 right:20 fg:primary translateY(-50%)"
           >
             <IconCheck />
           </div>
@@ -170,7 +173,7 @@ async function onSubmit(values) {
           </div>
           <div
             v-if="meta.valid && meta.touched && meta.dirty"
-            class="abs top:1/2 right:20 fg:secondary translateY(-50%)"
+            class="abs top:1/2 right:20 fg:primary translateY(-50%)"
           >
             <IconCheck />
           </div>
@@ -184,18 +187,19 @@ async function onSubmit(values) {
       </VField>
     </div>
     <button
-      class="group rel w:full mt:40 {pointer-events:none}:disabled"
+      class="group rel w:full mt:40 bg:primary rounded @backgorundColor|2s|linear|infinite:hover {pointer-events:none}:disabled"
       type="submit"
       :disabled="submission"
     >
       <div
-        class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded translate(-50%,-50%) .group:hover_{animation:bounce|1s|infinite}"
+        class="abs inset:0 rounded opacity:0 @backgorundColor|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
       ></div>
       <div class="rel flex center-content h:60">
         <div
           class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black round translateY(-50%)"
         >
-          <IconUser />
+          <IconLoading v-if="submission" />
+          <IconUser v-else />
         </div>
         <span class="f:bold f:18">註冊</span>
       </div>

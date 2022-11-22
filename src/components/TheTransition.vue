@@ -22,7 +22,7 @@ defineExpose({
       <div
         class="abs top:0 left:1/2 w:2/3 h:full bg:#0f0f0f translateX(-50%)"
       ></div>
-      <div class="abs top:0 right:0 w:1/3 h:full {abs;top:0;w:50%;h:full}>div">
+      <div class="abs top:0 right:0 w:1/3 h:full {abs;top:0;w:60%;h:full}>div">
         <div class="right:0">
           <IconTransitionArrow
             :width="'100%'"
@@ -30,30 +30,16 @@ defineExpose({
             :color="'#565656'"
           />
         </div>
-        <div class="left:1/2 translateX(-50%)">
+        <div class="left:0">
           <IconTransitionArrow
             :width="'100%'"
             :height="'100%'"
             :color="'#232323'"
           />
         </div>
-        <div class="left:0">
-          <IconTransitionArrow
-            :width="'100%'"
-            :height="'100%'"
-            :color="'#0f0f0f'"
-          />
-        </div>
       </div>
-      <div class="abs top:0 left:0 w:1/3 h:full {abs;top:0;w:50%;h:full}>div">
+      <div class="abs top:0 left:0 w:1/3 h:full {abs;top:0;w:60%;h:full}>div">
         <div class="right:0">
-          <IconTransitionArrow
-            :width="'100%'"
-            :height="'100%'"
-            :color="'#0f0f0f'"
-          />
-        </div>
-        <div class="left:1/2 translateX(-50%)">
           <IconTransitionArrow
             :width="'100%'"
             :height="'100%'"

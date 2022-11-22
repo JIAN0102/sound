@@ -1,11 +1,12 @@
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { formatDistanceToNow } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
 import { useUserStore } from '@/stores/user';
 import { useCommentStore } from '@/stores/comment';
 import { auth } from '@/plugins/firebase';
+import IconLoading from '@/components/icons/IconLoading.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 
 const props = defineProps({
@@ -21,12 +22,22 @@ const { isLoggedIn } = storeToRefs(userStore);
 const commentStore = useCommentStore();
 const { deleteComment } = commentStore;
 
+const isPending = ref(false);
+
 const formattedCreatedAt = computed(() => {
   return formatDistanceToNow(props.comment.createdAt.toDate(), {
     addSuffix: true,
     locale: zhTW,
   });
 });
+
+function handleClick(docID) {
+  isPending.value = true;
+  setTimeout(async () => {
+    await deleteComment(docID);
+    isPending.value = false;
+  }, 500);
+}
 </script>
 
 <template>
@@ -35,9 +46,10 @@ const formattedCreatedAt = computed(() => {
       v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
       class="abs top:10 right:0 fg:white"
       type="button"
-      @click.prevent="deleteComment(comment.docID)"
+      @click.prevent="handleClick(comment.docID)"
     >
-      <IconDelete />
+      <IconLoading v-if="isPending" />
+      <IconDelete v-else />
     </button>
     <div class="flex ai:flex-end gap-x:8">
       <h3 class="f:bold fg:white f:18@md">{{ comment.name }}</h3>
