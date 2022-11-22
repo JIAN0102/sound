@@ -18,16 +18,28 @@ const schema = reactive({
   password: 'required|min:6|max:100',
 });
 const submission = ref(false);
+const errorCodeMessage = ref('');
 
 function onSubmit(values) {
   submission.value = true;
+  errorCodeMessage.value = '';
 
   setTimeout(async () => {
     try {
       await login(values);
       window.location.reload();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      const errorCode = error.code;
+      switch (errorCode) {
+        case 'auth/user-not-found':
+          errorCodeMessage.value = '找不到您的帳戶';
+          break;
+        case 'auth/wrong-password':
+          errorCodeMessage.value = '密碼輸入錯誤';
+          break;
+        case 'auth/too-many-requests':
+          errorCodeMessage.value = '發送過多次請求，請稍後再嘗試。';
+      }
     }
     submission.value = false;
   }, 500);
@@ -35,6 +47,13 @@ function onSubmit(values) {
 </script>
 
 <template>
+  <div
+    v-if="errorCodeMessage"
+    class="flex center-content gap-x:5 mb:10 f:14 fg:danger"
+  >
+    <IconAlert />
+    {{ errorCodeMessage }}
+  </div>
   <VForm :validation-schema="schema" @submit="onSubmit">
     <div>
       <label class="f:bold fg:white f:18@md" for="loginEmail">電子郵件</label>
@@ -105,7 +124,7 @@ function onSubmit(values) {
           class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black round translateY(-50%)"
         >
           <IconLoading v-if="submission" />
-          <IconUser v-else />
+          <IconUser v-else :width="20" :height="20" />
         </div>
         <span class="f:bold f:18">登入</span>
       </div>

@@ -29,8 +29,8 @@ async function onSubmit(values) {
 
   try {
     await editSong(props.song.docID, values);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 
   setTimeout(() => {
@@ -114,7 +114,7 @@ function handleClick(docID, uuid) {
           class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
         >
           <button
-            class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
+            class="flex center-content w:1/2 h:full fg:white bg:#111:hover {pointer-events:none}:disabled"
             type="submit"
             :disabled="submission"
           >
@@ -150,15 +150,16 @@ function handleClick(docID, uuid) {
           type="button"
           @click.prevent="isEditFormOpen = !isEditFormOpen"
         >
-          <IconEdit />
+          <IconEdit :width="20" :height="20" />
         </button>
         <button
-          class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
+          class="flex center-content w:1/2 h:full fg:white bg:#111:hover {pointer-events:none}:disabled"
           type="button"
+          :disabled="isPending"
           @click.prevent="handleClick(song.docID, song.uuid)"
         >
-          <IconLoading v-if="isPending" />
-          <IconDelete v-else />
+          <IconLoading v-if="isPending" :width="20" :height="20" />
+          <IconDelete v-else :width="20" :height="20" />
         </button>
       </div>
     </div>

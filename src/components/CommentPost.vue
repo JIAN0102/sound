@@ -116,11 +116,15 @@ onMounted(() => {
       </VField>
     </VForm>
   </div>
-  <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:black r:30">
-    <CommentPostItem
-      v-for="comment in sortedComments"
-      :key="comment.docID"
-      :comment="comment"
-    />
-  </ul>
+  <Transition name="slide">
+    <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:black r:30">
+      <TransitionGroup name="slide">
+        <CommentPostItem
+          v-for="comment in sortedComments"
+          :key="comment.docID"
+          :comment="comment"
+        />
+      </TransitionGroup>
+    </ul>
+  </Transition>
 </template>

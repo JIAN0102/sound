@@ -78,8 +78,12 @@ onMounted(async () => {
       <div
         class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black rounded translateY(-50%)"
       >
-        <IconPause v-if="song.uuid === currentSong.uuid && isSoundPlaying" />
-        <IconPlay v-else />
+        <IconPause
+          v-if="song.uuid === currentSong.uuid && isSoundPlaying"
+          :width="16"
+          :height="16"
+        />
+        <IconPlay v-else :width="16" :height="16" />
       </div>
       <h4
         v-if="song.uuid === currentSong.uuid && isSoundPlaying"

@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 
 <template>
   <label
-    class="flex flex:col center-content gap-y:10 aspect:3/2 fg:white b:2|dashed|#555 r:30 aspect:2/1@xs f:20@md ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
+    class="flex flex:col center-content gap-y:10 aspect:3/2 fg:white b:2|dashed|#555 r:30 aspect:2/1@xs ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
     :class="{ 'is-drag-over': isDragOver }"
     for="upload"
     @dragend.prevent.stop="isDragOver = false"
@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
     <div class="w:32 h:32 {w:40;h:40}@md">
       <IconUpload :width="'100%'" :height="'100%'" />
     </div>
-    <h3 class="f:bold lh:1.5 t:center">
+    <h3 class="f:bold lh:1.5 t:center f:20@md">
       點擊上傳或拖拉檔案至此<br />
       <span class="f:14 fg:#777">限 10MB 以下的 mp3 檔案</span>
     </h3>

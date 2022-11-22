@@ -14,7 +14,7 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="loadingRef" class="fixed inset:0 z:1002">
+  <div ref="loadingRef" class="hide! fixed inset:0 z:1002">
     <div ref="loadingOverlayRef" class="abs inset:0 bg:black"></div>
     <div
       ref="loadingArrowRef"

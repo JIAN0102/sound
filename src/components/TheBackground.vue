@@ -10,23 +10,20 @@ const { isSoundPlaying } = storeToRefs(playerStore);
 const characterRef = ref(null);
 const rotateCDAnime = ref(null);
 
-watch(
-  () => isSoundPlaying.value,
-  (newVal) => {
-    if (newVal) {
-      rotateCDAnime.value.play();
-      gsap.to(rotateCDAnime.value, {
-        timeScale: 1,
-        duration: 3,
-      });
-    } else {
-      gsap.to(rotateCDAnime.value, {
-        timeScale: 0,
-        duration: 3,
-      });
-    }
+watch(isSoundPlaying, (newVal) => {
+  if (newVal) {
+    rotateCDAnime.value.play();
+    gsap.to(rotateCDAnime.value, {
+      timeScale: 1,
+      duration: 3,
+    });
+  } else {
+    gsap.to(rotateCDAnime.value, {
+      timeScale: 0,
+      duration: 3,
+    });
   }
-);
+});
 
 onMounted(() => {
   rotateCDAnime.value = gsap

@@ -48,8 +48,12 @@ function handleClick() {
           type="button"
           @click.prevent="createSong(song)"
         >
-          <IconPause v-if="song.uuid === currentSong.uuid && isSoundPlaying" />
-          <IconPlay v-else />
+          <IconPause
+            v-if="song.uuid === currentSong.uuid && isSoundPlaying"
+            :width="20"
+            :height="20"
+          />
+          <IconPlay v-else :width="20" :height="20" />
         </button>
         <div
           class="flex:1 lines:1 cursor:pointer"

@@ -21,24 +21,36 @@ const schema = reactive({
   confirmPassword: 'confirmed:@password',
 });
 const submission = ref(false);
+const errorCodeMessage = ref('');
 
 function onSubmit(values) {
   submission.value = true;
+  errorCodeMessage.value = '';
 
   setTimeout(async () => {
     try {
       await register(values);
       window.location.reload();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      const errorCode = error.code;
+      if (errorCode === 'auth/email-already-in-use') {
+        errorCodeMessage.value =
+          '這個電子郵件已經有人使用，請試試其他電子郵件。';
+      }
     }
-
     submission.value = false;
   }, 500);
 }
 </script>
 
 <template>
+  <div
+    v-if="errorCodeMessage"
+    class="flex center-content gap-x:5 mb:20 f:14 fg:danger"
+  >
+    <IconAlert />
+    {{ errorCodeMessage }}
+  </div>
   <VForm :validation-schema="schema" @submit="onSubmit">
     <div>
       <label class="f:bold fg:white f:18@md" for="registerName"
@@ -199,7 +211,7 @@ function onSubmit(values) {
           class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black round translateY(-50%)"
         >
           <IconLoading v-if="submission" />
-          <IconUser v-else />
+          <IconUser v-else :width="20" :height="20" />
         </div>
         <span class="f:bold f:18">註冊</span>
       </div>

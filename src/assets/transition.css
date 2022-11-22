@@ -12,3 +12,21 @@
 .fade-leave-from {
   opacity: 1;
 }
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity .5s, transform .5s;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-from {
+  transform: translateX(-10%);
+}
+
+.slide-leave-to {
+  transform: translateX(10%);
+}

@@ -47,9 +47,6 @@ watch(
         type="button"
         @click.prevent="toggleModal"
       >
-        <!-- <div
-          class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded opacity:0 translate(-50%,-50%) ~opacity|.2s .group:hover_{opacity:1;animation:bounce|1s|infinite}"
-        ></div> -->
         <div
           class="abs inset:0 rounded @backgorundColor|2s|linear|infinite opacity:0 ~opacity|.3s .group:hover_{opacity:1}"
         ></div>
@@ -57,7 +54,7 @@ watch(
           <div
             class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
           >
-            <IconUser />
+            <IconUser :width="20" :height="20" />
           </div>
           <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}"
             >登入 / 註冊</span
@@ -70,9 +67,6 @@ watch(
             class="group rel block bg:black rounded"
             :to="{ name: 'manage' }"
           >
-            <!-- <div
-              class="abs top:1/2 left:1/2 full bg:linear-gradient(to|right,primary,secondary) rounded opacity:0 translate(-50%,-50%) ~opacity|.2s .group:hover_{opacity:1;animation:bounce|1s|infinite}"
-            ></div> -->
             <div
               class="abs inset:0 rounded @backgorundColor|2s|linear|infinite opacity:0 ~opacity|.3s .group:hover_{opacity:1}"
             ></div>
@@ -80,7 +74,7 @@ watch(
               <div
                 class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
               >
-                <IconUpload />
+                <IconUpload :width="20" :height="20" />
               </div>
               <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}">
                 上傳歌曲</span
@@ -110,22 +104,20 @@ watch(
     </button>
   </header>
 
-  <Transition name="fade">
-    <nav
-      v-show="isMenuOpen"
-      class="fixed top:0 left:0 z:998 pt:80 pb:40 w:full bg:black rb:40"
-    >
-      <ul class="f:20 fg:white t:center mt:15>li~li">
-        <template v-if="isLoggedIn">
-          <li>
-            <RouterLink :to="{ name: 'manage' }">上傳歌曲</RouterLink>
-          </li>
-          <li>
-            <button type="button" @click.prevent="handleClick">登出</button>
-          </li>
-        </template>
-        <li v-else @click.prevent="toggleModal">登入 / 註冊</li>
-      </ul>
-    </nav>
-  </Transition>
+  <nav
+    v-show="isMenuOpen"
+    class="fixed inset:0 z:998 flex center-content p:80|20 w:full bg:black"
+  >
+    <ul class="f:bold f:24 fg:white t:center mt:15>li~li">
+      <template v-if="isLoggedIn">
+        <li>
+          <RouterLink :to="{ name: 'manage' }">上傳歌曲</RouterLink>
+        </li>
+        <li>
+          <h3 @click.prevent="handleClick">登出</h3>
+        </li>
+      </template>
+      <li v-else @click.prevent="toggleModal">登入 / 註冊</li>
+    </ul>
+  </nav>
 </template>
