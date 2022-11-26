@@ -47,11 +47,10 @@ async function onSubmit(values, { resetForm }) {
   const commentRef = await addDoc(commentsCollection, comment);
   const commentSnapshot = await getDoc(commentRef);
 
-  setTimeout(async () => {
-    await addComment(commentSnapshot);
-    submission.value = false;
-    resetForm();
-  }, 500);
+  await addComment(commentSnapshot);
+
+  submission.value = false;
+  resetForm();
 }
 
 onMounted(() => {

@@ -20,29 +20,28 @@ const schema = reactive({
 const submission = ref(false);
 const errorCodeMessage = ref('');
 
-function onSubmit(values) {
+async function onSubmit(values) {
   submission.value = true;
   errorCodeMessage.value = '';
 
-  setTimeout(async () => {
-    try {
-      await login(values);
-      window.location.reload();
-    } catch (error) {
-      const errorCode = error.code;
-      switch (errorCode) {
-        case 'auth/user-not-found':
-          errorCodeMessage.value = '找不到您的帳戶';
-          break;
-        case 'auth/wrong-password':
-          errorCodeMessage.value = '密碼輸入錯誤';
-          break;
-        case 'auth/too-many-requests':
-          errorCodeMessage.value = '發送過多次請求，請稍後再嘗試。';
-      }
+  try {
+    await login(values);
+    window.location.reload();
+  } catch (error) {
+    const errorCode = error.code;
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        errorCodeMessage.value = '找不到您的帳戶';
+        break;
+      case 'auth/wrong-password':
+        errorCodeMessage.value = '密碼輸入錯誤';
+        break;
+      case 'auth/too-many-requests':
+        errorCodeMessage.value = '發送過多次請求，請稍後再嘗試。';
     }
-    submission.value = false;
-  }, 500);
+  }
+
+  submission.value = false;
 }
 </script>
 

@@ -31,12 +31,10 @@ const formattedCreatedAt = computed(() => {
   });
 });
 
-function handleClick(docID) {
+async function handleClick(docID) {
   isPending.value = true;
-  setTimeout(async () => {
-    await deleteComment(docID);
-    isPending.value = false;
-  }, 500);
+  await deleteComment(docID);
+  isPending.value = false;
 }
 </script>
 

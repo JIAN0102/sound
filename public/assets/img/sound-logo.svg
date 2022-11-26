@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-sound-logo">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="sound-logo" clip-path="url(#clip-sound-logo)">
+    <path id="Subtraction_85" data-name="Subtraction 85" d="M351-117h0v-20h15.2a10.026,10.026,0,0,0,9.8,8,10.027,10.027,0,0,0,9.8-8H401c0,2.7-1.322,5.32-3.929,7.785a33.908,33.908,0,0,1-10.715,6.357C376.912-119.08,364.356-117,351-117Zm25-16a6.015,6.015,0,0,1-5.658-4h11.314A6.014,6.014,0,0,1,376-133Zm-9.8-8H351c0-2.7,1.322-5.32,3.929-7.785a33.909,33.909,0,0,1,10.715-6.357c9.444-3.777,22-5.858,35.356-5.858v20H385.8a10.026,10.026,0,0,0-9.8-8,10.027,10.027,0,0,0-9.8,8Zm15.456,0H370.343A6.015,6.015,0,0,1,376-145a6.014,6.014,0,0,1,5.656,4Z" transform="translate(-346 169)" fill="#fff"/>
+    <circle id="Ellipse_454" data-name="Ellipse 454" cx="6" cy="6" r="6" transform="translate(24 24)" fill="#fff"/>
+  </g>
+</svg>

@@ -23,23 +23,21 @@ const schema = reactive({
 const submission = ref(false);
 const errorCodeMessage = ref('');
 
-function onSubmit(values) {
+async function onSubmit(values) {
   submission.value = true;
   errorCodeMessage.value = '';
 
-  setTimeout(async () => {
-    try {
-      await register(values);
-      window.location.reload();
-    } catch (error) {
-      const errorCode = error.code;
-      if (errorCode === 'auth/email-already-in-use') {
-        errorCodeMessage.value =
-          '這個電子郵件已經有人使用，請試試其他電子郵件。';
-      }
+  try {
+    await register(values);
+    window.location.reload();
+  } catch (error) {
+    const errorCode = error.code;
+    if (errorCode === 'auth/email-already-in-use') {
+      errorCodeMessage.value = '這個電子郵件已經有人使用，請試試其他電子郵件。';
     }
-    submission.value = false;
-  }, 500);
+  }
+
+  submission.value = false;
 }
 </script>
 

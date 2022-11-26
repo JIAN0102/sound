@@ -93,8 +93,10 @@ onBeforeUnmount(() => {
       <IconUpload :width="'100%'" :height="'100%'" />
     </div>
     <h3 class="f:bold lh:1.5 t:center f:20@md">
-      點擊上傳或拖拉檔案至此<br />
-      <span class="f:14 fg:#777">限 10MB 以下的 mp3 檔案</span>
+      拖曳歌曲至此，或
+      <span class="fg:primary t:underline cursor:pointer">選擇檔案</span>
+      <br />
+      <span class="f:14 fg:#777">支援檔案類型：MP3。≤10MB</span>
     </h3>
   </label>
   <input

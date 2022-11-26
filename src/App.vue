@@ -111,7 +111,7 @@ onMounted(() => {
     isLoggedIn.value = true;
   }
 
-  const { loadingRef, loadingOverlayRef, loadingArrowRef } =
+  const { loadingRef, loadingBackgroundRef, loadingArrowRef, loadingSlashRef } =
     theLoadingRef.value;
 
   const tl = gsap.timeline({
@@ -123,12 +123,20 @@ onMounted(() => {
   });
 
   tl.set(loadingArrowRef, {
-    x: '-100%',
-  }).to([loadingOverlayRef, loadingArrowRef], {
-    x: '100%',
-    duration: 1,
-    delay: 1,
-  });
+    x: '-50%',
+  })
+    .to([loadingBackgroundRef, loadingSlashRef], {
+      opacity: 0,
+      duration: 1,
+    })
+    .to(
+      [loadingArrowRef],
+      {
+        x: '50%',
+        duration: 1,
+      },
+      0
+    );
 });
 </script>
 

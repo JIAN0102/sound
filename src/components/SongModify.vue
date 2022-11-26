@@ -11,12 +11,10 @@ const { getSongs } = songStore;
 
 const isPending = ref(false);
 
-onMounted(() => {
+onMounted(async () => {
   isPending.value = true;
-  setTimeout(async () => {
-    await getSongs();
-    isPending.value = false;
-  }, 500);
+  await getSongs();
+  isPending.value = false;
 });
 </script>
 

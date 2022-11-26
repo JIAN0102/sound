@@ -4,6 +4,7 @@ import { RouterLink, useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
+import gsap from 'gsap';
 import IconUser from '@/components/icons/IconUser.vue';
 import IconUpload from '@/components/icons/IconUpload.vue';
 import IconLogout from '@/components/icons/IconLogout.vue';
@@ -17,6 +18,7 @@ const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
 const { logout } = userStore;
 
+const menuRef = ref(null);
 const isMenuOpen = ref(false);
 
 async function handleClick() {
@@ -24,10 +26,26 @@ async function handleClick() {
   window.location.reload();
 }
 
+watch(isMenuOpen, (newVal) => {
+  if (newVal) {
+    document.body.classList.add('overflow:hidden');
+    gsap.to(menuRef.value, {
+      autoAlpha: 1,
+    });
+  } else {
+    document.body.classList.remove('overflow:hidden');
+    gsap.to(menuRef.value, {
+      autoAlpha: 0,
+    });
+  }
+});
+
 watch(
   () => route.path,
   () => {
-    isMenuOpen.value = false;
+    gsap.to(menuRef.value, {
+      autoAlpha: 0,
+    });
   }
 );
 </script>
@@ -105,8 +123,8 @@ watch(
   </header>
 
   <nav
-    v-show="isMenuOpen"
-    class="fixed inset:0 z:998 flex center-content p:80|20 w:full bg:black"
+    ref="menuRef"
+    class="fixed inset:0 z:998 flex center-content p:80|20 w:full bg:black opaicty:0 invisible"
   >
     <ul class="f:bold f:24 fg:white t:center mt:15>li~li">
       <template v-if="isLoggedIn">

@@ -16,6 +16,7 @@ export const usePlayerStore = defineStore('player', () => {
   const isSoundLoaded = computed(() =>
     sound.value.state ? sound.value.state() === 'loaded' : false
   );
+
   const isSoundPlaying = computed(() =>
     isSoundLoaded.value ? sound.value.playing() : false
   );
@@ -54,6 +55,11 @@ export const usePlayerStore = defineStore('player', () => {
     if (!isSoundLoaded.value) return;
 
     isSoundPlaying.value ? sound.value.pause() : sound.value.play();
+  }
+
+  function updateDraggingProgress(percent) {
+    seek.value = duration.value * percent;
+    progress.value = percent;
   }
 
   function updateProgress() {
@@ -97,6 +103,7 @@ export const usePlayerStore = defineStore('player', () => {
     createSong,
     pauseAudio,
     toggleAudio,
+    updateDraggingProgress,
     updateSeek,
     updateVolume,
   };

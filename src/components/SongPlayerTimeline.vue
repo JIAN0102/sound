@@ -1,13 +1,21 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import gsap from 'gsap';
 import { usePlayerStore } from '@/stores/player';
 import { formatTime } from '@/helpers';
 
 const playerStore = usePlayerStore();
-const { dragging, currentSong, seek, duration, progress, isSoundLoaded } =
-  storeToRefs(playerStore);
-const { pauseAudio, updateSeek } = playerStore;
+const {
+  dragging,
+  currentSong,
+  seek,
+  duration,
+  progress,
+  isSoundLoaded,
+  isSoundPlaying,
+} = storeToRefs(playerStore);
+const { pauseAudio, updateDraggingProgress, updateSeek } = playerStore;
 
 const slider = ref(null);
 
@@ -45,8 +53,7 @@ function onDragStart(event) {
   const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
   const newPercent = (clientX - sliderOffsetLeft) / sliderSize;
 
-  seek.value = duration.value * newPercent;
-  progress.value = newPercent;
+  updateDraggingProgress(newPercent);
 }
 
 function onDragging(event) {
@@ -62,8 +69,7 @@ function onDragging(event) {
       newPercent = 1;
     }
 
-    seek.value = duration.value * newPercent;
-    progress.value = newPercent;
+    updateDraggingProgress(newPercent);
   }
 }
 
@@ -77,6 +83,35 @@ function onDragEnd() {
     window.removeEventListener('touchmove', onDragging);
   }
 }
+
+const progressRef = ref(null);
+const progressAnime = ref(null);
+
+watch(isSoundPlaying, (newVal) => {
+  if (newVal) {
+    progressAnime.value.play();
+    gsap.to(progressAnime.value, {
+      timeScale: 1,
+      duration: 1,
+    });
+  } else {
+    gsap.to(progressAnime.value, {
+      timeScale: 0,
+      duration: 1,
+    });
+  }
+});
+
+onMounted(() => {
+  progressAnime.value = gsap
+    .to(progressRef.value, {
+      backgroundPosition: '50px',
+      duration: 1,
+      ease: 'none',
+      repeat: -1,
+    })
+    .timeScale(0);
+});
 </script>
 
 <template>
@@ -87,7 +122,8 @@ function onDragEnd() {
     @touchstart="onSliderDown"
   >
     <div
-      class="abs top:0 left:0 h:full bg:#333 bg:url('/assets/img/progress-arrow.svg') @progress|1s|linear|infinite"
+      ref="progressRef"
+      class="abs top:0 left:0 h:full bg:#333 bg:url('/assets/img/progress-arrow.svg')"
       :style="{ width: `${progress * 100}%` }"
     ></div>
     <div

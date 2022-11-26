@@ -33,18 +33,14 @@ async function onSubmit(values) {
     console.log(error);
   }
 
-  setTimeout(() => {
-    isEditFormOpen.value = false;
-    submission.value = false;
-  }, 500);
+  isEditFormOpen.value = false;
+  submission.value = false;
 }
 
-function handleClick(docID, uuid) {
+async function handleClick(docID, uuid) {
   isPending.value = true;
-  setTimeout(async () => {
-    await deleteSong(docID, uuid);
-    isPending.value = false;
-  }, 500);
+  await deleteSong(docID, uuid);
+  isPending.value = false;
 }
 </script>
 
