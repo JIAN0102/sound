@@ -56,7 +56,11 @@ async function onSubmit(values) {
   <VForm :validation-schema="schema" @submit="onSubmit">
     <div>
       <label class="f:bold fg:white f:18@md" for="loginEmail">電子郵件</label>
-      <VField v-slot="{ field, errorMessage, meta }" name="email" label="姓名">
+      <VField
+        v-slot="{ field, errorMessage, meta }"
+        name="email"
+        label="電子郵件"
+      >
         <div class="rel">
           <input
             v-bind="field"

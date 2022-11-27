@@ -31,11 +31,13 @@ watch(isMenuOpen, (newVal) => {
     document.body.classList.add('overflow:hidden');
     gsap.to(menuRef.value, {
       autoAlpha: 1,
+      duration: 0.3,
     });
   } else {
     document.body.classList.remove('overflow:hidden');
     gsap.to(menuRef.value, {
       autoAlpha: 0,
+      duration: 0.3,
     });
   }
 });
@@ -43,9 +45,7 @@ watch(isMenuOpen, (newVal) => {
 watch(
   () => route.path,
   () => {
-    gsap.to(menuRef.value, {
-      autoAlpha: 0,
-    });
+    isMenuOpen.value = false;
   }
 );
 </script>
@@ -61,20 +61,20 @@ watch(
     <nav class="pointer-events:auto hide@<md">
       <button
         v-if="!isLoggedIn"
-        class="group rel bg:black rounded"
+        class="group rel overflow:hidden bg:black rounded"
         type="button"
         @click.prevent="toggleModal"
       >
         <div
-          class="abs inset:0 rounded @backgorundColor|2s|linear|infinite opacity:0 ~opacity|.3s .group:hover_{opacity:1}"
+          class="abs top:1/2 left:1/2 w:150% h:150% round @backgorundColor|2s|linear|infinite transform:top translate(-50%,-50%)|scaleY(0) ~border-radius|.5s,transform|.5s .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}"
         ></div>
         <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:30">
           <div
-            class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
+            class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}"
           >
             <IconUser :width="20" :height="20" />
           </div>
-          <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}"
+          <span class="f:bold fg:white ~color|.5s .group:hover_{fg:black}"
             >登入 / 註冊</span
           >
         </div>
@@ -82,19 +82,19 @@ watch(
       <ul v-else class="flex ai:center gap-x:20">
         <li>
           <RouterLink
-            class="group rel block bg:black rounded"
+            class="group rel block overflow:hidden bg:black rounded"
             :to="{ name: 'manage' }"
           >
             <div
-              class="abs inset:0 rounded @backgorundColor|2s|linear|infinite opacity:0 ~opacity|.3s .group:hover_{opacity:1}"
+              class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgorundColor|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}"
             ></div>
             <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:30">
               <div
-                class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.2s .group:hover_{bg:black}"
+                class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}"
               >
                 <IconUpload :width="20" :height="20" />
               </div>
-              <span class="f:bold fg:white ~color|.2s .group:hover_{fg:black}">
+              <span class="f:bold fg:white ~color|.5s .group:hover_{fg:black}">
                 上傳歌曲</span
               >
             </div>
@@ -123,8 +123,7 @@ watch(
   </header>
 
   <nav
-    ref="menuRef"
-    class="fixed inset:0 z:998 flex center-content p:80|20 w:full bg:black opaicty:0 invisible"
+    class="menu fixed top:0 left:0 full z:998 flex center-content p:80|20 w:full bg:black translateY(100%) ~transform|5s"
   >
     <ul class="f:bold f:24 fg:white t:center mt:15>li~li">
       <template v-if="isLoggedIn">

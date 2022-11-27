@@ -15,12 +15,12 @@ watch(isSoundPlaying, (newVal) => {
     rotateCDAnime.value.play();
     gsap.to(rotateCDAnime.value, {
       timeScale: 1,
-      duration: 3,
+      duration: 2,
     });
   } else {
     gsap.to(rotateCDAnime.value, {
       timeScale: 0,
-      duration: 3,
+      duration: 2,
     });
   }
 });

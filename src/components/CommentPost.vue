@@ -76,7 +76,7 @@ onMounted(() => {
   </div>
   <div class="rel mt:20">
     <VForm :validation-schema="schema" @submit="onSubmit">
-      <VField v-slot="{ field }" name="comment">
+      <VField v-slot="{ field, meta }" name="comment">
         <textarea
           v-bind="field"
           class="block w:full h:200 p:30 fg:white bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder"
@@ -91,7 +91,7 @@ onMounted(() => {
           <button
             class="flex center-content w:1/2 fg:white bg:white/.1:hover"
             type="submit"
-            :disabled="submission"
+            :disabled="submission || !meta.valid"
           >
             <IconLoading v-if="submission" />
             <span v-else>留言</span>

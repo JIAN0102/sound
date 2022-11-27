@@ -5,13 +5,11 @@ import IconTransitionArrow from '@/components/icons/IconTransitionArrow.vue';
 const transitionRef = ref(null);
 const transitionBackgroundRef = ref(null);
 const transitionArrowRef = ref(null);
-const transitionSlashRef = ref(null);
 
 defineExpose({
   transitionRef,
   transitionBackgroundRef,
   transitionArrowRef,
-  transitionSlashRef,
 });
 </script>
 
@@ -54,10 +52,9 @@ defineExpose({
           />
         </div>
       </div>
+      <div
+        class="abs inset:0 bg:repeating-linear-gradient(40deg,#0f0f0f,#0f0f0f|3px,transparent|3px,transparent|8px)"
+      ></div>
     </div>
-    <div
-      ref="transitionSlashRef"
-      class="abs inset:0 bg:repeating-linear-gradient(40deg,#0f0f0f,#0f0f0f|3px,transparent|3px,transparent|8px)"
-    ></div>
   </div>
 </template>

@@ -22,12 +22,8 @@ const theTransitionRef = ref(null);
 function onEnter(el, done) {
   if (!isNewPage.value) return;
 
-  const {
-    transitionRef,
-    transitionBackgroundRef,
-    transitionArrowRef,
-    transitionSlashRef,
-  } = theTransitionRef.value;
+  const { transitionRef, transitionBackgroundRef, transitionArrowRef } =
+    theTransitionRef.value;
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -38,7 +34,7 @@ function onEnter(el, done) {
     },
   });
 
-  tl.set([transitionBackgroundRef, transitionSlashRef], {
+  tl.set(transitionBackgroundRef, {
     opacity: 1,
   })
     .set(transitionArrowRef, {
@@ -48,14 +44,6 @@ function onEnter(el, done) {
       x: '33.33333%',
       duration: 0.75,
     })
-    .to(
-      transitionSlashRef,
-      {
-        opacity: 0,
-        duration: 0.5,
-      },
-      0
-    )
     .to(
       transitionBackgroundRef,
       {
@@ -69,12 +57,8 @@ function onEnter(el, done) {
 function onLeave(el, done) {
   isNewPage.value = true;
 
-  const {
-    transitionRef,
-    transitionBackgroundRef,
-    transitionArrowRef,
-    transitionSlashRef,
-  } = theTransitionRef.value;
+  const { transitionRef, transitionBackgroundRef, transitionArrowRef } =
+    theTransitionRef.value;
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -86,13 +70,13 @@ function onLeave(el, done) {
   tl.set(transitionRef, {
     autoAlpha: 1,
   })
-    .set([transitionBackgroundRef, transitionSlashRef], {
+    .set(transitionBackgroundRef, {
       opacity: 0,
     })
     .set(transitionArrowRef, {
       x: '-100%',
     })
-    .to([transitionBackgroundRef, transitionSlashRef], {
+    .to(transitionBackgroundRef, {
       opacity: 1,
       duration: 0.5,
     })
@@ -111,7 +95,7 @@ onMounted(() => {
     isLoggedIn.value = true;
   }
 
-  const { loadingRef, loadingBackgroundRef, loadingArrowRef, loadingSlashRef } =
+  const { loadingRef, loadingBackgroundRef, loadingArrowRef } =
     theLoadingRef.value;
 
   const tl = gsap.timeline({
@@ -125,7 +109,7 @@ onMounted(() => {
   tl.set(loadingArrowRef, {
     x: '-50%',
   })
-    .to([loadingBackgroundRef, loadingSlashRef], {
+    .to(loadingBackgroundRef, {
       opacity: 0,
       duration: 1,
     })
