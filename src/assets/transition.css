@@ -13,6 +13,23 @@
   opacity: 1;
 }
 
+.fadeUp-enter-active,
+.fadeUp-leave-active {
+  transition: opacity .3s, transform .3s;
+}
+
+.fadeUp-enter-from,
+.fadeUp-leave-to {
+  opacity: 0;
+  transform: translate(-50%,2.5rem);
+}
+
+.fadeUp-enter-to,
+.fadeUp-leave-from {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
 .slide-enter-active,
 .slide-leave-active {
   transition: opacity .5s, transform .5s;

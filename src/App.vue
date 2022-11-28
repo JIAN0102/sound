@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { auth } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
-import gsap from 'gsap';
+import { gsap, Power2 } from 'gsap';
 import TheLoading from '@/components/TheLoading.vue';
 import TheBackground from '@/components/TheBackground.vue';
 import TheHeader from '@/components/TheHeader.vue';
@@ -95,8 +95,7 @@ onMounted(() => {
     isLoggedIn.value = true;
   }
 
-  const { loadingRef, loadingBackgroundRef, loadingArrowRef } =
-    theLoadingRef.value;
+  const { loadingRef, loadingBackgroundRef } = theLoadingRef.value;
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -106,20 +105,23 @@ onMounted(() => {
     },
   });
 
-  tl.set(loadingArrowRef, {
-    x: '-50%',
+  tl.set([loadingRef, loadingBackgroundRef], {
+    y: 0,
   })
-    .to(loadingBackgroundRef, {
-      opacity: 0,
+    .to(loadingRef, {
+      y: '-100%',
       duration: 1,
+      delay: 1,
+      ease: Power2.easeInOut,
     })
     .to(
-      [loadingArrowRef],
+      loadingBackgroundRef,
       {
-        x: '50%',
+        y: '100%',
         duration: 1,
+        ease: Power2.easeInOut,
       },
-      0
+      1
     );
 });
 </script>

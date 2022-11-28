@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 
 <template>
   <label
-    class="flex flex:col center-content gap-y:10 aspect:3/2 fg:white b:2|dashed|#555 r:30 aspect:2/1@xs ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
+    class="flex flex:col center-content gap-y:10 aspect:3/2 fg:white b:2|dashed|#777 r:30 aspect:2/1@xs ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
     :class="{ 'is-drag-over': isDragOver }"
     for="upload"
     @dragend.prevent.stop="isDragOver = false"

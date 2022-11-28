@@ -81,7 +81,7 @@ function onDragEnd() {
     @touchstart="onSliderDown"
   >
     <div
-      class="abs top:0 left:0 h:full bg:#333 transform:left"
+      class="abs top:0 left:0 h:full bg:#555 transform:left"
       :style="{ width: `${volume * 100}%` }"
     ></div>
     <div class="abs top:1/2 left:20 fg:white translateY(-50%)">

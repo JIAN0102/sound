@@ -8,11 +8,14 @@ import {
   doc,
   getDoc,
   getDocs,
+  getCountFromServer,
 } from 'firebase/firestore';
 import { songsCollection } from '@/plugins/firebase';
 import SongItem from '@/components/SongItem.vue';
+import IconLoading from '@/components/icons/IconLoading.vue';
 
 const songs = reactive([]);
+const songsTotalLength = ref(0);
 const perPage = ref(9);
 const isPending = ref(false);
 
@@ -27,7 +30,7 @@ function handleScroll() {
 }
 
 async function getSongs() {
-  if (isPending.value) return;
+  if (isPending.value || songs.length >= songsTotalLength.value) return;
 
   isPending.value = true;
 
@@ -49,17 +52,22 @@ async function getSongs() {
     snapshots = await getDocs(q);
   }
 
-  snapshots.forEach((document) => {
-    songs.push({
-      ...document.data(),
-      docID: document.id,
+  setTimeout(() => {
+    snapshots.forEach((document) => {
+      songs.push({
+        ...document.data(),
+        docID: document.id,
+      });
     });
-  });
 
-  isPending.value = false;
+    isPending.value = false;
+  }, 1000);
 }
 
-onMounted(() => {
+onMounted(async () => {
+  const snapshot = await getCountFromServer(songsCollection);
+  songsTotalLength.value = snapshot.data().count;
+
   window.addEventListener('scroll', handleScroll);
   getSongs();
 });
@@ -70,11 +78,21 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="p:60|20|100 mt:100vh bg:black rt:40 {px:80;rt:60}@md">
+  <div class="p:60|20|140 mt:100vh bg:black rt:40 {px:80;rt:60}@md">
     <div
       class="grid-cols:1 gap-y:20 {grid-cols:13;gap:40}@sm grid-col-start:2>div:nth(4n+3)@sm&<lg grid-col-start:2>div:nth(6n+4)@lg"
     >
-      <SongItem v-for="song in songs" :key="song.docID" :song="song" />
+      <TransitionGroup name="slide">
+        <SongItem v-for="song in songs" :key="song.docID" :song="song" />
+      </TransitionGroup>
     </div>
+    <Transition name="fadeUp">
+      <div
+        v-show="isPending"
+        class="abs bottom:80 left:1/2 fg:white translateX(-50%)"
+      >
+        <IconLoading :width="40" :height="40" />
+      </div>
+    </Transition>
   </div>
 </template>

@@ -4,7 +4,6 @@ import { RouterLink, useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
-import gsap from 'gsap';
 import IconUser from '@/components/icons/IconUser.vue';
 import IconUpload from '@/components/icons/IconUpload.vue';
 import IconLogout from '@/components/icons/IconLogout.vue';
@@ -18,7 +17,6 @@ const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
 const { logout } = userStore;
 
-const menuRef = ref(null);
 const isMenuOpen = ref(false);
 
 async function handleClick() {
@@ -26,25 +24,15 @@ async function handleClick() {
   window.location.reload();
 }
 
-watch(isMenuOpen, (newVal) => {
-  if (newVal) {
-    document.body.classList.add('overflow:hidden');
-    gsap.to(menuRef.value, {
-      autoAlpha: 1,
-      duration: 0.3,
-    });
-  } else {
-    document.body.classList.remove('overflow:hidden');
-    gsap.to(menuRef.value, {
-      autoAlpha: 0,
-      duration: 0.3,
-    });
-  }
-});
+function toggleMenu() {
+  document.body.classList.toggle('overflow:hidden');
+  isMenuOpen.value = !isMenuOpen.value;
+}
 
 watch(
   () => route.path,
   () => {
+    document.body.classList.remove('overflow:hidden');
     isMenuOpen.value = false;
   }
 );
@@ -54,8 +42,11 @@ watch(
   <header
     class="fixed top:0 left:0 z:999 flex jc:space-between ai:center w:full h:100 px:20 pointer-events:none {h:140;px:80}@md"
   >
-    <RouterLink class="pointer-events:auto" :to="{ name: 'home' }">
-      <div class="w:40 h:40 bg:white round {w:50;h:50}@md"></div>
+    <RouterLink
+      class="flex ai:center fg:white pointer-events:auto"
+      :to="{ name: 'home' }"
+    >
+      <img src="/assets/img/sound-logo.svg" alt="sound" />
     </RouterLink>
 
     <nav class="pointer-events:auto hide@<md">
@@ -115,7 +106,7 @@ watch(
     <button
       class="rel flex flex:col center-content w:40 h:40 pointer-events:auto hide@md {block;w:40;h:1;bg:white}>span mt:5>span~span"
       type="button"
-      @click.prevent="isMenuOpen = !isMenuOpen"
+      @click.prevent="toggleMenu"
     >
       <span></span>
       <span></span>
@@ -123,7 +114,8 @@ watch(
   </header>
 
   <nav
-    class="menu fixed top:0 left:0 full z:998 flex center-content p:80|20 w:full bg:black translateY(100%) ~transform|5s"
+    v-show="isMenuOpen"
+    class="fixed inset:0 z:998 flex center-content p:80|20 bg:#111"
   >
     <ul class="f:bold f:24 fg:white t:center mt:15>li~li">
       <template v-if="isLoggedIn">

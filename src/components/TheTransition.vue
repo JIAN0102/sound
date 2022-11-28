@@ -15,10 +15,10 @@ defineExpose({
 
 <template>
   <div ref="transitionRef" class="fixed inset:0 z:1001 opacity:0 invisible">
-    <div ref="transitionBackgroundRef" class="abs inset:0 bg:#0f0f0f"></div>
+    <div ref="transitionBackgroundRef" class="abs inset:0 bg:#111"></div>
     <div ref="transitionArrowRef" class="abs top:0 left:0 w:300% h:full">
       <div
-        class="abs top:0 left:1/2 w:2/3 h:full bg:#0f0f0f translateX(-50%)"
+        class="abs top:0 left:1/2 w:2/3 h:full bg:#111 translateX(-50%)"
       ></div>
       <div class="abs top:0 right:0 w:1/3 h:full {abs;top:0;w:60%;h:full}>div">
         <div class="right:0">
@@ -53,7 +53,7 @@ defineExpose({
         </div>
       </div>
       <div
-        class="abs inset:0 bg:repeating-linear-gradient(40deg,#0f0f0f,#0f0f0f|3px,transparent|3px,transparent|8px)"
+        class="abs inset:0 bg:repeating-linear-gradient(40deg,#111,#111|3px,transparent|3px,transparent|8px)"
       ></div>
     </div>
   </div>

@@ -133,13 +133,13 @@ async function handleClick(docID, uuid) {
       v-show="!isEditFormOpen"
       class="flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
     >
-      <div class="flex:1 lines:1">
-        <h3 class="f:bold fg:white f:18@md" :title="song.title">
+      <div class="flex:1">
+        <h3 class="f:bold fg:white lines:1 f:18@md" :title="song.title">
           {{ song.title }}
         </h3>
       </div>
       <div
-        class="rel flex w:120 h:60 overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:20;bg:#333;translate(-50%,-50%)}::before"
+        class="rel flex w:100 h:60 overflow:hidden bg:black b:3|solid|#333 rounded w:120@xs {content:'';abs;top:1/2;left:1/2;w:3;h:20;bg:#333;translate(-50%,-50%)}::before"
       >
         <button
           class="flex center-content w:1/2 h:full fg:white bg:#111:hover"

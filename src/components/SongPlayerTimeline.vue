@@ -117,21 +117,21 @@ onMounted(() => {
 <template>
   <div
     ref="slider"
-    class="rel flex:1 h:60 px:30 f:bold fg:white cursor:pointer"
+    class="rel flex:1 h:60 px:30 cursor:pointer"
     @mousedown.left="onSliderDown"
     @touchstart="onSliderDown"
   >
     <div
       ref="progressRef"
-      class="abs top:0 left:0 h:full bg:#333 bg:url('/assets/img/progress-arrow.svg')"
+      class="abs top:0 left:0 h:full bg:#555 bg:url('/assets/img/progress-arrow.svg')"
       :style="{ width: `${progress * 100}%` }"
     ></div>
     <div
-      class="rel flex jc:space-between ai:center gap-x:30 h:full pointer-events:none"
+      class="rel flex jc:space-between ai:center gap-x:30 h:full f:bold fg:white pointer-events:none"
     >
       <span class="hide@<md">{{ formatTime(seek) }}</span>
-      <div class="flex:1 t:center lines:1">
-        <h2 v-if="currentSong.title">
+      <div class="flex:1 t:center">
+        <h2 v-if="currentSong.title" class="lines:1">
           {{ currentSong.title }}
         </h2>
         <h2 v-else>尚無播放的曲目</h2>

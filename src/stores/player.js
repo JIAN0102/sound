@@ -11,7 +11,6 @@ export const usePlayerStore = defineStore('player', () => {
   const duration = ref(0);
   const volume = ref(0.1);
   const progress = ref(0);
-  const cacheSoundPlaying = ref(false);
 
   const isSoundLoaded = computed(() =>
     sound.value.state ? sound.value.state() === 'loaded' : false
@@ -98,7 +97,6 @@ export const usePlayerStore = defineStore('player', () => {
     volume,
     progress,
     isSoundLoaded,
-    cacheSoundPlaying,
     isSoundPlaying,
     createSong,
     pauseAudio,

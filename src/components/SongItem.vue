@@ -56,11 +56,11 @@ function handleClick() {
           <IconPlay v-else :width="20" :height="20" />
         </button>
         <div
-          class="flex:1 lines:1 cursor:pointer"
+          class="flex:1 cursor:pointer"
           :title="song.title"
           @click.prevent="handleClick"
         >
-          <h3 class="f:bold fg:white f:18@md .is-active_{fg:black}">
+          <h3 class="f:bold fg:white lines:1 f:18@md .is-active_{fg:black}">
             {{ song.title }}
           </h3>
         </div>
