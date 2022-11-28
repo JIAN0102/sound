@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { auth } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
-import { gsap, Power2 } from 'gsap';
+import { gsap } from 'gsap';
 import TheLoading from '@/components/TheLoading.vue';
 import TheBackground from '@/components/TheBackground.vue';
 import TheHeader from '@/components/TheHeader.vue';
@@ -95,7 +95,7 @@ onMounted(() => {
     isLoggedIn.value = true;
   }
 
-  const { loadingRef, loadingBackgroundRef } = theLoadingRef.value;
+  const { loadingRef, loadingWaveRef, loadingLogoRef } = theLoadingRef.value;
 
   const tl = gsap.timeline({
     onComplete: () => {
@@ -105,24 +105,36 @@ onMounted(() => {
     },
   });
 
-  tl.set([loadingRef, loadingBackgroundRef], {
-    y: 0,
+  tl.set(loadingWaveRef, {
+    attr: {
+      d: 'M 0 0 V 100 Q 50 100 100 100 V 0 z',
+    },
   })
-    .to(loadingRef, {
-      y: '-100%',
-      duration: 1,
+    .to(loadingLogoRef, {
+      y: '-100',
+      opacity: 0,
+      duration: 0.6,
       delay: 1,
-      ease: Power2.easeInOut,
+      ease: 'power3.in',
     })
     .to(
-      loadingBackgroundRef,
+      loadingWaveRef,
       {
-        y: '100%',
-        duration: 1,
-        ease: Power2.easeInOut,
+        duration: 0.6,
+        attr: {
+          d: 'M 0 0 V 50 Q 50 0 100 50 V 0 z',
+        },
+        ease: 'power3.in',
       },
       1
-    );
+    )
+    .to(loadingWaveRef, {
+      duration: 0.6,
+      attr: {
+        d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z',
+      },
+      ease: 'power3',
+    });
 });
 </script>
 

@@ -46,7 +46,11 @@ watch(
       class="flex ai:center fg:white pointer-events:auto"
       :to="{ name: 'home' }"
     >
-      <img src="/assets/img/sound-logo.svg" alt="sound" />
+      <img
+        class="w:65 w:auto@xs"
+        src="/assets/img/sound-logo.svg"
+        alt="sound"
+      />
     </RouterLink>
 
     <nav class="pointer-events:auto hide@<md">
