@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useSongStore } from '@/stores/song';
 import IconLoading from '@/components/icons/IconLoading.vue';
-import SongModifyItem from '@/components/SongModifyItem.vue';
+import SongModifyPreview from '@/components/SongModifyPreview.vue';
 
 const songStore = useSongStore();
 const { songs } = storeToRefs(songStore);
@@ -29,7 +29,7 @@ onMounted(async () => {
       </div>
       <ul v-else class="mt:20>li~li">
         <TransitionGroup name="slide">
-          <SongModifyItem
+          <SongModifyPreview
             v-for="song in songs"
             :key="song.docID"
             :song="song"

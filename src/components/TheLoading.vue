@@ -19,8 +19,9 @@ defineExpose({
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="abs top:0 left:0 full fill:black"
+      class="abs top:0 left:0 full"
       viewBox="0 0 100 100"
+      fill="black"
       preserveAspectRatio="none"
     >
       <path ref="loadingWaveRef" d="M 0 100 V 100 Q 50 100 100 100 V 100 z" />

@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { auth } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
-import { gsap } from 'gsap';
+import gsap from 'gsap';
 import TheLoading from '@/components/TheLoading.vue';
 import TheBackground from '@/components/TheBackground.vue';
 import TheHeader from '@/components/TheHeader.vue';

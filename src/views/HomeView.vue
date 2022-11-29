@@ -11,7 +11,7 @@ import {
   getCountFromServer,
 } from 'firebase/firestore';
 import { songsCollection } from '@/plugins/firebase';
-import SongItem from '@/components/SongItem.vue';
+import SongPreview from '@/components/SongPreview.vue';
 import IconLoading from '@/components/icons/IconLoading.vue';
 
 const songs = reactive([]);
@@ -22,7 +22,10 @@ const isPending = ref(false);
 function handleScroll() {
   const { scrollTop, offsetHeight } = document.documentElement;
   const { innerHeight } = window;
-  const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight;
+  const bottomOfWindow =
+    Math.round(scrollTop) + innerHeight + 100 >= offsetHeight;
+
+  console.log(bottomOfWindow);
 
   if (bottomOfWindow) {
     getSongs();
@@ -83,7 +86,7 @@ onBeforeUnmount(() => {
       class="grid-cols:1 gap-y:20 {grid-cols:13;gap:40}@sm grid-col-start:2>div:nth(4n+3)@sm&<lg grid-col-start:2>div:nth(6n+4)@lg"
     >
       <TransitionGroup name="slide">
-        <SongItem v-for="song in songs" :key="song.docID" :song="song" />
+        <SongPreview v-for="song in songs" :key="song.docID" :song="song" />
       </TransitionGroup>
     </div>
     <Transition name="fadeUp">

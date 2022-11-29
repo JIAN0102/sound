@@ -24,11 +24,6 @@ async function handleClick() {
   window.location.reload();
 }
 
-function toggleMenu() {
-  document.body.classList.toggle('overflow:hidden');
-  isMenuOpen.value = !isMenuOpen.value;
-}
-
 watch(
   () => route.path,
   () => {
@@ -110,7 +105,7 @@ watch(
     <button
       class="rel flex flex:col center-content w:40 h:40 pointer-events:auto hide@md {block;w:40;h:1;bg:white}>span mt:5>span~span"
       type="button"
-      @click.prevent="toggleMenu"
+      @click.prevent="isMenuOpen = !isMenuOpen"
     >
       <span></span>
       <span></span>
@@ -119,9 +114,18 @@ watch(
 
   <nav
     v-show="isMenuOpen"
-    class="fixed inset:0 z:998 flex center-content p:80|20 bg:#111"
+    class="fixed inset:0 z:998 flex center-content p:80|20 bg:black"
   >
-    <ul class="f:bold f:24 fg:white t:center mt:15>li~li">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="abs top:0 left:0 full"
+      viewBox="0 0 100 100"
+      fill="black"
+      preserveAspectRatio="none"
+    >
+      <path ref="menuWaveRef" d="M 0 100 V 100 Q 50 100 100 100 V 100 z" />
+    </svg>
+    <ul ref="menuMainRef" class="rel f:bold f:24 fg:white t:center mt:15>li~li">
       <template v-if="isLoggedIn">
         <li>
           <RouterLink :to="{ name: 'manage' }">上傳歌曲</RouterLink>
