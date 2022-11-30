@@ -118,7 +118,7 @@ onMounted(() => {
   <div
     ref="slider"
     class="rel flex:1 h:60 px:30 cursor:pointer"
-    @mousedown.left="onSliderDown"
+    @mousedown="onSliderDown"
     @touchstart="onSliderDown"
   >
     <div

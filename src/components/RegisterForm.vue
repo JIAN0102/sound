@@ -197,12 +197,12 @@ async function onSubmit(values) {
       </VField>
     </div>
     <button
-      class="group rel w:full mt:40 bg:primary rounded @backgorundColor|2s|linear|infinite:hover {pointer-events:none}:disabled"
+      class="group rel w:full mt:40 bg:primary rounded @backgroundGradient|2s|linear|infinite:hover {pointer-events:none}:disabled"
       type="submit"
       :disabled="submission"
     >
       <div
-        class="abs inset:0 rounded opacity:0 @backgorundColor|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
+        class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
       ></div>
       <div class="rel flex center-content h:60">
         <div

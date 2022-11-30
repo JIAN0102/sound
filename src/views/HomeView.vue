@@ -16,7 +16,7 @@ import IconLoading from '@/components/icons/IconLoading.vue';
 
 const songs = reactive([]);
 const songsTotalLength = ref(0);
-const perPage = ref(9);
+const perPage = ref(6);
 const isPending = ref(false);
 
 function handleScroll() {
@@ -24,8 +24,6 @@ function handleScroll() {
   const { innerHeight } = window;
   const bottomOfWindow =
     Math.round(scrollTop) + innerHeight + 100 >= offsetHeight;
-
-  console.log(bottomOfWindow);
 
   if (bottomOfWindow) {
     getSongs();

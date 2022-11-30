@@ -120,7 +120,7 @@ async function onSubmit(values) {
       :disabled="submission"
     >
       <div
-        class="abs inset:0 rounded opacity:0 @backgorundColor|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
+        class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
       ></div>
       <div class="rel flex center-content h:60">
         <div

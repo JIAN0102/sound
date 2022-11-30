@@ -35,6 +35,10 @@ onMounted(() => {
     })
     .timeScale(0);
 });
+
+defineExpose({
+  characterRef,
+});
 </script>
 
 <template>

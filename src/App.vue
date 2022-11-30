@@ -18,6 +18,7 @@ const { isLoggedIn } = storeToRefs(userStore);
 const isNewPage = ref(false);
 const theLoadingRef = ref(null);
 const theTransitionRef = ref(null);
+const theBackgorundRef = ref(null);
 
 function onEnter(el, done) {
   if (!isNewPage.value) return;
@@ -95,53 +96,61 @@ onMounted(() => {
     isLoggedIn.value = true;
   }
 
-  const { loadingRef, loadingWaveRef, loadingLogoRef } = theLoadingRef.value;
+  const { loadingRef, loadingArrowRef, loadingLogoRef } = theLoadingRef.value;
+  const { characterRef } = theBackgorundRef.value;
 
-  const tl = gsap.timeline({
-    onComplete: () => {
-      gsap.set(loadingRef, {
-        autoAlpha: 0,
-      });
-    },
-  });
+  const tl = gsap.timeline();
 
-  tl.set(loadingWaveRef, {
-    attr: {
-      d: 'M 0 0 V 100 Q 50 100 100 100 V 0 z',
-    },
+  tl.set(loadingArrowRef, {
+    x: '-50%',
   })
-    .to(loadingLogoRef, {
-      y: '-100',
+    .set(loadingLogoRef, {
       opacity: 0,
-      duration: 0.6,
-      delay: 1,
+      y: 60,
+    })
+    .set(characterRef, {
+      y: '100%',
+      rotate: 1440,
+    })
+    .to(loadingLogoRef, {
+      opacity: 1,
+      y: 0,
+      duration: 1.5,
+      delay: 0.5,
+      ease: 'power3',
+    })
+    .to(loadingLogoRef, {
+      opacity: 0,
+      y: -100,
+      duration: 1,
       ease: 'power3.in',
     })
+    .to(loadingArrowRef, {
+      x: '50%',
+      duration: 0.75,
+      onComplete: () => {
+        gsap.set(loadingRef, {
+          autoAlpha: 0,
+        });
+      },
+    })
     .to(
-      loadingWaveRef,
+      characterRef,
       {
-        duration: 0.6,
-        attr: {
-          d: 'M 0 0 V 50 Q 50 0 100 50 V 0 z',
-        },
-        ease: 'power3.in',
+        y: 0,
+        rotate: '0',
+        duration: 2.5,
+        ease: 'power3',
       },
-      1
-    )
-    .to(loadingWaveRef, {
-      duration: 0.6,
-      attr: {
-        d: 'M 0 0 V 0 Q 50 0 100 0 V 0 z',
-      },
-      ease: 'power3',
-    });
+      3
+    );
 });
 </script>
 
 <template>
   <TheLoading ref="theLoadingRef" />
 
-  <TheBackground />
+  <TheBackground ref="theBackgorundRef" />
 
   <TheHeader />
 

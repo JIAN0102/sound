@@ -47,3 +47,18 @@
 .slide-leave-to {
   transform: translateX(10%);
 }
+
+.mask-enter-active,
+.mask-leave-active {
+  transition: transform .5s;
+}
+
+.mask-enter-from,
+.mask-leave-to {
+  transform: translateY(-100%);
+}
+
+.mask-enter-to,
+.mask-leave-from {
+  transform: translateY(0);
+}
