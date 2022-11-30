@@ -45,19 +45,13 @@ async function handleClick() {
         <div
           class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgroundGradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
         ></div>
-        <div
-          class="rel flex ai:center gap-x:6 h:50 pl:10 pr:20 {gap-x:10;h:60;pl:14;pr:30}@md"
-        >
+        <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:24">
           <div
-            class="flex center-content w:30 h:30 fg:white bg:#333 round ~background-color|.5s {w:32;h:32}@md .group:hover_{bg:black}@md"
+            class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
           >
-            <div class="w:18 h:18 {w:20;h:20}@md">
-              <IconUser :width="'100%'" :height="'100%'" />
-            </div>
+            <IconUser :width="20" :height="20" />
           </div>
-          <span
-            class="f:bold f:14 fg:white ~color|.5s f:16@md .group:hover_{fg:black}@md"
-          >
+          <span class="f:bold fg:white ~color|.5s .group:hover_{fg:black}@md">
             登入 / 註冊</span
           >
         </div>
@@ -71,11 +65,9 @@ async function handleClick() {
             <div
               class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgroundGradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
             ></div>
-            <div
-              class="rel flex ai:center gap-x:6 h:50 pl:10 pr:20 {gap-x:10;h:60;pl:14;pr:30}@md"
-            >
+            <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:24">
               <div
-                class="flex ai:center w:30 h:30 overflow:hidden fg:white bg:#333 round ~background-color|.5s {w:32;h:32}@md .group:hover_{bg:black}@md"
+                class="flex ai:center w:32 h:32 overflow:hidden fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
               >
                 <div class="w:28 @wave|2s|linear|infinite">
                   <IconWave />
@@ -85,7 +77,7 @@ async function handleClick() {
                 </div>
               </div>
               <span
-                class="f:bold f:14 fg:white ~color|.5s f:16@md .group:hover_{fg:black}@md"
+                class="f:bold fg:white ~color|.5s .group:hover_{fg:black}@md"
               >
                 上傳歌曲</span
               >
@@ -94,7 +86,7 @@ async function handleClick() {
         </li>
         <li>
           <button
-            class="flex center-content w:50 h:50 fg:white bg:black round {w:60;h:60}@md"
+            class="flex center-content w:60 h:60 fg:white bg:black round"
             type="button"
             @click="handleClick"
           >
