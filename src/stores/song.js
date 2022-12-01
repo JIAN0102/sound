@@ -24,7 +24,7 @@ export const useSongStore = defineStore('song', () => {
   }
 
   function addSong(document) {
-    songs.value.push({
+    songs.value.unshift({
       ...document.data(),
       docID: document.id,
     });
