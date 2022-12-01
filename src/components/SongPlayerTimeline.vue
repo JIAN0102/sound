@@ -130,12 +130,10 @@ onMounted(() => {
       class="rel flex jc:space-between ai:center gap-x:30 h:full f:bold fg:white pointer-events:none"
     >
       <span class="hide@<md">{{ formatTime(seek) }}</span>
-      <div class="flex:1 t:center">
-        <h2 v-if="currentSong.title" class="lines:1">
-          {{ currentSong.title }}
-        </h2>
-        <h2 v-else>尚無播放的曲目</h2>
-      </div>
+      <h2 class="flex:1 t:center lines:1">
+        <template v-if="currentSong.title">{{ currentSong.title }}</template>
+        <template v-else>尚無播放的曲目</template>
+      </h2>
       <span class="hide@<md">{{ formatTime(duration) }}</span>
     </div>
   </div>

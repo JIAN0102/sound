@@ -44,7 +44,7 @@ function handleClick() {
       <button
         class="abs top:1/2 left:10 z:10 flex center-content w:60 h:60 fg:white bg:black rounded translateY(-50%)"
         type="button"
-        @click.prevent="createSong(song)"
+        @click="createSong(song)"
       >
         <IconPause
           v-if="song.uuid === currentSong.uuid && isSoundPlaying"
@@ -56,16 +56,16 @@ function handleClick() {
       <div
         class="group rel flex ai:center gap-x:10 h:80 pl:80 pr:30 overflow:hidden fg:white cursor:pointer rounded .is-active_{fg:black}"
         :title="song.title"
-        @click.prevent="handleClick"
+        @click="handleClick"
       >
         <div
-          class="{abs;top:1/2;right:0;w:100;h:100;bg:white/.1;round;transform:right;translate(10%,-50%)|scale(0);~transform|.3s}@sm .group:hover_{translate(10%,-50%)|scale(1)}@sm .is-active_{bg:secondary}@sm"
+          class="{abs;top:1/2;right:0;w:100;h:100;bg:white/.1;round;transform:right;translate(10%,-50%)|scale(0);~transform|.3s}@md .group:hover_{translate(10%,-50%)|scale(1)}@md .is-active_{bg:secondary}@md"
         ></div>
         <h3 class="flex:1 f:bold lines:1 f:18@md">
           {{ song.title }}
         </h3>
         <div
-          class="{opacity:0;translateX(100%);~opacity|.3s,transform|.3s}@sm .group:hover_{opacity:1;translateX(0)}@sm"
+          class="{opacity:0;translateX(100%);~opacity|.3s,transform|.3s}@md .group:hover_{opacity:1;translateX(0)}@md"
         >
           <IconMore />
         </div>

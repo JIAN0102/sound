@@ -43,8 +43,7 @@ async function onSubmit(values, { resetForm }) {
   };
   const commentRef = await addDoc(commentsCollection, comment);
   const commentSnapshot = await getDoc(commentRef);
-
-  await addComment(commentSnapshot);
+  addComment(commentSnapshot);
 
   submission.value = false;
   resetForm();
@@ -56,7 +55,7 @@ async function onSubmit(values, { resetForm }) {
     <VField v-slot="{ field, meta }" name="comment">
       <textarea
         v-bind="field"
-        class="block w:full h:200 p:30 fg:white bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder"
+        class="block w:full h:200 p:30 fg:white bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder pointer-events:none:disabled"
         type="text"
         :placeholder="greeting"
         :disabled="!isLoggedIn || submission"
@@ -66,7 +65,7 @@ async function onSubmit(values, { resetForm }) {
         class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
       >
         <button
-          class="flex center-content w:1/2 fg:white bg:white/.1:hover"
+          class="flex center-content w:1/2 fg:white bg:white/.1:hover@md pointer-events:none:disabled"
           type="submit"
           :disabled="submission || !meta.valid"
         >
@@ -74,7 +73,7 @@ async function onSubmit(values, { resetForm }) {
           <span v-else>留言</span>
         </button>
         <button
-          class="flex center-content w:1/2 fg:white bg:white/.1:hover"
+          class="flex center-content w:1/2 fg:white bg:white/.1:hover@md pointer-events:none:disabled"
           type="reset"
           :disabled="submission"
         >
@@ -85,7 +84,7 @@ async function onSubmit(values, { resetForm }) {
         v-else
         class="block w:160 h:60 mt:-30 mx:auto fg:white bg:black b:3|solid|#333 rounded"
         type="button"
-        @click.prevent="toggleModal"
+        @click="toggleModal"
       >
         登入 / 註冊
       </button>

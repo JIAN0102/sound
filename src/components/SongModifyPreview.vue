@@ -63,7 +63,6 @@ async function handleClick(docID, uuid) {
               <div class="rel">
                 <input
                   v-bind="field"
-                  id="registerName"
                   class="block w:full h:60 px:24 mt:8 fg:white bg:black b:3|solid|#333 rounded outline:0 b:#777:focus"
                   :class="{ 'b:danger!': !meta.valid && meta.touched }"
                   type="text"
@@ -110,7 +109,7 @@ async function handleClick(docID, uuid) {
           class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
         >
           <button
-            class="flex center-content w:1/2 h:full fg:white bg:#111:hover {pointer-events:none}:disabled"
+            class="flex center-content w:1/2 h:full fg:white bg:#111:hover@md pointer-events:none:disabled"
             type="submit"
             :disabled="submission"
           >
@@ -118,10 +117,10 @@ async function handleClick(docID, uuid) {
             <span v-else>確定</span>
           </button>
           <button
-            class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
-            type="button"
+            class="flex center-content w:1/2 h:full fg:white bg:#111:hover@md pointer-events:none:disabled"
+            type="reset"
             :disabled="submission"
-            @click.prevent="isEditFormOpen = !isEditFormOpen"
+            @click="isEditFormOpen = false"
           >
             取消
           </button>
@@ -133,26 +132,24 @@ async function handleClick(docID, uuid) {
       v-show="!isEditFormOpen"
       class="flex jc:space-between ai:center gap-x:20 h:80 pl:30 pr:10 bg:black rounded"
     >
-      <div class="flex:1">
-        <h3 class="f:bold fg:white lines:1 f:18@md" :title="song.title">
-          {{ song.title }}
-        </h3>
-      </div>
+      <h3 class="flex:1 f:bold fg:white lines:1 f:18@md" :title="song.title">
+        {{ song.title }}
+      </h3>
       <div
         class="rel flex w:100 h:60 overflow:hidden bg:black b:3|solid|#333 rounded w:120@xs {content:'';abs;top:1/2;left:1/2;w:3;h:20;bg:#333;translate(-50%,-50%)}::before"
       >
         <button
-          class="flex center-content w:1/2 h:full fg:white bg:#111:hover"
+          class="flex center-content w:1/2 h:full fg:white bg:#111:hover@md"
           type="button"
-          @click.prevent="isEditFormOpen = !isEditFormOpen"
+          @click="isEditFormOpen = !isEditFormOpen"
         >
           <IconEdit :width="20" :height="20" />
         </button>
         <button
-          class="flex center-content w:1/2 h:full fg:white bg:#111:hover {pointer-events:none}:disabled"
+          class="flex center-content w:1/2 h:full fg:white bg:#111:hover@md pointer-events:none:disabled"
           type="button"
           :disabled="isPending"
-          @click.prevent="handleClick(song.docID, song.uuid)"
+          @click="handleClick(song.docID, song.uuid)"
         >
           <IconLoading v-if="isPending" :width="20" :height="20" />
           <IconDelete v-else :width="20" :height="20" />

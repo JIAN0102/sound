@@ -53,6 +53,7 @@ async function onSubmit(values) {
     <IconAlert />
     {{ errorCodeMessage }}
   </div>
+
   <VForm :validation-schema="schema" @submit="onSubmit">
     <div>
       <label class="f:bold fg:white f:18@md" for="loginEmail">電子郵件</label>
@@ -65,8 +66,8 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="loginEmail"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus b:danger!.is-invalid"
+            :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="email"
           />
           <div
@@ -95,8 +96,8 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="loginPassword"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus"
-            :class="{ 'b:danger!': !meta.valid && meta.touched }"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus b:danger!.is-invalid"
+            :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="password"
           />
           <div
@@ -115,18 +116,18 @@ async function onSubmit(values) {
       </VField>
     </div>
     <button
-      class="group rel w:full mt:40 bg:primary rounded {pointer-events:none}:disabled"
+      class="group rel w:full mt:40 bg:primary rounded pointer-events:none:disabled"
       type="submit"
       :disabled="submission"
     >
       <div
-        class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
+        class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
       ></div>
       <div class="rel flex center-content h:60">
         <div
           class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black round translateY(-50%)"
         >
-          <IconLoading v-if="submission" />
+          <IconLoading v-if="submission" :width="20" :height="20" />
           <IconUser v-else :width="20" :height="20" />
         </div>
         <span class="f:bold f:18">登入</span>
@@ -134,9 +135,7 @@ async function onSubmit(values) {
     </button>
     <p class="mt:20 f:bold fg:white t:center f:18@md">
       還沒有帳號嗎？
-      <span
-        class="t:underline cursor:pointer"
-        @click.prevent="authType = 'register'"
+      <span class="t:underline cursor:pointer" @click="authType = 'register'"
         >註冊</span
       >
     </p>

@@ -22,11 +22,12 @@ onMounted(async () => {
   <div v-if="isPending" class="flex jc:center fg:white">
     <IconLoading />
   </div>
-  <div v-else>
+
+  <template v-else>
     <Transition name="slide" mode="out-in">
-      <div v-if="!songs.length" class="fg:white t:center">
+      <h3 v-if="!songs.length" class="fg:white t:center">
         目前沒有任何歌曲，嘗試上傳看看吧!
-      </div>
+      </h3>
       <ul v-else class="mt:20>li~li">
         <TransitionGroup name="slide">
           <SongModifyPreview
@@ -37,5 +38,5 @@ onMounted(async () => {
         </TransitionGroup>
       </ul>
     </Transition>
-  </div>
+  </template>
 </template>

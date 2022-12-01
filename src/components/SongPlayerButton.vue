@@ -13,10 +13,10 @@ const { toggleAudio } = playerStore;
   <button
     class="group rel flex center-content w:80 h:60 overflow:hidden bg:primary w:120@md"
     type="button"
-    @click.prevent="toggleAudio"
+    @click="toggleAudio"
   >
     <div
-      class="abs inset:0 opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}"
+      class="abs inset:0 opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
     ></div>
     <div class="rel translate(4,3)">
       <IconPause v-if="isSoundPlaying" />

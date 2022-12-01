@@ -22,7 +22,7 @@ function uploadFile(event) {
 
 <template>
   <label
-    class="flex flex:col center-content gap-y:10 aspect:3/2 fg:white b:2|dashed|#777 r:30 aspect:2/1@xs ~all|.1s {bg:#222;b:white}:is(:hover,.is-drag-over)"
+    class="flex flex:col center-content gap-y:10 aspect:3/2 fg:white b:2|dashed|#777 r:30 ~background-color|.1s,border-color|.1s aspect:2/1@xs {bg:#222;b:white}:is(:hover,.is-drag-over)@md"
     :class="{ 'is-drag-over': isDragOver }"
     for="upload"
     @dragend.prevent.stop="isDragOver = false"
@@ -41,6 +41,7 @@ function uploadFile(event) {
       <span class="f:14 fg:#777">支援檔案類型：MP3。≤10MB</span>
     </h3>
   </label>
+
   <input
     id="upload"
     ref="uploadRef"

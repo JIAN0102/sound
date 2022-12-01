@@ -16,17 +16,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex ai:center gap-x:20">
-    <span class="fg:white">{{ sortedComments.length }} 則留言</span>
+  <div class="flex ai:center gap-x:20 fg:white">
+    <span>{{ sortedComments.length }} 則留言</span>
     <div class="rel flex:1">
       <select
         v-model="commentSort"
-        class="block w:full h:60 px:30 fg:white bg:black b:3|solid|transparent rounded outline:0 appearance:none b:#777:focus"
+        class="block w:full h:60 px:24 bg:black b:3|solid|transparent rounded outline:0 appearance:none b:#777:focus"
       >
         <option value="descending">排序依據 (由新到舊)</option>
         <option value="ascending">排序依據 (由舊到新)</option>
       </select>
-      <div class="abs top:1/2 right:24 fg:white translateY(-50%)">
+      <div class="abs top:1/2 right:24 translateY(-50%)">
         <IconSelectArrow :width="16" :height="16" />
       </div>
     </div>

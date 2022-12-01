@@ -42,10 +42,10 @@ async function handleClick(docID) {
   <li class="rel py:15">
     <button
       v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
-      class="abs top:15 right:0 fg:white {pointer-events:none}:disabled"
+      class="abs top:15 right:0 fg:white pointer-events:none:disabled"
       type="button"
       :disabled="isPending"
-      @click.prevent="handleClick(comment.docID)"
+      @click="handleClick(comment.docID)"
     >
       <IconLoading v-if="isPending" :width="16" :height="16" />
       <IconDelete v-else :width="16" :height="16" />

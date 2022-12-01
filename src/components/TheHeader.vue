@@ -24,10 +24,7 @@ async function handleClick() {
   <header
     class="fixed top:0 left:0 z:999 flex jc:space-between ai:center w:full h:100 px:20 pointer-events:none {h:140;px:80}@md"
   >
-    <RouterLink
-      class="flex ai:center fg:white pointer-events:auto"
-      :to="{ name: 'home' }"
-    >
+    <RouterLink class="pointer-events:auto" :to="{ name: 'home' }">
       <img
         class="w:65 w:auto@xs"
         src="/assets/img/sound-logo.svg"
@@ -40,7 +37,7 @@ async function handleClick() {
         v-if="!isLoggedIn"
         class="group rel overflow:hidden bg:black rounded"
         type="button"
-        @click.prevent="toggleModal"
+        @click="toggleModal"
       >
         <div
           class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgroundGradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
