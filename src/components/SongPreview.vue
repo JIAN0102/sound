@@ -35,7 +35,7 @@ function handleClick() {
 <template>
   <div class="grid-col-span:6@sm grid-col-span:4@lg">
     <div
-      class="rel bg:#333 rounded"
+      class="rel bg:#333 rounded ~background-color|.3s bg:#555:hover"
       :class="{ 'is-active': song.uuid === currentSong.uuid }"
     >
       <div
@@ -58,10 +58,7 @@ function handleClick() {
         :title="song.title"
         @click="handleClick"
       >
-        <div
-          class="{abs;top:1/2;right:0;w:100;h:100;bg:white/.1;round;transform:right;translate(10%,-50%)|scale(0);~transform|.3s}@md .group:hover_{translate(10%,-50%)|scale(1)}@md .is-active_{bg:secondary}@md"
-        ></div>
-        <h3 class="flex:1 f:bold lines:1 f:18@md">
+        <h3 class="rel z:10 flex:1 f:bold lines:1 f:18@md">
           {{ song.title }}
         </h3>
         <div
