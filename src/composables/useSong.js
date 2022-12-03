@@ -16,7 +16,7 @@ export function useSong() {
   const songs = reactive([]);
   const songsTotalLength = ref(0);
   const songListRef = ref(null);
-  const perPage = ref(9);
+  const perPage = ref(1);
 
   function handleScroll() {
     const { scrollTop } = document.documentElement;
@@ -62,7 +62,6 @@ export function useSong() {
           docID: document.id,
         });
       });
-
       isPending.value = false;
     }, 1000);
   }

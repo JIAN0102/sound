@@ -23,7 +23,7 @@ const { isPending, songs, songListRef } = useSong();
           </div>
         </TransitionGroup>
       </div>
-      <Transition name="fadeUp">
+      <Transition name="fade">
         <div
           v-show="isPending"
           class="abs bottom:80 left:1/2 fg:white translateX(-50%)"

@@ -51,10 +51,10 @@ const { isPending, songs, songListRef } = useSong();
                   </div>
                 </TransitionGroup>
               </div>
-              <Transition name="fadeUp">
+              <Transition name="fade">
                 <div
                   v-show="isPending"
-                  class="abs bottom:-20 left:1/2 fg:white translateX(-50%)"
+                  class="abs bottom:-50 left:1/2 fg:white translateX(-50%) bottom:-60@md"
                 >
                   <IconLoading :width="40" :height="40" />
                 </div>

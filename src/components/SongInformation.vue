@@ -21,7 +21,6 @@ const song = ref({});
 
 const formattedCreatedAt = computed(() => {
   if (!song.value.createdAt) return;
-  console.log('haha', song.value.createdAt);
 
   return formatDistanceToNow(song.value.createdAt.toDate(), {
     addSuffix: true,
@@ -83,7 +82,7 @@ onMounted(async () => {
           </span>
         </li>
       </ul>
-      <div class="rel grid-cols:3 mt:30 r:20 mt:40@md">
+      <div class="hide! rel grid-cols:3 mt:30 r:20 mt:40@md">
         <div class="">
           <span class="f:12 fg:#8b8b8b f:14@md">曲風</span>
           <h3 class="mt:4 f:bold fg:white f:20@md">{{ song.genre }}</h3>

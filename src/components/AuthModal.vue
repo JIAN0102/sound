@@ -18,7 +18,7 @@ const { toggleModal } = modalStore;
     >
       <div class="flex ai:center max-w:600 min-h:calc(100%-120px) m:60|auto">
         <div
-          class="rel w:full :is(.fade-enter-active,.fade-leave-active)_{~transform|.5s} :is(.fade-enter-from,.fade-leave-to)_{translateY(15%)}"
+          class="rel w:full :is(.fade-enter-active,.fade-leave-active)_{~transform|.3s} :is(.fade-enter-from,.fade-leave-to)_{translateY(15%)}"
         >
           <button
             class="abs top:20 right:20 z:10 w:40 h:40 b:3|solid|#262626 round {top:30;right:30}@md {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"
