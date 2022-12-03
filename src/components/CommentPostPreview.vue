@@ -52,7 +52,7 @@ async function handleClick(docID) {
     </button>
     <div class="flex ai:flex-end gap-x:8">
       <h3 class="f:bold fg:white f:18@md">{{ comment.name }}</h3>
-      <span class="f:12 fg:#777">
+      <span class="f:12 fg:#8b8b8b">
         {{ formattedCreatedAt }}
       </span>
     </div>

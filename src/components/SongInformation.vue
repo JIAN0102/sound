@@ -21,6 +21,7 @@ const song = ref({});
 
 const formattedCreatedAt = computed(() => {
   if (!song.value.createdAt) return;
+  console.log('haha', song.value.createdAt);
 
   return formatDistanceToNow(song.value.createdAt.toDate(), {
     addSuffix: true,
@@ -43,7 +44,7 @@ onMounted(async () => {
 <template>
   <div class="{flex;ai:flex-start;gap-x:40}@sm">
     <img
-      class="square w:full obj:cover bg:#555 r:30 w:30%@sm w:40%@md"
+      class="square w:full obj:cover bg:#393939 r:30 w:30%@sm w:40%@md"
       :src="song.coverUrl"
       :alt="song.title"
     />
@@ -76,7 +77,7 @@ onMounted(async () => {
       <ul class="flex flex:wrap gap:8 mt:20">
         <li v-for="tag in song.tags" :key="tag">
           <span
-            class="rel block p:6|8|6|20 f:14 fg:white bg:#555 rounded {content:'#';abs;top:8;left:8;fg:white/.5}::before"
+            class="rel block p:6|10|6|20 f:14 fg:white bg:#393939 rounded {content:'#';abs;top:8;left:8;fg:white/.5}::before"
           >
             {{ tag }}
           </span>
@@ -84,17 +85,17 @@ onMounted(async () => {
       </ul>
       <div class="rel grid-cols:3 mt:30 r:20 mt:40@md">
         <div class="">
-          <span class="f:12 fg:#999 f:14@md">曲風</span>
+          <span class="f:12 fg:#8b8b8b f:14@md">曲風</span>
           <h3 class="mt:4 f:bold fg:white f:20@md">{{ song.genre }}</h3>
         </div>
         <div class="">
-          <span class="f:12 fg:#999 f:14@md">上傳者</span>
+          <span class="f:12 fg:#8b8b8b f:14@md">上傳者</span>
           <h3 class="mt:4 f:bold fg:white f:20@md">
             {{ song.displayName }}
           </h3>
         </div>
         <div class="">
-          <span class="f:12 fg:#999 f:14@md">上傳時間</span>
+          <span class="f:12 fg:#8b8b8b f:14@md">上傳時間</span>
           <h3 class="mt:4 f:bold fg:white f:20@md">
             {{ formattedCreatedAt }}
           </h3>

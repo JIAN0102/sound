@@ -14,7 +14,13 @@ const { isPending, songs, songListRef } = useSong();
         class="grid-cols:1 gap-y:20 {grid-cols:13;gap:40}@sm grid-col-start:2>div:nth(4n+3)@sm&<lg grid-col-start:2>div:nth(6n+4)@lg"
       >
         <TransitionGroup name="slide">
-          <SongPreview v-for="song in songs" :key="song.docID" :song="song" />
+          <div
+            v-for="song in songs"
+            :key="song.docID"
+            class="grid-col-span:6@sm grid-col-span:4@lg"
+          >
+            <SongPreview :song="song" />
+          </div>
         </TransitionGroup>
       </div>
       <Transition name="fadeUp">

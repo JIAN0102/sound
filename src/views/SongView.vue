@@ -32,20 +32,6 @@ const { isPending, songs, songListRef } = useSong();
             </template>
           </BaseCard>
         </div>
-
-        <!-- <div>
-          <BaseCard>
-            <template #header>
-              <h2 class="f:bold f:24 fg:white t:center {f:28;t:left}@md">
-                發表留言
-              </h2>
-            </template>
-
-            <template #main>
-              <CommentPost />
-            </template>
-          </BaseCard>
-        </div> -->
       </div>
 
       <div class="grid-col-span:2@lg">
@@ -58,13 +44,11 @@ const { isPending, songs, songListRef } = useSong();
 
           <template #main>
             <div ref="songListRef" class="rel">
-              <div class="grid-cols:1 gap-y:10">
+              <div class="mt:20>div~div">
                 <TransitionGroup name="fade">
-                  <SongPreview
-                    v-for="song in songs"
-                    :key="song.docID"
-                    :song="song"
-                  />
+                  <div v-for="song in songs" :key="song.docID">
+                    <SongPreview :song="song" />
+                  </div>
                 </TransitionGroup>
               </div>
               <Transition name="fadeUp">

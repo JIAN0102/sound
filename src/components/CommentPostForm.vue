@@ -55,17 +55,17 @@ async function onSubmit(values, { resetForm }) {
     <VField v-slot="{ field, meta }" name="comment">
       <textarea
         v-bind="field"
-        class="block w:full h:200 p:30 fg:white lh:1.75 bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder pointer-events:none:disabled"
+        class="block w:full h:200 p:30 fg:white bg:#393939 b:3|solid|transparent r:30 outline:0 resize:none b:#696969:focus fg:white::placeholder pointer-events:none:disabled"
         type="text"
         :placeholder="greeting"
         :disabled="!isLoggedIn || submission"
       ></textarea>
       <div
         v-if="isLoggedIn"
-        class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:black b:3|solid|#333 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#333;translate(-50%,-50%)}::before"
+        class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:#393939 b:3|solid|#262626 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#262626;translate(-50%,-50%)}::before"
       >
         <button
-          class="flex center-content w:1/2 fg:white bg:white/.1:hover@md pointer-events:none:disabled"
+          class="flex center-content w:1/2 fg:white bg:#525252:hover@md pointer-events:none:disabled"
           type="submit"
           :disabled="submission || !meta.valid"
         >
@@ -73,7 +73,7 @@ async function onSubmit(values, { resetForm }) {
           <span v-else>留言</span>
         </button>
         <button
-          class="flex center-content w:1/2 fg:white bg:white/.1:hover@md pointer-events:none:disabled"
+          class="flex center-content w:1/2 fg:white bg:#525252:hover@md pointer-events:none:disabled"
           type="reset"
           :disabled="submission"
         >
@@ -82,7 +82,7 @@ async function onSubmit(values, { resetForm }) {
       </div>
       <button
         v-else
-        class="block w:160 h:60 mt:-30 mx:auto fg:white bg:black b:3|solid|#333 rounded"
+        class="block w:160 h:60 mt:-30 mx:auto fg:white bg:#393939 b:3|solid|#262626 rounded"
         type="button"
         @click="toggleModal"
       >

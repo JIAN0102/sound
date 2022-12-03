@@ -21,7 +21,7 @@ const { toggleModal } = modalStore;
           class="rel w:full :is(.fade-enter-active,.fade-leave-active)_{~transform|.5s} :is(.fade-enter-from,.fade-leave-to)_{translateY(15%)}"
         >
           <button
-            class="abs top:20 right:20 z:10 w:40 h:40 b:3|solid|#333 round {top:30;right:30}@md {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"
+            class="abs top:20 right:20 z:10 w:40 h:40 b:3|solid|#262626 round {top:30;right:30}@md {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"
             type="button"
             @click="toggleModal"
           >
@@ -33,7 +33,7 @@ const { toggleModal } = modalStore;
               <div class="flex jc:center">
                 <div class="pr:20 pr:30@md">
                   <h3
-                    class="f:bold f:24 fg:#777 cursor:pointer f:28@md fg:white.is-active"
+                    class="f:bold f:24 fg:#696969 cursor:pointer f:28@md fg:white.is-active"
                     :class="{ 'is-active': authType === 'login' }"
                     @click="authType = 'login'"
                   >
@@ -42,7 +42,7 @@ const { toggleModal } = modalStore;
                 </div>
                 <div class="pl:20 bl:1|solid|white pl:30@md">
                   <h3
-                    class="f:bold f:24 fg:#777 cursor:pointer f:28@md fg:white.is-active"
+                    class="f:bold f:24 fg:#696969 cursor:pointer f:28@md fg:white.is-active"
                     :class="{ 'is-active': authType === 'register' }"
                     @click="authType = 'register'"
                   >

@@ -21,7 +21,7 @@ onMounted(() => {
     <div class="rel flex:1">
       <select
         v-model="commentSort"
-        class="block w:full h:60 px:24 bg:black b:3|solid|transparent rounded outline:0 appearance:none b:#777:focus"
+        class="block w:full h:60 px:24 bg:#393939 b:3|solid|transparent rounded outline:0 appearance:none b:#696969:focus"
       >
         <option value="descending">排序依據 (由新到舊)</option>
         <option value="ascending">排序依據 (由舊到新)</option>
@@ -37,7 +37,7 @@ onMounted(() => {
   </div>
 
   <Transition name="slide">
-    <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:black r:30">
+    <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:#393939 r:30">
       <TransitionGroup name="slide">
         <CommentPostPreview
           v-for="comment in sortedComments"

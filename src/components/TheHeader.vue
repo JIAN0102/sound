@@ -44,7 +44,7 @@ async function handleClick() {
         ></div>
         <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
           <div
-            class="flex center-content w:40 h:40 fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
+            class="flex center-content w:40 h:40 fg:white bg:#262626 round ~background-color|.5s .group:hover_{bg:black}@md"
           >
             <IconUser :width="20" :height="20" />
           </div>
@@ -64,7 +64,7 @@ async function handleClick() {
             ></div>
             <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
               <div
-                class="flex ai:center w:40 h:40 overflow:hidden fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
+                class="flex ai:center w:40 h:40 overflow:hidden fg:white bg:#262626 round ~background-color|.5s .group:hover_{bg:black}@md"
               >
                 <div class="w:28 @wave|2s|linear|infinite">
                   <IconWave />

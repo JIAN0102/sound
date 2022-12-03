@@ -44,7 +44,7 @@ defineExpose({
 <template>
   <div class="fixed inset:0 overflow:hidden pointer-events:none">
     <div
-      class="abs inset:0 bg:repeating-linear-gradient(40deg,#262626,#262626|3px,#161616|3px,#161616|8px)"
+      class="abs inset:0 bg:repeating-linear-gradient(40deg,#242424,#242424|3px,#141414|3px,#141414|8px)"
     ></div>
     <div
       class="abs top:1/2 left:1/2 w:120% translate(-50%,-50%)|rotate(-12.5) {h:20vh;bg:url('/assets/img/sound-text-fill.svg');background-size:auto|100%}>div {opacity:.05;@scroll|40s|linear|infinite}>div:odd {opacity:.025;@scroll|40s|linear|infinite|reverse}>div:even"

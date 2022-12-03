@@ -30,11 +30,9 @@ onMounted(async () => {
       </h3>
       <ul v-else class="mt:20>li~li">
         <TransitionGroup name="slide">
-          <SongModifyPreview
-            v-for="song in songs"
-            :key="song.docID"
-            :song="song"
-          />
+          <li v-for="song in songs" :key="song.docID">
+            <SongModifyPreview :song="song" />
+          </li>
         </TransitionGroup>
       </ul>
     </Transition>

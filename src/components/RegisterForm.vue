@@ -60,7 +60,7 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="registerName"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus b:danger!.is-invalid"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#393939 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
             :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="text"
           />
@@ -98,7 +98,7 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="registerEmail"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus b:danger!.is-invalid"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#393939 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
             :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="email"
           />
@@ -134,7 +134,7 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="registerPassword"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus b:danger!.is-invalid"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#393939 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
             :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="password"
           />
@@ -172,7 +172,7 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="registerConfirmPassword"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:black b:3|solid|transparent rounded outline:0 b:#777:focus b:danger!.is-invalid"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#393939 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
             :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="password"
           />
