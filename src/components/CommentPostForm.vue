@@ -55,7 +55,7 @@ async function onSubmit(values, { resetForm }) {
     <VField v-slot="{ field, meta }" name="comment">
       <textarea
         v-bind="field"
-        class="block w:full h:200 p:30 fg:white bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder pointer-events:none:disabled"
+        class="block w:full h:200 p:30 fg:white lh:1.75 bg:black b:3|solid|transparent r:30 outline:0 resize:none b:#777:focus fg:#777::placeholder pointer-events:none:disabled"
         type="text"
         :placeholder="greeting"
         :disabled="!isLoggedIn || submission"

@@ -41,12 +41,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="{flex;gap-x:40}@sm">
-    <div
-      class="square bg:#555 bg:url('https://images.unsplash.com/photo-1669837246150-861dfbd0d31f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1976&q=80')|center/cover r:30 w:300@sm w:400@md"
-    ></div>
+  <div class="{flex;ai:flex-start;gap-x:40}@sm">
+    <img
+      class="square w:full obj:cover bg:#555 r:30 w:30%@sm w:40%@md"
+      :src="song.coverUrl"
+      :alt="song.title"
+    />
     <div class="mt:20 {flex:1;mt:0}@sm">
-      <div class="flex ai:flex-start gap-x:20 mb:auto">
+      <div class="flex ai:flex-start gap-x:20 mb:auto flex:row-reverse@sm">
+        <h1 class="mt:24 flex:1 f:bold f:24 fg:white {mt:20;f:28}@md">
+          {{ song.title }}
+        </h1>
         <button
           class="group rel flex center-content w:80 h:80 bg:primary rounded @backgroundGradient|2s|linear|infinite:hover@md"
           type="button"
@@ -64,26 +69,33 @@ onMounted(async () => {
             <IconPlay v-else :width="28" :height="28" />
           </div>
         </button>
-        <h1 class="mt:24 flex:1 f:bold f:24 fg:white {mt:20;f:28}@md">
-          {{ song.title }}
-        </h1>
       </div>
-      <div
-        class="rel grid-cols:3 py:40 mt:30 t:center r:20 mt:40@md {content:'';abs;top:1/2;left:0;w:3;h:30;bg:#777;translateY(-50%)}>div~div::before"
-      >
-        <div class="rel">
-          <span class="f:12 fg:#999 f:16@md">曲風</span>
-          <h3 class="mt:4 f:bold fg:white f:24@md">{{ song.genre }}</h3>
+      <p class="mt:20 fg:white lh:1.75 white-space:pre-wrap">
+        {{ song.description }}
+      </p>
+      <ul class="flex flex:wrap gap:8 mt:20">
+        <li v-for="tag in song.tags" :key="tag">
+          <span
+            class="rel block p:6|8|6|20 f:14 fg:white bg:#555 rounded {content:'#';abs;top:8;left:8;fg:white/.5}::before"
+          >
+            {{ tag }}
+          </span>
+        </li>
+      </ul>
+      <div class="rel grid-cols:3 mt:30 r:20 mt:40@md">
+        <div class="">
+          <span class="f:12 fg:#999 f:14@md">曲風</span>
+          <h3 class="mt:4 f:bold fg:white f:20@md">{{ song.genre }}</h3>
         </div>
-        <div class="rel">
-          <span class="f:12 fg:#999 f:16@md">上傳者</span>
-          <h3 class="mt:4 f:bold fg:white f:24@md">
+        <div class="">
+          <span class="f:12 fg:#999 f:14@md">上傳者</span>
+          <h3 class="mt:4 f:bold fg:white f:20@md">
             {{ song.displayName }}
           </h3>
         </div>
-        <div class="rel">
-          <span class="f:12 fg:#999 f:16@md">上傳時間</span>
-          <h3 class="mt:4 f:bold fg:white f:24@md">
+        <div class="">
+          <span class="f:12 fg:#999 f:14@md">上傳時間</span>
+          <h3 class="mt:4 f:bold fg:white f:20@md">
             {{ formattedCreatedAt }}
           </h3>
         </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { useSong } from '@/composables/song';
+import { useSong } from '@/composables/useSong';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import SongPreview from '@/components/SongPreview.vue';
 

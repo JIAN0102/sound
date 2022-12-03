@@ -79,7 +79,6 @@ export function useSong() {
     window.removeEventListener('scroll', handleScroll);
   });
 
-  // expose managed state as return value
   return {
     isPending,
     songs,

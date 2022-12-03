@@ -57,7 +57,7 @@ async function handleClick(docID) {
       </span>
     </div>
     <div class="mt:10 f:14 fg:white lh:1.75 f:16@md">
-      <p>{{ comment.content }}</p>
+      <p class="white-space:pre-wrap">{{ comment.content }}</p>
     </div>
   </li>
 </template>

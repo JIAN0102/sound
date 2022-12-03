@@ -42,9 +42,9 @@ async function handleClick() {
         <div
           class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgroundGradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
         ></div>
-        <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:24">
+        <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
           <div
-            class="flex center-content w:32 h:32 fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
+            class="flex center-content w:40 h:40 fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
           >
             <IconUser :width="20" :height="20" />
           </div>
@@ -62,10 +62,13 @@ async function handleClick() {
             <div
               class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgroundGradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
             ></div>
-            <div class="rel flex ai:center gap-x:10 h:60 pl:14 pr:24">
+            <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
               <div
-                class="flex ai:center w:32 h:32 overflow:hidden fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
+                class="flex ai:center w:40 h:40 overflow:hidden fg:white bg:#333 round ~background-color|.5s .group:hover_{bg:black}@md"
               >
+                <div class="w:28 @wave|2s|linear|infinite">
+                  <IconWave />
+                </div>
                 <div class="w:28 @wave|2s|linear|infinite">
                   <IconWave />
                 </div>

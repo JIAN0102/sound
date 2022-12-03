@@ -47,6 +47,9 @@ function uploadFile(files) {
           uid: auth.currentUser.uid,
           displayName: auth.currentUser.displayName,
           title: file.name.replace(/\.[^/\\.]+$/, ''),
+          description: '',
+          tags: [],
+          coverUrl: '/assets/img/cd-character.png',
           genre: '無',
         };
         song.url = await getDownloadURL(uploadTask.snapshot.ref);
