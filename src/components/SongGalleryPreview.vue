@@ -77,7 +77,7 @@ function handleClick() {
       </button>
     </div>
     <h2
-      class="mt:12 f:bold fg:white cursor:pointer t:underline:hover"
+      class="mt:16 f:bold fg:white cursor:pointer t:underline:hover"
       @click="handleClick"
     >
       {{ song.title }}

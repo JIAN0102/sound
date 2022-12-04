@@ -8,7 +8,7 @@ const { isPending, songs, songListRef } = useSong();
 
 <template>
   <div class="pt:100vh">
-    <div class="p:60|20|120 bg:black rt:40 {px:80;rt:60}@md">
+    <div class="p:60|20|140 bg:black rt:40 {px:80;rt:60}@md">
       <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">探索歌曲</h1>
       <div
         ref="songListRef"
