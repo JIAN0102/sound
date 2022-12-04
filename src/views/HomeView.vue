@@ -1,7 +1,7 @@
 <script setup>
 import { useSong } from '@/composables/useSong';
 import IconLoading from '@/components/icons/IconLoading.vue';
-import SongPreview from '@/components/SongPreview.vue';
+import SongGalleryPreview from '@/components/SongGalleryPreview.vue';
 
 const { isPending, songs, songListRef } = useSong();
 </script>
@@ -12,11 +12,11 @@ const { isPending, songs, songListRef } = useSong();
       <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">探索歌曲</h1>
       <div
         ref="songListRef"
-        class="grid-cols:2 gap:24 mt:20 grid-cols:3@sm grid-cols:4@md grid-cols:5@lg grid-cols:6@xl"
+        class="grid-cols:2 gap:48|24 mt:30 grid-cols:3@sm grid-cols:4@md grid-cols:5@lg grid-cols:6@xl"
       >
         <TransitionGroup name="fade">
           <div v-for="song in songs" :key="song.docID">
-            <SongPreview :song="song" />
+            <SongGalleryPreview :song="song" />
           </div>
         </TransitionGroup>
       </div>

@@ -3,7 +3,7 @@ import { useSong } from '@/composables/useSong';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import BaseCard from '@/components/BaseCard.vue';
 import SongInformation from '@/components/SongInformation.vue';
-import SongPreview from '@/components/SongPreview.vue';
+import SongBadgePreview from '@/components/SongBadgePreview.vue';
 import CommentPost from '@/components/CommentPost.vue';
 
 const { isPending, songs, songListRef } = useSong();
@@ -44,10 +44,10 @@ const { isPending, songs, songListRef } = useSong();
 
           <template #main>
             <div ref="songListRef" class="rel">
-              <div class="mt:20>div~div">
+              <div class="mt:10>div~div">
                 <TransitionGroup name="fade">
                   <div v-for="song in songs" :key="song.docID">
-                    <SongPreview :song="song" />
+                    <SongBadgePreview :song="song" />
                   </div>
                 </TransitionGroup>
               </div>

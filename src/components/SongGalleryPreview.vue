@@ -1,7 +1,10 @@
 <script setup>
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
+import { formatDistanceToNow } from 'date-fns';
+import { zhTW } from 'date-fns/locale';
 import IconPlay from '@/components/icons/IconPlay.vue';
 import IconPause from '@/components/icons/IconPause.vue';
 
@@ -17,6 +20,15 @@ const router = useRouter();
 const playerStore = usePlayerStore();
 const { currentSong, isSoundPlaying } = storeToRefs(playerStore);
 const { createSong } = playerStore;
+
+const formattedCreatedAt = computed(() => {
+  if (!props.song.createdAt) return;
+
+  return formatDistanceToNow(props.song.createdAt.toDate(), {
+    addSuffix: true,
+    locale: zhTW,
+  });
+});
 
 function handleClick() {
   if (!isSoundPlaying.value) {
@@ -70,6 +82,8 @@ function handleClick() {
     >
       {{ song.title }}
     </h2>
-    <h3 class="mt:6 f:14 fg:#919191">由 {{ song.displayName }} 上傳</h3>
+    <h3 class="mt:6 f:14 fg:#919191">
+      {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
+    </h3>
   </div>
 </template>

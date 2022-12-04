@@ -44,7 +44,7 @@ onMounted(async () => {
   <div class="grid-cols:1 gap:20|40 grid-cols:5@sm">
     <div class="grid-col-span:2@sm">
       <div
-        class="rel square overflow:hidden cursor:pointer bg:linear-gradient(135deg,#393939,#787878) r:10"
+        class="rel square overflow:hidden bg:linear-gradient(135deg,#393939,#787878) r:10"
       >
         <img
           v-if="song.coverUrl"
@@ -52,9 +52,6 @@ onMounted(async () => {
           :src="song.coverUrl"
           :alt="song.title"
         />
-        <div
-          class="abs inset:0 bg:linear-gradient(to|bottom,black/.5,transparent) opacity:0 invisible ~opacity|.3s,visibility|.3s .is-active_{opacity:1;visible} .group:hover_{opacity:1;visible}"
-        ></div>
       </div>
     </div>
     <div class="grid-col-span:3@sm">
