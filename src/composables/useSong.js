@@ -16,7 +16,7 @@ export function useSong() {
   const songs = reactive([]);
   const songsTotalLength = ref(0);
   const songListRef = ref(null);
-  const perPage = ref(1);
+  const perPage = ref(2);
 
   function handleScroll() {
     const { scrollTop } = document.documentElement;

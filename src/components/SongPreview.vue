@@ -4,7 +4,6 @@ import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
 import IconPlay from '@/components/icons/IconPlay.vue';
 import IconPause from '@/components/icons/IconPause.vue';
-import IconMore from '@/components/icons/IconMore.vue';
 
 const props = defineProps({
   song: {
@@ -33,38 +32,44 @@ function handleClick() {
 </script>
 
 <template>
-  <div
-    class="rel bg:#262626 rounded ~background-color|.3s bg:#393939:hover"
-    :class="{ 'is-active': song.uuid === currentSong.uuid }"
-  >
+  <div>
     <div
-      class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .is-active_{opacity:1}"
-    ></div>
-    <button
-      class="abs top:1/2 left:10 z:10 flex center-content w:60 h:60 fg:white bg:black rounded translateY(-50%)"
-      type="button"
-      @click="createSong(song)"
+      class="group rel"
+      :class="{ 'is-active': song.uuid === currentSong.uuid }"
     >
-      <IconPause
-        v-if="song.uuid === currentSong.uuid && isSoundPlaying"
-        :width="20"
-        :height="20"
-      />
-      <IconPlay v-else :width="20" :height="20" />
-    </button>
-    <div
-      class="group rel flex ai:center gap-x:10 h:80 pl:80 pr:30 overflow:hidden fg:white cursor:pointer rounded .is-active_{fg:black}"
-      :title="song.title"
+      <div
+        class="rel square overflow:hidden cursor:pointer bg:linear-gradient(135deg,#393939,#787878) r:4"
+        @click="handleClick"
+      >
+        <img
+          v-if="song.coverUrl"
+          class="abs top:0 left:0 full obj:cover"
+          :src="song.coverUrl"
+          alt=""
+        />
+        <div
+          class="abs inset:0 bg:linear-gradient(to|bottom,black/.5,transparent) opacity:0 invisible ~opacity|.3s,visibility|.3s .is-active_{opacity:1;visible} .group:hover_{opacity:1;visible}"
+        ></div>
+      </div>
+      <button
+        class="abs bottom:20 right:20 z:10 flex center-content w:48 h:48 fg:white bg:black rounded opacity:0 invisible ~opacity|.3s,visibility|.3s .is-active_{opacity:1;visible} .group:hover_{opacity:1;visible}"
+        type="button"
+        @click="createSong(song)"
+      >
+        <IconPause
+          v-if="song.uuid === currentSong.uuid && isSoundPlaying"
+          :width="20"
+          :height="20"
+        />
+        <IconPlay v-else :width="20" :height="20" />
+      </button>
+    </div>
+    <h2
+      class="mt:12 f:bold fg:white cursor:pointer t:underline:hover"
       @click="handleClick"
     >
-      <h3 class="rel z:10 flex:1 f:bold lines:1 f:18@md">
-        {{ song.title }}
-      </h3>
-      <div
-        class="{opacity:0;translateX(100%);~opacity|.3s,transform|.3s}@md .group:hover_{opacity:1;translateX(0)}@md"
-      >
-        <IconMore />
-      </div>
-    </div>
+      {{ song.title }}
+    </h2>
+    <h3 class="mt:6 f:14 fg:#919191">由 {{ song.displayName }} 上傳</h3>
   </div>
 </template>

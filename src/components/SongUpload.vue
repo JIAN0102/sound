@@ -49,7 +49,7 @@ function uploadFile(files) {
           title: file.name.replace(/\.[^/\\.]+$/, ''),
           description: '',
           tags: [],
-          coverUrl: '/assets/img/cd-character.png',
+          coverUrl: '',
           genre: '無',
         };
         song.url = await getDownloadURL(uploadTask.snapshot.ref);

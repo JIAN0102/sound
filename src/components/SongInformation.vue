@@ -41,19 +41,34 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="{flex;ai:flex-start;gap-x:40}@sm">
-    <img
-      class="square w:full obj:cover bg:#393939 r:30 w:30%@sm w:40%@md"
-      :src="song.coverUrl"
-      :alt="song.title"
-    />
-    <div class="mt:20 {flex:1;mt:0}@sm">
-      <div class="flex ai:flex-start gap-x:20 mb:auto flex:row-reverse@sm">
-        <h1 class="mt:24 flex:1 f:bold f:24 fg:white {mt:20;f:28}@md">
-          {{ song.title }}
-        </h1>
+  <div class="grid-cols:1 gap:20|40 grid-cols:5@sm">
+    <div class="grid-col-span:2@sm">
+      <div
+        class="rel square overflow:hidden cursor:pointer bg:linear-gradient(135deg,#393939,#787878) r:10"
+      >
+        <img
+          v-if="song.coverUrl"
+          class="abs top:0 left:0 full obj:cover"
+          :src="song.coverUrl"
+          :alt="song.title"
+        />
+        <div
+          class="abs inset:0 bg:linear-gradient(to|bottom,black/.5,transparent) opacity:0 invisible ~opacity|.3s,visibility|.3s .is-active_{opacity:1;visible} .group:hover_{opacity:1;visible}"
+        ></div>
+      </div>
+    </div>
+    <div class="grid-col-span:3@sm">
+      <div class="flex ai:flex-start gap-x:20 flex:row-reverse@sm">
+        <div class="flex:1 mt:6">
+          <h1 class="f:bold f:20 fg:white f:24@sm f:28@md">
+            {{ song.title }}
+          </h1>
+          <h2 class="mt:4 f:14 fg:#919191">
+            {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
+          </h2>
+        </div>
         <button
-          class="group rel flex center-content w:80 h:80 bg:primary rounded @backgroundGradient|2s|linear|infinite:hover@md"
+          class="group rel flex center-content w:64 h:64 bg:primary rounded @backgroundGradient|2s|linear|infinite:hover@md"
           type="button"
           @click="createSong(song)"
         >
@@ -63,10 +78,8 @@ onMounted(async () => {
           <div class="rel">
             <IconPause
               v-if="song.uuid === currentSong.uuid && isSoundPlaying"
-              :width="28"
-              :height="28"
             />
-            <IconPlay v-else :width="28" :height="28" />
+            <IconPlay v-else />
           </div>
         </button>
       </div>
@@ -75,31 +88,13 @@ onMounted(async () => {
       </p>
       <ul class="flex flex:wrap gap:8 mt:20">
         <li v-for="tag in song.tags" :key="tag">
-          <span
-            class="rel block p:6|10|6|20 f:14 fg:white bg:#393939 rounded {content:'#';abs;top:8;left:8;fg:white/.5}::before"
+          <div
+            class="rel flex ai:center gap-x:3 h:30 pr:10 pl:20 f:14 fg:white bg:#393939 rounded {content:'#';abs;top:8;left:8;fg:#919191}::before"
           >
-            {{ tag }}
-          </span>
+            <span class="max-w:120 lines:1">{{ tag }}</span>
+          </div>
         </li>
       </ul>
-      <div class="hide! rel grid-cols:3 mt:30 r:20 mt:40@md">
-        <div class="">
-          <span class="f:12 fg:#8b8b8b f:14@md">曲風</span>
-          <h3 class="mt:4 f:bold fg:white f:20@md">{{ song.genre }}</h3>
-        </div>
-        <div class="">
-          <span class="f:12 fg:#8b8b8b f:14@md">上傳者</span>
-          <h3 class="mt:4 f:bold fg:white f:20@md">
-            {{ song.displayName }}
-          </h3>
-        </div>
-        <div class="">
-          <span class="f:12 fg:#8b8b8b f:14@md">上傳時間</span>
-          <h3 class="mt:4 f:bold fg:white f:20@md">
-            {{ formattedCreatedAt }}
-          </h3>
-        </div>
-      </div>
     </div>
   </div>
 </template>

@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useCommentStore } from '@/stores/comment';
-import IconSelectArrow from '@/components/icons/IconSelectArrow.vue';
+import IconAdjust from '@/components/icons/IconAdjust.vue';
 import CommentPostForm from '@/components/CommentPostForm.vue';
 import CommentPostPreview from '@/components/CommentPostPreview.vue';
 
@@ -27,7 +27,7 @@ onMounted(() => {
         <option value="ascending">排序依據 (由舊到新)</option>
       </select>
       <div class="abs top:1/2 right:24 translateY(-50%)">
-        <IconSelectArrow :width="16" :height="16" />
+        <IconAdjust />
       </div>
     </div>
   </div>

@@ -49,13 +49,13 @@ function deleteTag(index) {
 
 const cover = ref(null);
 const coverUrl = ref(props.song.coverUrl);
-const fileTypes = ['image/png', 'image/jpeg'];
+const coverTypes = ['image/jpeg', 'image/png'];
 const reader = new FileReader();
 
 function handleChange(event) {
   const file = event.target.files[0];
 
-  if (file && fileTypes.includes(file.type)) {
+  if (file && coverTypes.includes(file.type)) {
     cover.value = file;
     reader.readAsDataURL(event.target.files[0]);
   } else {
@@ -88,7 +88,6 @@ async function onSubmit(values) {
     );
     const res = await uploadBytes(coverRef, cover.value);
     const coverUrl = await getDownloadURL(res.ref);
-
     values.coverUrl = coverUrl;
   }
 
@@ -115,20 +114,21 @@ async function onSubmit(values) {
         <div class="rel p:30|30|60 bg:#393939 r:30">
           <div>
             <label
-              class="rel square block max-w:300 mx:auto overflow:hidden bg:#262626 b:2|dashed|#696969 r:30 ~background-color|.1s,border-color|.1s {b:white}:hover@md"
-              for="uploadImage"
+              class="rel square block max-w:300 mx:auto overflow:hidden bg:linear-gradient(135deg,#393939,#787878) b:2|dashed|#919191 r:30 ~border-color|.1s b:white:hover@md"
+              for="uploadCover"
             >
               <img
+                v-if="coverUrl"
                 class="abs top:0 left:0 full obj:cover"
                 :src="coverUrl"
                 alt=""
               />
               <div class="abs top:1/2 left:1/2 fg:white translate(-50%,-50%)">
-                <IconCamera :width="32" :height="32" />
+                <IconCamera :width="36" :height="36" />
               </div>
             </label>
             <input
-              id="uploadImage"
+              id="uploadCover"
               type="file"
               class="hide fg:white"
               @change="handleChange"
@@ -136,7 +136,7 @@ async function onSubmit(values) {
             <h3 class="rel mt:20 f:bold fg:white lh:1.5 t:center f:20@md">
               上傳歌曲封面
               <br />
-              <span class="f:14 fg:#8b8b8b">支援檔案類型：JPG、PNG。≤1MB</span>
+              <span class="f:14 fg:#919191">支援檔案類型：JPG、PNG。≤3MB</span>
             </h3>
           </div>
           <div class="mt:30">
@@ -149,7 +149,7 @@ async function onSubmit(values) {
               <div class="rel">
                 <input
                   v-bind="field"
-                  class="block w:full h:60 px:24 mt:8 fg:white bg:#262626 b:3|solid|transparent rounded outline:0 b:#666:focus"
+                  class="block w:full h:60 px:24 mt:8 fg:white bg:#262626 b:3|solid|transparent rounded outline:0 b:#656565:focus"
                   :class="{ 'b:danger!': !meta.valid && meta.touched }"
                   type="text"
                 />
@@ -172,7 +172,7 @@ async function onSubmit(values) {
             <label class="f:bold fg:white f:18@md">曲風</label>
             <div class="rel">
               <VField
-                class="block w:full h:60 px:24 mt:8 fg:white bg:#262626 b:3|solid|transparent rounded outline:0 appearance:none b:#666:focus"
+                class="block w:full h:60 px:24 mt:8 fg:white bg:#262626 b:3|solid|transparent rounded outline:0 appearance:none b:#656565:focus"
                 as="select"
                 name="genre"
               >
@@ -195,7 +195,7 @@ async function onSubmit(values) {
             <VField v-slot="{ field }" name="description">
               <textarea
                 v-bind="field"
-                class="block w:full h:140 p:16|24 mt:8 fg:white lh:1.75 bg:#262626 b:3|solid|transparent r:30 outline:0 resize:none b:#666:focus fg:#696969::placeholder pointer-events:none:disabled"
+                class="block w:full h:140 p:16|24 mt:8 fg:white lh:1.75 bg:#262626 b:3|solid|transparent r:30 outline:0 resize:none b:#656565:focus fg:#696969::placeholder pointer-events:none:disabled"
                 type="text"
               ></textarea>
             </VField>
@@ -203,22 +203,20 @@ async function onSubmit(values) {
           <div class="mt:20" @click="focusTagInput">
             <label class="f:bold fg:white f:18@md">附加標籤</label>
             <div
-              class="flex flex:col gap-y:8 p:17|24 mt:8 bg:#262626 b:3|solid|transparent r:30"
+              class="flex flex:wrap gap:8 min-h:60 p:12|24 mt:8 cursor:text bg:#262626 b:3|solid|transparent r:30"
             >
-              <ul v-if="tags.length" class="flex flex:wrap gap:8">
-                <li v-for="(tag, index) of tags" :key="tag">
-                  <span
-                    class="rel block p:6|10|6|20 f:14 fg:white cursor:pointer bg:#393939 rounded {content:'#';abs;top:8;left:8;fg:white/.5}::before t:line-through:hover"
-                    @click="deleteTag(index)"
-                  >
-                    {{ tag }}
-                  </span>
-                </li>
-              </ul>
+              <div
+                v-for="(tag, index) of tags"
+                :key="tag"
+                class="rel flex ai:center gap-x:3 h:30 pr:10 pl:20 f:14 fg:white cursor:pointer bg:#393939 rounded t:line-through:hover {content:'#';abs;top:8;left:8;fg:#919191}::before"
+                @click="deleteTag(index)"
+              >
+                <span>{{ tag }}</span>
+              </div>
               <input
                 ref="tagInputRef"
                 v-model="tagInput"
-                class="block w:full fg:white outline:0"
+                class="w:120 fg:white outline:0"
                 type="text"
                 @keypress.enter.prevent="addTag(tagInput)"
               />

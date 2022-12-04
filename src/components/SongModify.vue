@@ -26,7 +26,7 @@ onMounted(async () => {
   <template v-else>
     <Transition name="slide" mode="out-in">
       <h3 v-if="!songs.length" class="fg:white t:center">
-        目前沒有任何歌曲，嘗試上傳看看吧!
+        目前沒有任何歌曲，試著上傳看看吧!
       </h3>
       <ul v-else class="mt:20>li~li">
         <TransitionGroup name="slide">

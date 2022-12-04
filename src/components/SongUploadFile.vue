@@ -31,14 +31,14 @@ function uploadFile(event) {
     @dragleave.prevent.stop="isDragOver = false"
     @drop.prevent.stop="uploadFile"
   >
-    <div class="w:32 h:32 {w:40;h:40}@md">
+    <div class="w:40 h:40 {w:48;h:48}@md">
       <IconUpload :width="'100%'" :height="'100%'" />
     </div>
     <h3 class="f:bold lh:1.5 t:center f:20@md">
       拖曳歌曲至此，或
       <span class="fg:primary t:underline cursor:pointer">選擇檔案</span>
       <br />
-      <span class="f:14 fg:#8b8b8b">支援檔案類型：MP3。≤10MB</span>
+      <span class="f:14 fg:#919191">支援檔案類型：MP3。≤10MB</span>
     </h3>
   </label>
 
