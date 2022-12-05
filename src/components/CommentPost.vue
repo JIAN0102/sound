@@ -18,10 +18,10 @@ onMounted(() => {
 <template>
   <div class="flex ai:center gap-x:40 fg:white">
     <span>{{ sortedComments.length }} 則留言</span>
-    <div class="rel flex:1 max-w:200">
+    <div class="rel flex:1 max-w:180">
       <select
         v-model="commentSort"
-        class="block w:full h:60 outline:0 appearance:none fg:black>option"
+        class="block w:full h:40 outline:0 appearance:none fg:black>option"
       >
         <option value="descending">排序依據 (由新到舊)</option>
         <option value="ascending">排序依據 (由舊到新)</option>
@@ -32,18 +32,16 @@ onMounted(() => {
     </div>
   </div>
 
-  <div class="rel mt:20">
+  <div class="rel mt:20 mt:30@md">
     <CommentPostForm />
   </div>
 
   <Transition name="slide">
-    <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:#212121 r:30">
+    <ul v-if="sortedComments.length" class="mt:20 py:16>li">
       <TransitionGroup name="slide">
-        <CommentPostPreview
-          v-for="comment in sortedComments"
-          :key="comment.docID"
-          :comment="comment"
-        />
+        <li v-for="comment in sortedComments" :key="comment.docID">
+          <CommentPostPreview :comment="comment" />
+        </li>
       </TransitionGroup>
     </ul>
   </Transition>

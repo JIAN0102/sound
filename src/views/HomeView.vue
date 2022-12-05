@@ -8,12 +8,12 @@ const { isPending, songs, songListRef } = useSong();
 
 <template>
   <div class="pt:100vh">
-    <div class="p:50|20|140 bg:#030303 rt:40 {p:80|80|140;rt:60}@md">
+    <div class="p:50|20|140 bg:#030303 rt:40 {p:80|40|140;rt:60}@md px:80@lg">
       <div class="max-w:1500 mx:auto">
         <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">探索歌曲</h1>
         <div
           ref="songListRef"
-          class="grid-cols:2 gap:48|24 mt:30 grid-cols:3@sm grid-cols:4@md grid-cols:5@lg grid-cols:6@xl"
+          class="grid-cols:2 gap:40|24 mt:20 grid-cols:3@sm {grid-cols:4;mt:30}@md grid-cols:5@lg grid-cols:6@xl"
         >
           <TransitionGroup name="fade">
             <div v-for="song in songs" :key="song.docID">

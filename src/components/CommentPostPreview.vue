@@ -39,10 +39,10 @@ async function handleClick(docID) {
 </script>
 
 <template>
-  <li class="rel py:15">
+  <div class="rel">
     <button
       v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
-      class="abs top:15 right:0 fg:white pointer-events:none:disabled"
+      class="abs top:0 right:0 fg:white pointer-events:none:disabled"
       type="button"
       :disabled="isPending"
       @click="handleClick(comment.docID)"
@@ -56,8 +56,8 @@ async function handleClick(docID) {
         {{ formattedCreatedAt }}
       </span>
     </div>
-    <div class="mt:10 f:14 fg:white/.7 lh:1.75 f:16@md">
-      <p class="white-space:pre-wrap">{{ comment.content }}</p>
-    </div>
-  </li>
+    <p class="mt:4 f:14 fg:white/.7 lh:1.75 white-space:pre-wrap">
+      {{ comment.content }}
+    </p>
+  </div>
 </template>

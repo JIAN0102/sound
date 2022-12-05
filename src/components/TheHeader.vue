@@ -22,11 +22,11 @@ async function handleClick() {
 
 <template>
   <header
-    class="fixed top:0 left:0 z:999 flex jc:space-between ai:center w:full h:100 px:20 pointer-events:none {h:140;px:80}@md"
+    class="fixed top:0 left:0 z:999 flex jc:space-between ai:center w:full h:100 px:20 pointer-events:none {h:140;px:40}@md px:80@lg"
   >
     <RouterLink class="pointer-events:auto" :to="{ name: 'home' }">
       <img
-        class="w:65 w:auto@xs"
+        class="w:65 w:auto@md"
         src="/assets/img/sound-logo.svg"
         alt="sound"
       />

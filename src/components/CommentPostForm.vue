@@ -62,7 +62,7 @@ async function onSubmit(values, { resetForm }) {
       ></textarea>
       <div
         v-if="isLoggedIn"
-        class="rel flex w:240 h:60 mt:-30 mx:auto overflow:hidden bg:#212121 b:3|solid|#030303 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#030303;translate(-50%,-50%)}::before"
+        class="rel flex w:200 h:60 mt:-30 mx:auto overflow:hidden bg:#212121 b:3|solid|#030303 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#030303;translate(-50%,-50%)}::before"
       >
         <button
           class="flex center-content w:1/2 fg:white bg:#383838:hover@md pointer-events:none:disabled"

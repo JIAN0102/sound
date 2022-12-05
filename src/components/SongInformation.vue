@@ -43,7 +43,7 @@ onMounted(async () => {
 <template>
   <div class="{flex;gap-x:40}@md">
     <div
-      class="rel square max-w:400 mx:auto overflow:hidden r:10 w:400@md"
+      class="rel square max-w:340 mx:auto overflow:hidden r:8 w:340@md"
       :class="{
         'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
       }"
@@ -56,7 +56,7 @@ onMounted(async () => {
       />
     </div>
     <div class="flex:1 mt:30">
-      <div class="flex ai:flex-start gap-x:20 flex:row-reverse@md">
+      <div class="flex gap-x:20 flex:row-reverse@md">
         <div class="flex:1">
           <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">
             {{ song.title }}
