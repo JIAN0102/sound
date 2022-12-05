@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted, onBeforeUnmount, provide } from 'vue';
+import { ref, reactive, onMounted, watch, onBeforeUnmount, provide } from 'vue';
 import {
   query,
   where,
@@ -12,6 +12,7 @@ import {
   getCountFromServer,
 } from 'firebase/firestore';
 import { auth, songsCollection } from '@/plugins/firebase';
+import emitter from '@/plugins/mitt';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import SongModifyPreview from '@/components/SongModifyPreview.vue';
 
@@ -19,7 +20,7 @@ const isPending = ref(false);
 const songs = reactive([]);
 const documentsTotalLength = ref(0);
 const limitDocumentRef = ref(null);
-const perPage = ref(12);
+const limitLength = ref(9);
 
 function handleScroll() {
   const { scrollTop } = document.documentElement;
@@ -52,7 +53,7 @@ async function getSongs() {
       where('uid', '==', auth.currentUser.uid),
       orderBy('createdAt', 'desc'),
       startAfter(lastDoc),
-      limit(perPage.value)
+      limit(limitLength.value)
     );
     snapshots = await getDocs(q);
   } else {
@@ -60,7 +61,7 @@ async function getSongs() {
       songsCollection,
       where('uid', '==', auth.currentUser.uid),
       orderBy('createdAt', 'desc'),
-      limit(perPage.value)
+      limit(limitLength.value)
     );
     snapshots = await getDocs(q);
   }
@@ -83,8 +84,8 @@ function addSong(document) {
   });
 }
 
-function editSong(docID, values) {
-  const index = songs.findIndex((song) => song.docID === docID);
+function editSong(values) {
+  const index = songs.findIndex((song) => song.docID === values.docID);
   songs[index] = values;
 }
 
@@ -93,45 +94,49 @@ function deleteSong(docID) {
   songs.splice(index, 1);
 }
 
-onMounted(async () => {
+async function getDocumentsTotalLength() {
   const q = query(songsCollection, where('uid', '==', auth.currentUser.uid));
   const snapshot = await getCountFromServer(q);
   documentsTotalLength.value = snapshot.data().count;
-
-  window.addEventListener('scroll', handleScroll);
-  getSongs();
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
+}
 
 provide('song', {
   editSong,
 });
 
-defineExpose({
-  addSong,
+watch(songs, () => {
+  getDocumentsTotalLength();
+});
+
+onMounted(async () => {
+  emitter.on('addSong', addSong);
+  await getDocumentsTotalLength();
+  window.addEventListener('scroll', handleScroll);
+  getSongs();
+});
+
+onBeforeUnmount(() => {
+  emitter.off('addSong', addSong);
+  window.removeEventListener('scroll', handleScroll);
 });
 </script>
 
 <template>
-  <h3 v-if="!songs.length" class="fg:white">
-    目前沒有任何歌曲，試著上傳看看吧!
-  </h3>
-  <ul v-else ref="limitDocumentRef" class="bb:1|solid|white/.1>li">
-    <TransitionGroup name="slide">
-      <li v-for="song in songs" :key="song.docID">
-        <SongModifyPreview :song="song" @delete-song="deleteSong" />
-      </li>
-    </TransitionGroup>
-  </ul>
-  <Transition name="fade">
-    <div
-      v-show="isPending"
-      class="abs bottom:80 left:1/2 fg:white translateX(-50%)"
-    >
-      <IconLoading :width="40" :height="40" />
-    </div>
-  </Transition>
+  <div ref="limitDocumentRef" class="rel">
+    <ul class="bb:1|solid|white/.1>li">
+      <TransitionGroup name="fade">
+        <li v-for="song in songs" :key="song.docID">
+          <SongModifyPreview :song="song" @delete-song="deleteSong" />
+        </li>
+      </TransitionGroup>
+    </ul>
+    <Transition name="fade">
+      <div
+        v-show="isPending"
+        class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%)"
+      >
+        <IconLoading :width="40" :height="40" />
+      </div>
+    </Transition>
+  </div>
 </template>

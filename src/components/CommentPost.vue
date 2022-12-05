@@ -32,7 +32,7 @@ const comments = reactive([]);
 const commentSort = ref('descending');
 const documentsTotalLength = ref(0);
 const limitDocumentRef = ref(null);
-const perPage = ref(6);
+const limitLength = ref(6);
 
 const sortedComments = computed(() =>
   comments.slice().sort((a, b) => {
@@ -74,7 +74,7 @@ async function getComments() {
       where('songID', '==', route.params.id),
       orderBy('createdAt', 'desc'),
       startAfter(lastDoc),
-      limit(perPage.value)
+      limit(limitLength.value)
     );
     snapshots = await getDocs(q);
   } else {
@@ -82,7 +82,7 @@ async function getComments() {
       commentsCollection,
       where('songID', '==', route.params.id),
       orderBy('createdAt', 'desc'),
-      limit(perPage.value)
+      limit(limitLength.value)
     );
     snapshots = await getDocs(q);
   }
@@ -121,8 +121,8 @@ watch(comments, () => {
 });
 
 onMounted(async () => {
-  window.addEventListener('scroll', handleScroll);
   await getDocumentsTotalLength();
+  window.addEventListener('scroll', handleScroll);
   getComments();
 });
 
@@ -154,9 +154,9 @@ onBeforeUnmount(() => {
     <CommentPostForm @add-comment="addComment" />
   </div>
 
-  <Transition name="slide">
-    <ul v-if="comments.length" ref="limitDocumentRef" class="mt:30 mt:30>li~li">
-      <TransitionGroup name="slide">
+  <div ref="limitDocumentRef" class="rel mt:30">
+    <ul class="mt:30>li~li">
+      <TransitionGroup name="fade">
         <li v-for="comment in sortedComments" :key="comment.docID">
           <CommentPostPreview
             :comment="comment"
@@ -165,14 +165,13 @@ onBeforeUnmount(() => {
         </li>
       </TransitionGroup>
     </ul>
-  </Transition>
-
-  <Transition name="fade">
-    <div
-      v-show="isPending"
-      class="abs bottom:80 left:1/2 fg:white translateX(-50%)"
-    >
-      <IconLoading :width="40" :height="40" />
-    </div>
-  </Transition>
+    <Transition name="fade">
+      <div
+        v-show="isPending"
+        class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%)"
+      >
+        <IconLoading :width="40" :height="40" />
+      </div>
+    </Transition>
+  </div>
 </template>

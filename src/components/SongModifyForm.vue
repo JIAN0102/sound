@@ -92,7 +92,7 @@ async function onSubmit(values) {
 
   try {
     await updateDoc(doc(songsCollection, props.song.docID), values);
-    editSong(props.song.docID, values);
+    editSong(values);
   } catch (error) {
     console.log(error);
   }

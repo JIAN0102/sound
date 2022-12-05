@@ -1,13 +1,6 @@
 <script setup>
-import { ref } from 'vue';
 import SongUpload from '@/components/SongUpload.vue';
 import SongModify from '@/components/SongModify.vue';
-
-const songModifyRef = ref(null);
-
-function addUploadSong(song) {
-  songModifyRef.value.addSong(song);
-}
 </script>
 
 <template>
@@ -20,13 +13,13 @@ function addUploadSong(song) {
           <div>
             <h2 class="f:bold f:24 fg:white f:28@sm f:32@md">上傳歌曲</h2>
             <div class="mt:20 mt:30@md">
-              <SongUpload @add-upload-song="addUploadSong" />
+              <SongUpload />
             </div>
           </div>
           <div c>
             <h2 class="f:bold f:24 fg:white f:28@sm f:32@md">我的歌曲</h2>
             <div class="mt:20 mt:30@md">
-              <SongModify ref="songModifyRef" />
+              <SongModify />
             </div>
           </div>
         </div>

@@ -17,6 +17,7 @@
     "gsap": "^3.11.3",
     "howler": "^2.2.3",
     "lodash.debounce": "^4.0.8",
+    "mitt": "^3.0.0",
     "pinia": "^2.0.23",
     "uuid": "^9.0.0",
     "vee-validate": "^4.7.2",

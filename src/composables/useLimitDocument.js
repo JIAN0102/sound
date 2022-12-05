@@ -15,7 +15,7 @@ export function useLimitDocument(collection) {
   const documents = reactive([]);
   const documentsTotalLength = ref(0);
   const limitDocumentRef = ref(null);
-  const perPage = ref(12);
+  const limitLength = ref(12);
 
   function handleScroll() {
     const { scrollTop } = document.documentElement;
@@ -48,14 +48,14 @@ export function useLimitDocument(collection) {
         collection,
         orderBy('createdAt', 'desc'),
         startAfter(lastDoc),
-        limit(perPage.value)
+        limit(limitLength.value)
       );
       snapshots = await getDocs(q);
     } else {
       const q = query(
         collection,
         orderBy('createdAt', 'desc'),
-        limit(perPage.value)
+        limit(limitLength.value)
       );
       snapshots = await getDocs(q);
     }
