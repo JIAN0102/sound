@@ -1,9 +1,14 @@
 <script setup>
-import { useSong } from '@/composables/useSong';
+import { songsCollection } from '@/plugins/firebase';
+import { useLimitDocument } from '@/composables/useLimitDocument';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import SongGalleryPreview from '@/components/SongGalleryPreview.vue';
 
-const { isPending, songs, songListRef } = useSong();
+const {
+  isPending,
+  documents: songs,
+  limitDocumentRef,
+} = useLimitDocument(songsCollection);
 </script>
 
 <template>
@@ -12,7 +17,7 @@ const { isPending, songs, songListRef } = useSong();
       <div class="max-w:1500 mx:auto">
         <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">探索歌曲</h1>
         <div
-          ref="songListRef"
+          ref="limitDocumentRef"
           class="grid-cols:2 gap:40|24 mt:20 grid-cols:3@sm {grid-cols:4;mt:30}@md grid-cols:5@lg grid-cols:6@xl"
         >
           <TransitionGroup name="fade">

@@ -1,17 +1,19 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, inject } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
+import { doc, updateDoc } from 'firebase/firestore';
 import {
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
 } from 'firebase/storage';
-import { auth, storage } from '@/plugins/firebase';
-import { useSongStore } from '@/stores/song';
+import { auth, storage, songsCollection } from '@/plugins/firebase';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconCamera from '@/components/icons/IconCamera.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
 import IconSelectArrow from '@/components/icons/IconSelectArrow.vue';
+
+const { editSong } = inject('song');
 
 const props = defineProps({
   song: {
@@ -21,9 +23,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['close-form']);
-
-const songStore = useSongStore();
-const { editSong } = songStore;
 
 const tags = ref([...props.song.tags]);
 const tagInput = ref('');
@@ -92,7 +91,8 @@ async function onSubmit(values) {
   }
 
   try {
-    await editSong(props.song.docID, values);
+    await updateDoc(doc(songsCollection, props.song.docID), values);
+    editSong(props.song.docID, values);
   } catch (error) {
     console.log(error);
   }

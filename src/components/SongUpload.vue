@@ -8,12 +8,10 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { auth, storage, songsCollection } from '@/plugins/firebase';
-import { useSongStore } from '@/stores/song';
 import SongUploadFile from '@/components/SongUploadFile.vue';
 import SongUploadPreview from '@/components/SongUploadPreview.vue';
 
-const songStore = useSongStore();
-const { addSong } = songStore;
+const emit = defineEmits(['add-upload-song']);
 
 const uploads = reactive([]);
 
@@ -56,9 +54,8 @@ function uploadFile(files) {
         const songRef = await addDoc(songsCollection, song);
         const songSnapshot = await getDoc(songRef);
 
-        addSong(songSnapshot);
-
         uploads[uploadIndex].class = 'is-uploaded';
+        emit('add-upload-song', songSnapshot);
       }
     );
   });

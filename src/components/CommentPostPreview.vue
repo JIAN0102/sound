@@ -1,13 +1,16 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { commentsCollection } from '@/plugins/firebase';
 import { formatDistanceToNow } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
 import { useUserStore } from '@/stores/user';
-import { useCommentStore } from '@/stores/comment';
 import { auth } from '@/plugins/firebase';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
+
+const emit = defineEmits(['delete-comment']);
 
 const props = defineProps({
   comment: {
@@ -19,9 +22,6 @@ const props = defineProps({
 const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
 
-const commentStore = useCommentStore();
-const { deleteComment } = commentStore;
-
 const isPending = ref(false);
 
 const formattedCreatedAt = computed(() => {
@@ -31,9 +31,10 @@ const formattedCreatedAt = computed(() => {
   });
 });
 
-async function handleClick(docID) {
+async function handleClick() {
   isPending.value = true;
-  await deleteComment(docID);
+  await deleteDoc(doc(commentsCollection, props.comment.docID));
+  emit('delete-comment', props.comment.docID);
   isPending.value = false;
 }
 </script>
@@ -45,7 +46,7 @@ async function handleClick(docID) {
       class="abs top:0 right:0 fg:white pointer-events:none:disabled"
       type="button"
       :disabled="isPending"
-      @click="handleClick(comment.docID)"
+      @click="handleClick"
     >
       <IconLoading v-if="isPending" :width="16" :height="16" />
       <IconDelete v-else :width="16" :height="16" />

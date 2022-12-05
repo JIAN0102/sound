@@ -43,7 +43,7 @@ onMounted(async () => {
 <template>
   <div class="{flex;gap-x:40}@md">
     <div
-      class="rel square max-w:340 mx:auto overflow:hidden r:8 w:340@md"
+      class="rel square mx:auto overflow:hidden r:8 max-w:340@xs w:340@md"
       :class="{
         'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
       }"
@@ -55,10 +55,10 @@ onMounted(async () => {
         :alt="song.title"
       />
     </div>
-    <div class="flex:1 mt:30">
-      <div class="flex gap-x:20 flex:row-reverse@md">
-        <div class="flex:1">
-          <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">
+    <div class="flex:1 mt:20 mt:0@md">
+      <div class="flex gap-x:20">
+        <div class="flex:1 mt:6 mt:0@md">
+          <h1 class="f:bold f:24 fg:white f:32@sm f:40@md f:48@lg">
             {{ song.title }}
           </h1>
           <h2 class="mt:4 f:14 fg:white/.5">
@@ -66,18 +66,20 @@ onMounted(async () => {
           </h2>
         </div>
         <button
-          class="group rel flex center-content w:64 h:64 bg:primary rounded @backgroundGradient|2s|linear|infinite:hover@md"
+          class="group rel flex center-content w:64 h:64 bg:primary rounded {w:80;h:80}@md @backgroundGradient|2s|linear|infinite:hover@md"
           type="button"
           @click="createSong(song)"
         >
           <div
             class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
           ></div>
-          <div class="rel">
+          <div class="rel w:24 h:24 {w:32;h:32}@md">
             <IconPause
               v-if="song.docID === currentSong.docID && isSoundPlaying"
+              :width="'100%'"
+              :height="'100%'"
             />
-            <IconPlay v-else />
+            <IconPlay v-else :width="'100%'" :height="'100%'" />
           </div>
         </button>
       </div>

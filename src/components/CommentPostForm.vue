@@ -5,17 +5,19 @@ import { storeToRefs } from 'pinia';
 import { addDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, commentsCollection } from '@/plugins/firebase';
 import { useUserStore } from '@/stores/user';
-import { useCommentStore } from '@/stores/comment';
+// import { useCommentStore } from '@/stores/comment';
 import { useModalStore } from '@/stores/modal';
 import IconLoading from '@/components/icons/IconLoading.vue';
 
 const route = useRoute();
 
+const emit = defineEmits(['add-comment']);
+
 const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
 
-const commentStore = useCommentStore();
-const { addComment } = commentStore;
+// const commentStore = useCommentStore();
+// const { addComment } = commentStore;
 
 const modalStore = useModalStore();
 const { toggleModal } = modalStore;
@@ -43,10 +45,10 @@ async function onSubmit(values, { resetForm }) {
   };
   const commentRef = await addDoc(commentsCollection, comment);
   const commentSnapshot = await getDoc(commentRef);
-  addComment(commentSnapshot);
 
   submission.value = false;
   resetForm();
+  emit('add-comment', commentSnapshot);
 }
 </script>
 
@@ -70,7 +72,7 @@ async function onSubmit(values, { resetForm }) {
           :disabled="submission || !meta.valid"
         >
           <IconLoading v-if="submission" />
-          <span v-else>留言</span>
+          <template v-else>留言</template>
         </button>
         <button
           class="flex center-content w:1/2 fg:white bg:#383838:hover@md pointer-events:none:disabled"

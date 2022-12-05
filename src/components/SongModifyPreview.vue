@@ -1,7 +1,9 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { RouterLink } from 'vue-router';
-import { useSongStore } from '@/stores/song';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { ref as storageRef, deleteObject } from 'firebase/storage';
+import { storage, songsCollection } from '@/plugins/firebase';
 import { usePlayerStore } from '@/stores/player';
 import { formatDistanceToNow } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
@@ -17,8 +19,7 @@ const props = defineProps({
   },
 });
 
-const songStore = useSongStore();
-const { deleteSong } = songStore;
+const emit = defineEmits(['delete-song']);
 
 const playerStore = usePlayerStore();
 const { createSongWhenNotPlaying } = playerStore;
@@ -35,7 +36,12 @@ const formattedCreatedAt = computed(() => {
 
 async function handleClick() {
   isPending.value = true;
-  await deleteSong(props.song.docID, props.song.uuid);
+
+  const songRef = storageRef(storage, `songs/${props.song.uuid}`);
+  await deleteObject(songRef);
+  await deleteDoc(doc(songsCollection, props.song.docID));
+  emit('delete-song', props.song.docID);
+
   isPending.value = false;
 }
 </script>

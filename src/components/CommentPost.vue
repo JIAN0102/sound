@@ -1,27 +1,145 @@
 <script setup>
-import { onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useCommentStore } from '@/stores/comment';
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  onMounted,
+  onBeforeUnmount,
+} from 'vue';
+import { useRoute } from 'vue-router';
+import {
+  query,
+  where,
+  orderBy,
+  startAfter,
+  limit,
+  doc,
+  getDoc,
+  getDocs,
+  getCountFromServer,
+} from 'firebase/firestore';
+import { commentsCollection } from '@/plugins/firebase';
+import IconLoading from '@/components/icons/IconLoading.vue';
 import IconAdjust from '@/components/icons/IconAdjust.vue';
 import CommentPostForm from '@/components/CommentPostForm.vue';
 import CommentPostPreview from '@/components/CommentPostPreview.vue';
 
-const commentStore = useCommentStore();
-const { commentSort, sortedComments } = storeToRefs(commentStore);
-const { getComments } = commentStore;
+const route = useRoute();
 
-onMounted(() => {
+const isPending = ref(false);
+const comments = reactive([]);
+const commentSort = ref('descending');
+const documentsTotalLength = ref(0);
+const limitDocumentRef = ref(null);
+const perPage = ref(6);
+
+const sortedComments = computed(() =>
+  comments.slice().sort((a, b) => {
+    if (commentSort.value === 'descending') {
+      return b.createdAt - a.createdAt;
+    }
+    return a.createdAt - b.createdAt;
+  })
+);
+
+function handleScroll() {
+  const { scrollTop } = document.documentElement;
+  const { innerHeight } = window;
+  const documentsOffsetTop = limitDocumentRef.value?.offsetTop;
+  const documentsHeight =
+    limitDocumentRef.value?.getBoundingClientRect().height;
+
+  const bottomOfDocuments =
+    scrollTop + innerHeight - (documentsOffsetTop + documentsHeight) >= -100;
+
+  if (bottomOfDocuments) {
+    getComments();
+  }
+}
+
+async function getComments() {
+  if (isPending.value || comments.length >= documentsTotalLength.value) return;
+
+  isPending.value = true;
+
+  let snapshots;
+
+  if (comments.length) {
+    const lastDoc = await getDoc(
+      doc(commentsCollection, comments[comments.length - 1].docID)
+    );
+    const q = query(
+      commentsCollection,
+      where('songID', '==', route.params.id),
+      orderBy('createdAt', 'desc'),
+      startAfter(lastDoc),
+      limit(perPage.value)
+    );
+    snapshots = await getDocs(q);
+  } else {
+    const q = query(
+      commentsCollection,
+      where('songID', '==', route.params.id),
+      orderBy('createdAt', 'desc'),
+      limit(perPage.value)
+    );
+    snapshots = await getDocs(q);
+  }
+
+  setTimeout(() => {
+    snapshots.forEach((document) => {
+      comments.push({
+        ...document.data(),
+        docID: document.id,
+      });
+    });
+    isPending.value = false;
+  }, 1000);
+}
+
+function addComment(document) {
+  comments.push({
+    ...document.data(),
+    docID: document.id,
+  });
+}
+
+function deleteComment(docID) {
+  const index = comments.findIndex((comment) => comment.docID === docID);
+  comments.splice(index, 1);
+}
+
+async function getDocumentsTotalLength() {
+  const q = query(commentsCollection, where('songID', '==', route.params.id));
+  const snapshot = await getCountFromServer(q);
+  documentsTotalLength.value = snapshot.data().count;
+}
+
+watch(comments, () => {
+  getDocumentsTotalLength();
+});
+
+onMounted(async () => {
+  window.addEventListener('scroll', handleScroll);
+  await getDocumentsTotalLength();
   getComments();
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
 });
 </script>
 
 <template>
-  <div class="flex ai:center gap-x:40 fg:white">
-    <span>{{ sortedComments.length }} 則留言</span>
-    <div class="rel flex:1 max-w:180">
+  <div
+    class="flex jc:space-between ai:center gap-x:30 fg:white jc:flex-start@md"
+  >
+    <span>{{ comments.length }} 則留言</span>
+    <div class="rel">
       <select
         v-model="commentSort"
-        class="block w:full h:40 outline:0 appearance:none fg:black>option"
+        class="block w:180 h:40 outline:0 appearance:none fg:black>option"
       >
         <option value="descending">排序依據 (由新到舊)</option>
         <option value="ascending">排序依據 (由舊到新)</option>
@@ -33,16 +151,28 @@ onMounted(() => {
   </div>
 
   <div class="rel mt:20 mt:30@md">
-    <CommentPostForm />
+    <CommentPostForm @add-comment="addComment" />
   </div>
 
   <Transition name="slide">
-    <ul v-if="sortedComments.length" class="mt:20 py:16>li">
+    <ul v-if="comments.length" ref="limitDocumentRef" class="mt:30 mt:30>li~li">
       <TransitionGroup name="slide">
         <li v-for="comment in sortedComments" :key="comment.docID">
-          <CommentPostPreview :comment="comment" />
+          <CommentPostPreview
+            :comment="comment"
+            @delete-comment="deleteComment"
+          />
         </li>
       </TransitionGroup>
     </ul>
+  </Transition>
+
+  <Transition name="fade">
+    <div
+      v-show="isPending"
+      class="abs bottom:80 left:1/2 fg:white translateX(-50%)"
+    >
+      <IconLoading :width="40" :height="40" />
+    </div>
   </Transition>
 </template>
