@@ -16,7 +16,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex jc:space-between ai:center gap-x:20 fg:white">
+  <div class="flex ai:center gap-x:40 fg:white">
     <span>{{ sortedComments.length }} 則留言</span>
     <div class="rel flex:1 max-w:200">
       <select
@@ -37,7 +37,7 @@ onMounted(() => {
   </div>
 
   <Transition name="slide">
-    <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:#212121 r:20">
+    <ul v-if="sortedComments.length" class="p:20|30 mt:20 bg:#212121 r:30">
       <TransitionGroup name="slide">
         <CommentPostPreview
           v-for="comment in sortedComments"

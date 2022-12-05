@@ -59,21 +59,22 @@ const formattedCreatedAt = computed(() => {
       </div>
     </div>
     <div class="flex:1">
-      <RouterLink
-        class="f:bold fg:white lines:1"
-        :to="{
-          name: 'song',
-          params: {
-            id: song.docID,
-          },
-        }"
-        @click="createSongWhenNotPlaying(song)"
-      >
-        {{ song.title }}
-      </RouterLink>
-      <h3 class="mt:4 f:14 fg:white/.5 lines:1">
-        {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
+      <h3 class="f:bold fg:white lines:1">
+        <RouterLink
+          :to="{
+            name: 'song',
+            params: {
+              id: song.docID,
+            },
+          }"
+          @click="createSongWhenNotPlaying(song)"
+        >
+          {{ song.title }}
+        </RouterLink>
       </h3>
+      <h4 class="mt:4 f:14 fg:white/.5 lines:1">
+        {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
+      </h4>
     </div>
   </div>
 </template>

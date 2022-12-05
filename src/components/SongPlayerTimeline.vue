@@ -123,7 +123,7 @@ onMounted(() => {
   >
     <div
       ref="progressRef"
-      class="abs top:0 left:0 h:full bg:#393939 bg:url('/assets/img/progress-arrow.svg')"
+      class="abs top:0 left:0 h:full bg:#383838 bg:url('/assets/img/progress-arrow.svg')"
       :style="{ width: `${progress * 100}%` }"
     ></div>
     <div

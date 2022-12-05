@@ -43,11 +43,8 @@ async function handleClick() {
 <template>
   <SongModifyForm v-if="isEdit" :song="song" @close-form="isEdit = false" />
 
-  <div
-    v-else
-    class="flex jc:space-between ai:center gap-x:20 p:8 r:4 bg:#212121:hover"
-  >
-    <div class="flex ai:center gap-x:16">
+  <div v-else class="flex ai:center gap-x:20 p:8 r:4 bg:#212121:hover">
+    <div class="flex ai:center gap-x:16 flex:1">
       <div
         class="rel square w:64 overflow:hidden r:4"
         :class="{
@@ -62,21 +59,22 @@ async function handleClick() {
         />
       </div>
       <div class="flex:1">
-        <RouterLink
-          class="f:bold fg:white lines:1"
-          :to="{
-            name: 'song',
-            params: {
-              id: song.docID,
-            },
-          }"
-          @click="createSongWhenNotPlaying(song)"
-        >
-          {{ song.title }}
-        </RouterLink>
-        <h3 class="mt:4 f:14 fg:white/.5 lines:1">
-          {{ formattedCreatedAt }}
+        <h3 class="f:bold fg:white lines:1">
+          <RouterLink
+            :to="{
+              name: 'song',
+              params: {
+                id: song.docID,
+              },
+            }"
+            @click="createSongWhenNotPlaying(song)"
+          >
+            {{ song.title }}
+          </RouterLink>
         </h3>
+        <h4 class="mt:4 f:14 fg:white/.5 lines:1">
+          {{ formattedCreatedAt }}
+        </h4>
       </div>
     </div>
     <div class="flex">

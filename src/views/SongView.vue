@@ -15,19 +15,14 @@ const { isPending, songs, songListRef } = useSong();
     >
       <div class="max-w:1500 mx:auto">
         <div class="grid-cols:1 gap:60|40 grid-cols:5@lg">
+          <div class="grid-col-span:5@lg">
+            <SongInformation />
+          </div>
           <div class="grid-col-span:3@lg">
-            <div>
-              <h2 class="f:bold f:24 fg:white f:28@md">歌曲資訊</h2>
-              <div class="mt:30">
-                <SongInformation />
-              </div>
-              <div class="mt:40">
-                <CommentPost />
-              </div>
-            </div>
+            <CommentPost />
           </div>
           <div class="grid-col-span:2@lg">
-            <h2 class="f:bold f:24 fg:white f:28@md">更多歌曲</h2>
+            <h2 class="f:bold f:24 fg:white f:28@sm f:32@md">更多歌曲</h2>
             <div ref="songListRef" class="rel mt:30">
               <TransitionGroup name="fade">
                 <ul>

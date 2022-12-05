@@ -111,10 +111,13 @@ async function onSubmit(values) {
     @submit="onSubmit"
   >
     <fieldset :disabled="submission">
-      <div class="rel p:40|30|60 bg:#212121 r:20">
+      <div class="rel p:40|30|60 bg:#212121 r:30">
         <div>
           <label
-            class="rel square block max-w:300 mx:auto overflow:hidden bg:linear-gradient(135deg,#393939,#787878) b:2|dashed|white/.5 r:10 ~border-color|.1s b:white:hover@md"
+            class="rel square block max-w:300 mx:auto overflow:hidden b:2|dashed|white/.5 r:10 ~border-color|.1s b:white:hover@md"
+            :class="{
+              'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
+            }"
             for="uploadCover"
           >
             <img
@@ -208,7 +211,7 @@ async function onSubmit(values) {
             <div
               v-for="(tag, index) of tags"
               :key="tag"
-              class="rel flex ai:center gap-x:3 h:30 pr:10 pl:20 f:14 fg:white cursor:pointer bg:#393939 rounded t:line-through:hover {content:'#';abs;top:8;left:8;fg:white/.5}::before"
+              class="rel flex ai:center gap-x:3 h:30 pr:10 pl:20 f:14 fg:white cursor:pointer bg:#383838 rounded t:line-through:hover {content:'#';abs;top:8;left:8;fg:white/.5}::before"
               @click="deleteTag(index)"
             >
               <span>{{ tag }}</span>

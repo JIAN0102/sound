@@ -22,7 +22,7 @@ function uploadFile(event) {
 
 <template>
   <label
-    class="flex flex:col center-content gap-y:10 square fg:white b:2|dashed|#696969 r:16 ~background-color|.1s,border-color|.1s aspect:3/2@xs {bg:#212121;b:white}:is(:hover,.is-drag-over)@md"
+    class="flex flex:col center-content gap-y:10 square fg:white b:2|dashed|#696969 r:30 ~background-color|.1s,border-color|.1s aspect:3/2@xs {bg:#212121;b:white}:is(:hover,.is-drag-over)@md"
     :class="{ 'is-drag-over': isDragOver }"
     for="uploadFile"
     @dragend.prevent.stop="isDragOver = false"
