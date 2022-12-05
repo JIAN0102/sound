@@ -50,13 +50,13 @@ async function handleClick(docID) {
       <IconLoading v-if="isPending" :width="16" :height="16" />
       <IconDelete v-else :width="16" :height="16" />
     </button>
-    <div class="flex ai:flex-end gap-x:8">
-      <h3 class="f:bold fg:white f:18@md">{{ comment.name }}</h3>
-      <span class="f:12 fg:#919191">
+    <div class="flex ai:center gap-x:8">
+      <h3 class="f:bold fg:white lines:1 f:18@md">{{ comment.name }}</h3>
+      <span class="f:12 fg:white/.5 white-space:nowrap">
         {{ formattedCreatedAt }}
       </span>
     </div>
-    <div class="mt:10 f:14 fg:white lh:1.75 f:16@md">
+    <div class="mt:10 f:14 fg:white/.7 lh:1.75 f:16@md">
       <p class="white-space:pre-wrap">{{ comment.content }}</p>
     </div>
   </li>

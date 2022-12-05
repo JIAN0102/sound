@@ -35,7 +35,7 @@ async function handleClick() {
     <nav class="pointer-events:auto">
       <button
         v-if="!isLoggedIn"
-        class="group rel overflow:hidden bg:black rounded"
+        class="group rel overflow:hidden bg:#030303 rounded"
         type="button"
         @click="toggleModal"
       >
@@ -44,7 +44,7 @@ async function handleClick() {
         ></div>
         <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
           <div
-            class="flex center-content w:40 h:40 fg:white bg:#262626 round ~background-color|.5s .group:hover_{bg:black}@md"
+            class="flex center-content w:40 h:40 fg:white bg:#212121 round ~background-color|.5s .group:hover_{bg:#030303}@md"
           >
             <IconUser :width="20" :height="20" />
           </div>
@@ -56,7 +56,7 @@ async function handleClick() {
       <ul v-else class="flex ai:center gap-x:10 gap-x:20@md">
         <li>
           <RouterLink
-            class="group rel block overflow:hidden bg:black rounded"
+            class="group rel block overflow:hidden bg:#030303 rounded"
             :to="{ name: 'manage' }"
           >
             <div
@@ -64,7 +64,7 @@ async function handleClick() {
             ></div>
             <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
               <div
-                class="flex ai:center w:40 h:40 overflow:hidden fg:white bg:#262626 round ~background-color|.5s .group:hover_{bg:black}@md"
+                class="flex ai:center w:40 h:40 overflow:hidden fg:white bg:#212121 round ~background-color|.5s .group:hover_{bg:#030303}@md"
               >
                 <div class="w:28 @wave|2s|linear|infinite">
                   <IconWave />
@@ -86,7 +86,7 @@ async function handleClick() {
         </li>
         <li>
           <button
-            class="flex center-content w:60 h:60 fg:white bg:black round"
+            class="flex center-content w:60 h:60 fg:white bg:#030303 round"
             type="button"
             @click="handleClick"
           >

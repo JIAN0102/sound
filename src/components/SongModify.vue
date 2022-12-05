@@ -28,9 +28,13 @@ onMounted(async () => {
       <h3 v-if="!songs.length" class="fg:white t:center">
         目前沒有任何歌曲，試著上傳看看吧!
       </h3>
-      <ul v-else class="mt:20>li~li">
+      <ul v-else>
         <TransitionGroup name="slide">
-          <li v-for="song in songs" :key="song.docID">
+          <li
+            v-for="song in songs"
+            :key="song.docID"
+            class="bb:1|solid|white/.1"
+          >
             <SongModifyPreview :song="song" />
           </li>
         </TransitionGroup>

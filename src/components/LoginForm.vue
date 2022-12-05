@@ -66,7 +66,7 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="loginEmail"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#393939 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#030303 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
             :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="email"
           />
@@ -96,7 +96,7 @@ async function onSubmit(values) {
           <input
             v-bind="field"
             id="loginPassword"
-            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#393939 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
+            class="block w:full h:60 pl:24 pr:48 mt:8 fg:white bg:#030303 b:3|solid|transparent rounded outline:0 b:#696969:focus b:danger!.is-invalid"
             :class="{ 'is-invalid': !meta.valid && meta.touched }"
             type="password"
           />
@@ -125,7 +125,7 @@ async function onSubmit(values) {
       ></div>
       <div class="rel flex center-content h:60">
         <div
-          class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:black round translateY(-50%)"
+          class="abs top:1/2 left:10 flex center-content w:40 h:40 fg:white bg:#030303 round translateY(-50%)"
         >
           <IconLoading v-if="submission" :width="20" :height="20" />
           <IconUser v-else :width="20" :height="20" />

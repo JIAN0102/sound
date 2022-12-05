@@ -18,7 +18,7 @@ defineProps({
         >(上傳失敗)</span
       >
     </h3>
-    <div class="rel h:40 mt:8 bg:#393939 rounded">
+    <div class="rel h:40 mt:8 bg:#212121 rounded">
       <div
         class="abs top:0 left:0 h:full overflow:hidden bg:#696969 rounded ~width|.1s .is-uploaded_{bg:linear-gradient(to|right,secondary,primary)} .is-error_{bg:danger}"
         :style="{ width: `${upload.currentProgress}%` }"

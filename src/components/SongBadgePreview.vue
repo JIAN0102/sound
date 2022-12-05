@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { RouterLink } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
 import { formatDistanceToNow } from 'date-fns';
@@ -15,11 +15,9 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
-
 const playerStore = usePlayerStore();
 const { currentSong, isSoundPlaying } = storeToRefs(playerStore);
-const { createSong } = playerStore;
+const { createSong, createSongWhenNotPlaying } = playerStore;
 
 const formattedCreatedAt = computed(() => {
   if (!props.song.createdAt) return;
@@ -29,27 +27,16 @@ const formattedCreatedAt = computed(() => {
     locale: zhTW,
   });
 });
-
-function handleClick() {
-  if (!isSoundPlaying.value) {
-    createSong(props.song);
-  }
-  router.push({
-    name: 'song',
-    params: {
-      id: props.song.docID,
-    },
-  });
-}
 </script>
 
 <template>
   <div
-    class="group flex ai:center gap-x:16 p:6 r:4 bg:#393939:is(.is-active,:hover)"
-    :class="{ 'is-active': song.uuid === currentSong.uuid }"
+    class="group flex ai:center gap-x:16 p:8 r:4 bg:#212121:is(.is-active,:hover)"
+    :class="{ 'is-active': song.docID === currentSong.docID }"
   >
     <div
-      class="rel square w:64 overflow:hidden cursor:pointer bg:linear-gradient(135deg,#787878,#393939) r:4"
+      class="rel square w:64 overflow:hidden cursor:pointer r:4"
+      :class="{ 'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl }"
     >
       <img
         v-if="song.coverUrl"
@@ -58,12 +45,12 @@ function handleClick() {
         alt=""
       />
       <div
-        class="abs inset:0 z:10 flex center-content fg:white bg:black/.75 opacity:0 invisible .is-active_{opacity:1;visible} .group:hover_{opacity:1;visible}"
+        class="abs inset:0 z:10 flex center-content fg:white bg:black/.9 opacity:0 invisible :is(.is-active,.group:hover)_{opacity:1;visible}"
         @click="createSong(song)"
       >
         <button type="button">
           <IconPause
-            v-if="song.uuid === currentSong.uuid && isSoundPlaying"
+            v-if="song.docID === currentSong.docID && isSoundPlaying"
             :width="20"
             :height="20"
           />
@@ -71,14 +58,20 @@ function handleClick() {
         </button>
       </div>
     </div>
-    <div class="flex flex:col ai:flex-start gap-y:6 flex:1">
-      <h2
-        class="f:bold fg:white lines:1 cursor:pointer t:underline:hover"
-        @click="handleClick"
+    <div class="flex:1">
+      <RouterLink
+        class="f:bold fg:white lines:1"
+        :to="{
+          name: 'song',
+          params: {
+            id: song.docID,
+          },
+        }"
+        @click="createSongWhenNotPlaying(song)"
       >
         {{ song.title }}
-      </h2>
-      <h3 class="f:14 fg:#919191">
+      </RouterLink>
+      <h3 class="mt:4 f:14 fg:white/.5 lines:1">
         {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
       </h3>
     </div>

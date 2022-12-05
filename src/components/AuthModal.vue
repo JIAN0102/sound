@@ -1,7 +1,6 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
-import BaseCard from '@/components/BaseCard.vue';
 import LoginForm from '@/components/LoginForm.vue';
 import RegisterForm from '@/components/RegisterForm.vue';
 
@@ -21,15 +20,15 @@ const { toggleModal } = modalStore;
           class="rel w:full :is(.fade-enter-active,.fade-leave-active)_{~transform|.3s} :is(.fade-enter-from,.fade-leave-to)_{translateY(15%)}"
         >
           <button
-            class="abs top:20 right:20 z:10 w:40 h:40 b:3|solid|#262626 round {top:30;right:30}@md {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"
+            class="abs top:20 right:20 z:10 w:40 h:40 b:3|solid|#212121 round {top:30;right:30}@md {abs;top:1/2;left:1/2;w:16;h:3;bg:white;rounded}>span"
             type="button"
             @click="toggleModal"
           >
             <span class="translate(-50%,-50%)|rotate(45)"></span>
             <span class="translate(-50%,-50%)|rotate(-45)"></span>
           </button>
-          <BaseCard>
-            <template #header>
+          <div class="bg:#030303 r:40 r:60@md">
+            <div class="p:40|20|20 p:60|80|30@md">
               <div class="flex jc:center">
                 <div class="pr:20 pr:30@md">
                   <h3
@@ -50,13 +49,12 @@ const { toggleModal } = modalStore;
                   </h3>
                 </div>
               </div>
-            </template>
-
-            <template #main>
+            </div>
+            <div class="p:30|20 bg:#212121 r:40 {p:40;r:60}@md">
               <LoginForm v-if="authType === 'login'" />
               <RegisterForm v-else />
-            </template>
-          </BaseCard>
+            </div>
+          </div>
         </div>
       </div>
     </div>
