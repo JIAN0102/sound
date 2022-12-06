@@ -53,6 +53,10 @@ function uploadFile(files) {
         const songRef = await addDoc(songsCollection, song);
         const songSnapshot = await getDoc(songRef);
 
+        console.log({
+          ...songSnapshot.data(),
+        });
+
         uploads[uploadIndex].class = 'is-uploaded';
         emitter.emit('addSong', songSnapshot);
       }

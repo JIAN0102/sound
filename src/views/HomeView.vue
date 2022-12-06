@@ -7,7 +7,7 @@ import SongGalleryPreview from '@/components/SongGalleryPreview.vue';
 const {
   isPending,
   documents: songs,
-  limitDocumentRef,
+  loadingObserverRef,
 } = useLimitDocument(12, songsCollection);
 </script>
 
@@ -16,7 +16,7 @@ const {
     <div class="p:50|20|140 bg:#030303 rt:40 {p:80|40|140;rt:60}@md px:80@lg">
       <div class="max-w:1500 mx:auto">
         <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">探索歌曲</h1>
-        <div ref="limitDocumentRef" class="rel">
+        <div class="rel">
           <div
             class="grid-cols:2 gap:40|24 mt:20 grid-cols:3@sm {grid-cols:4;mt:30}@md grid-cols:5@lg grid-cols:6@xl"
           >
@@ -26,14 +26,13 @@ const {
               </div>
             </TransitionGroup>
           </div>
-          <Transition name="fade">
-            <div
-              v-show="isPending"
-              class="abs bottom:-20 left:1/2 translate(-50%,100%)"
-            >
-              <BaseLoading />
-            </div>
-          </Transition>
+          <div
+            ref="loadingObserverRef"
+            class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%) opacity:0 invisible {opacity:1;visible}.is-active"
+            :class="{ 'is-active': isPending }"
+          >
+            <BaseLoading />
+          </div>
         </div>
       </div>
     </div>

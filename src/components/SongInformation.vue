@@ -78,7 +78,7 @@ onMounted(async () => {
           ></div>
           <div class="rel">
             <IconPause
-              v-if="song.docID === currentSong.docID && isSoundPlaying"
+              v-if="song.uuid === currentSong.uuid && isSoundPlaying"
               :width="24"
               :height="24"
             />

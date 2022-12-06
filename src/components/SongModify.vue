@@ -12,11 +12,11 @@ const collectionQuery = where('uid', '==', auth.currentUser.uid);
 const {
   isPending,
   documents: songs,
-  limitDocumentRef,
+  loadingObserverRef,
   addDocument: addSong,
   editDocument: editSong,
   deleteDocument: deleteSong,
-} = useLimitDocument(12, songsCollection, collectionQuery);
+} = useLimitDocument(18, songsCollection, collectionQuery);
 
 provide('song', {
   editSong,
@@ -32,7 +32,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="limitDocumentRef" class="rel">
+  <div class="rel">
     <ul class="bb:1|solid|white/.1>li">
       <TransitionGroup name="fade">
         <li v-for="song in songs" :key="song.docID">
@@ -40,13 +40,12 @@ onBeforeUnmount(() => {
         </li>
       </TransitionGroup>
     </ul>
-    <Transition name="fade">
-      <div
-        v-show="isPending"
-        class="abs bottom:-20 left:1/2 translate(-50%,100%)"
-      >
-        <BaseLoading />
-      </div>
-    </Transition>
+    <div
+      ref="loadingObserverRef"
+      class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%) opacity:0 invisible {opacity:1;visible}.is-active"
+      :class="{ 'is-active': isPending }"
+    >
+      <BaseLoading />
+    </div>
   </div>
 </template>

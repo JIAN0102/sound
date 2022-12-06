@@ -16,7 +16,7 @@ const collectionQuery = where('songID', '==', route.params.id);
 const {
   isPending,
   documents: comments,
-  limitDocumentRef,
+  loadingObserverRef,
   addDocument: addComment,
   deleteDocument: deleteComment,
 } = useLimitDocument(6, commentsCollection, collectionQuery);
@@ -56,7 +56,7 @@ const sortedComments = computed(() =>
     <CommentPostForm @add-comment="addComment" />
   </div>
 
-  <div ref="limitDocumentRef" class="rel mt:30">
+  <div class="rel mt:30">
     <ul class="mt:30>li~li">
       <TransitionGroup name="fade">
         <li v-for="comment in sortedComments" :key="comment.docID">
@@ -67,13 +67,12 @@ const sortedComments = computed(() =>
         </li>
       </TransitionGroup>
     </ul>
-    <Transition name="fade">
-      <div
-        v-show="isPending"
-        class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%)"
-      >
-        <BaseLoading />
-      </div>
-    </Transition>
+    <div
+      ref="loadingObserverRef"
+      class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%) opacity:0 invisible {opacity:1;visible}.is-active"
+      :class="{ 'is-active': isPending }"
+    >
+      <BaseLoading />
+    </div>
   </div>
 </template>

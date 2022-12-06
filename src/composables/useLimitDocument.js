@@ -1,4 +1,4 @@
-import { ref, reactive, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, reactive, watch, onMounted } from 'vue';
 import {
   query,
   orderBy,
@@ -14,21 +14,17 @@ export function useLimitDocument(limitLength, collection, collectionQuery) {
   const isPending = ref(false);
   const documents = reactive([]);
   const documentsCount = ref(0);
-  const limitDocumentRef = ref(null);
+  const loadingObserverRef = ref(null);
 
-  function handleScroll() {
-    const { scrollTop } = document.documentElement;
-    const { innerHeight } = window;
-    const documentsOffsetTop = limitDocumentRef.value?.offsetTop;
-    const documentsHeight =
-      limitDocumentRef.value?.getBoundingClientRect().height;
-
-    const bottomOfDocuments =
-      scrollTop + innerHeight - (documentsOffsetTop + documentsHeight) >= -100;
-
-    if (bottomOfDocuments) {
-      getDocuments();
-    }
+  function observerDocuments() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          getDocuments();
+        }
+      });
+    });
+    observer.observe(loadingObserverRef.value);
   }
 
   async function getDocuments() {
@@ -109,18 +105,14 @@ export function useLimitDocument(limitLength, collection, collectionQuery) {
 
   onMounted(async () => {
     await getDocumentsCount();
-    window.addEventListener('scroll', handleScroll);
-    getDocuments();
-  });
-
-  onBeforeUnmount(() => {
-    window.removeEventListener('scroll', handleScroll);
+    await getDocuments();
+    observerDocuments();
   });
 
   return {
     isPending,
     documents,
-    limitDocumentRef,
+    loadingObserverRef,
     addDocument,
     editDocument,
     deleteDocument,
