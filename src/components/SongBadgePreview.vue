@@ -32,7 +32,7 @@ const formattedCreatedAt = computed(() => {
 <template>
   <div
     class="group flex ai:center gap-x:16 p:8 r:4 bg:#212121:is(.is-active,:hover)"
-    :class="{ 'is-active': song.uuid === currentSong.uuid }"
+    :class="{ 'is-active': song.docID === currentSong.docID }"
   >
     <div
       class="rel square w:64 overflow:hidden cursor:pointer r:4"
@@ -50,7 +50,7 @@ const formattedCreatedAt = computed(() => {
       >
         <button type="button">
           <IconPause
-            v-if="song.uuid === currentSong.uuid && isSoundPlaying"
+            v-if="song.docID === currentSong.docID && isSoundPlaying"
             :width="20"
             :height="20"
           />

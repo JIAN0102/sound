@@ -21,7 +21,7 @@ export const usePlayerStore = defineStore('player', () => {
   );
 
   function createSong(song) {
-    if (song.uuid === currentSong.value.uuid) {
+    if (song.docID === currentSong.value.docID) {
       toggleAudio();
       return;
     }

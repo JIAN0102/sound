@@ -33,7 +33,7 @@ const formattedCreatedAt = computed(() => {
   <div>
     <div
       class="group rel"
-      :class="{ 'is-active': song.uuid === currentSong.uuid }"
+      :class="{ 'is-active': song.docID === currentSong.docID }"
     >
       <RouterLink
         class="rel square block overflow:hidden r:4"
@@ -64,7 +64,7 @@ const formattedCreatedAt = computed(() => {
         @click="createSong(song)"
       >
         <IconPause
-          v-if="song.uuid === currentSong.uuid && isSoundPlaying"
+          v-if="song.docID === currentSong.docID && isSoundPlaying"
           :width="20"
           :height="20"
         />

@@ -36,7 +36,10 @@ onMounted(async () => {
     });
     return;
   }
-  song.value = snapshot.data();
+  song.value = {
+    ...snapshot.data(),
+    docID: snapshot.id,
+  };
 });
 </script>
 
@@ -78,7 +81,7 @@ onMounted(async () => {
           ></div>
           <div class="rel">
             <IconPause
-              v-if="song.uuid === currentSong.uuid && isSoundPlaying"
+              v-if="song.docID === currentSong.docID && isSoundPlaying"
               :width="24"
               :height="24"
             />

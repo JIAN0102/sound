@@ -90,6 +90,8 @@ async function onSubmit(values) {
     values.coverUrl = coverUrl;
   }
 
+  console.log(values);
+
   try {
     await updateDoc(doc(songsCollection, props.song.docID), values);
     editSong(values);
