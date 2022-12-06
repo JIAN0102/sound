@@ -2,16 +2,14 @@
 import { ref, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
-import { useUserStore } from '@/stores/user';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/plugins/firebase';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconUser from '@/components/icons/IconUser.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
 
 const modalStore = useModalStore();
 const { authType } = storeToRefs(modalStore);
-
-const userStore = useUserStore();
-const { login } = userStore;
 
 const schema = reactive({
   email: 'required|email',
@@ -20,12 +18,12 @@ const schema = reactive({
 const submission = ref(false);
 const errorCodeMessage = ref('');
 
-async function onSubmit(values) {
+async function onSubmit({ email, password }) {
   submission.value = true;
   errorCodeMessage.value = '';
 
   try {
-    await login(values);
+    await signInWithEmailAndPassword(auth, email, password);
     window.location.reload();
   } catch (error) {
     const errorCode = error.code;
@@ -121,7 +119,7 @@ async function onSubmit(values) {
       :disabled="submission"
     >
       <div
-        class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
+        class="abs inset:0 rounded opacity:0 @background-gradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
       ></div>
       <div class="rel flex center-content h:60">
         <div

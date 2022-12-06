@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router';
 import { where } from 'firebase/firestore';
 import { commentsCollection } from '@/plugins/firebase';
 import { useLimitDocument } from '@/composables/useLimitDocument';
-import IconLoading from '@/components/icons/IconLoading.vue';
 import IconAdjust from '@/components/icons/IconAdjust.vue';
+import BaseLoading from '@/components/BaseLoading.vue';
 import CommentPostForm from '@/components/CommentPostForm.vue';
 import CommentPostPreview from '@/components/CommentPostPreview.vue';
 
@@ -52,7 +52,7 @@ const sortedComments = computed(() =>
     </div>
   </div>
 
-  <div class="rel mt:20 mt:30@md">
+  <div class="rel mt:20">
     <CommentPostForm @add-comment="addComment" />
   </div>
 
@@ -72,7 +72,7 @@ const sortedComments = computed(() =>
         v-show="isPending"
         class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%)"
       >
-        <IconLoading :width="40" :height="40" />
+        <BaseLoading />
       </div>
     </Transition>
   </div>

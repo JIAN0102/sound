@@ -41,45 +41,48 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="{flex;gap-x:40}@md">
-    <div
-      class="rel square mx:auto overflow:hidden r:8 max-w:340@xs w:340@md"
-      :class="{
-        'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
-      }"
-    >
-      <img
-        v-if="song.coverUrl"
-        class="abs top:0 left:0 full obj:cover"
-        :src="song.coverUrl"
-        :alt="song.title"
-      />
+  <div class="grid-cols:1 gap:20|40 grid-cols:5@lg">
+    <div class="grid-col-span:2@lg">
+      <div
+        class="rel square mx:auto overflow:hidden r:8 max-w:340@xs"
+        :class="{
+          'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
+        }"
+      >
+        <img
+          v-if="song.coverUrl"
+          class="abs top:0 left:0 full obj:cover"
+          :src="song.coverUrl"
+          :alt="song.title"
+        />
+      </div>
     </div>
-    <div class="flex:1 mt:20 mt:0@md">
+    <div class="grid-col-span:3@lg">
       <div class="flex gap-x:20">
         <div class="flex:1 mt:6 mt:0@md">
-          <h1 class="f:bold f:24 fg:white f:32@sm f:40@md f:48@lg">
+          <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">
             {{ song.title }}
           </h1>
           <h2 class="mt:4 f:14 fg:white/.5">
-            {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
+            {{ song.displayName }} • {{ song.genre }} •
+            {{ formattedCreatedAt }}
           </h2>
         </div>
         <button
-          class="group rel flex center-content w:64 h:64 bg:primary rounded {w:80;h:80}@md @backgroundGradient|2s|linear|infinite:hover@md"
+          class="group rel flex center-content w:64 h:64 bg:primary rounded @background-gradient|2s|linear|infinite:hover@md"
           type="button"
           @click="createSong(song)"
         >
           <div
-            class="abs inset:0 rounded opacity:0 @backgroundGradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
+            class="abs inset:0 rounded opacity:0 @background-gradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
           ></div>
-          <div class="rel w:24 h:24 {w:32;h:32}@md">
+          <div class="rel">
             <IconPause
               v-if="song.docID === currentSong.docID && isSoundPlaying"
-              :width="'100%'"
-              :height="'100%'"
+              :width="24"
+              :height="24"
             />
-            <IconPlay v-else :width="'100%'" :height="'100%'" />
+            <IconPlay v-else :width="24" :height="24" />
           </div>
         </button>
       </div>

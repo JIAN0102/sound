@@ -1,7 +1,7 @@
 <script setup>
 import { songsCollection } from '@/plugins/firebase';
 import { useLimitDocument } from '@/composables/useLimitDocument';
-import IconLoading from '@/components/icons/IconLoading.vue';
+import BaseLoading from '@/components/BaseLoading.vue';
 import SongInformation from '@/components/SongInformation.vue';
 import SongBadgePreview from '@/components/SongBadgePreview.vue';
 import CommentPost from '@/components/CommentPost.vue';
@@ -20,11 +20,14 @@ const {
     >
       <div class="max-w:1500 mx:auto">
         <div class="grid-cols:1 gap:40 grid-cols:5@md">
-          <div class="grid-col-span:5@md">
+          <!-- <div class="grid-col-span:5@md">
             <SongInformation />
-          </div>
+          </div> -->
           <div class="grid-col-span:3@md">
-            <CommentPost />
+            <SongInformation />
+            <div class="mt:40">
+              <CommentPost />
+            </div>
           </div>
           <div class="grid-col-span:2@md">
             <h2 class="f:bold f:24 fg:white f:28@sm f:32@md">更多歌曲</h2>
@@ -39,9 +42,9 @@ const {
               <Transition name="fade">
                 <div
                   v-show="isPending"
-                  class="abs bottom:-50 left:1/2 fg:white translateX(-50%) bottom:-60@md"
+                  class="abs bottom:-50 left:1/2 translateX(-50%) bottom:-60@md"
                 >
-                  <IconLoading :width="40" :height="40" />
+                  <BaseLoading />
                 </div>
               </Transition>
             </div>

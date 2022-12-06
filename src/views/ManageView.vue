@@ -16,7 +16,7 @@ import SongModify from '@/components/SongModify.vue';
               <SongUpload />
             </div>
           </div>
-          <div c>
+          <div>
             <h2 class="f:bold f:24 fg:white f:28@sm f:32@md">我的歌曲</h2>
             <div class="mt:20 mt:30@md">
               <SongModify />

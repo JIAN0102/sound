@@ -3,6 +3,8 @@ import { RouterLink } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modal';
 import { useUserStore } from '@/stores/user';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/plugins/firebase';
 import IconUser from '@/components/icons/IconUser.vue';
 import IconLogout from '@/components/icons/IconLogout.vue';
 import IconWave from '@/components/icons/IconWave.vue';
@@ -12,11 +14,14 @@ const { toggleModal } = modalStore;
 
 const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
-const { logout } = userStore;
 
 async function handleClick() {
-  await logout();
-  window.location.reload();
+  try {
+    await signOut(auth);
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
 }
 </script>
 
@@ -40,7 +45,7 @@ async function handleClick() {
         @click="toggleModal"
       >
         <div
-          class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgroundGradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
+          class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @background-gradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
         ></div>
         <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
           <div
@@ -60,7 +65,7 @@ async function handleClick() {
             :to="{ name: 'manage' }"
           >
             <div
-              class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @backgroundGradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
+              class="abs top:1/2 left:1/2 w:150% h:150% round transform:top translate(-50%,-50%)|scaleY(0) ~transform|.4s @background-gradient|2s|linear|infinite .group:hover_{transform:bottom;translate(-50%,-50%)|scaleY(1)}@md"
             ></div>
             <div class="rel flex ai:center gap-x:10 h:60 pl:10 pr:24">
               <div

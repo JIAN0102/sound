@@ -4,7 +4,7 @@ import { where } from 'firebase/firestore';
 import { auth, songsCollection } from '@/plugins/firebase';
 import { useLimitDocument } from '@/composables/useLimitDocument';
 import emitter from '@/plugins/mitt';
-import IconLoading from '@/components/icons/IconLoading.vue';
+import BaseLoading from '@/components/BaseLoading.vue';
 import SongModifyPreview from '@/components/SongModifyPreview.vue';
 
 const collectionQuery = where('uid', '==', auth.currentUser.uid);
@@ -43,9 +43,9 @@ onBeforeUnmount(() => {
     <Transition name="fade">
       <div
         v-show="isPending"
-        class="abs bottom:-20 left:1/2 fg:white translate(-50%,100%)"
+        class="abs bottom:-20 left:1/2 translate(-50%,100%)"
       >
-        <IconLoading :width="40" :height="40" />
+        <BaseLoading />
       </div>
     </Transition>
   </div>
