@@ -85,14 +85,14 @@ async function handleClick() {
     </div>
     <div class="flex">
       <button
-        class="flex center-content w:40 h:40 fg:#909090 fg:white:hover"
+        class="flex center-content w:40 h:40 fg:white/.5 fg:white:hover"
         type="button"
         @click="isEdit = true"
       >
         <IconEdit :width="20" :height="20" />
       </button>
       <button
-        class="flex center-content w:40 h:40 fg:#909090 fg:white:hover pointer-events:none:disabled"
+        class="flex center-content w:40 h:40 fg:white/.5 fg:white:hover pointer-events:none:disabled"
         type="button"
         :disabled="isPending"
         @click="handleClick"

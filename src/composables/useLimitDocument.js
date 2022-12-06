@@ -1,4 +1,4 @@
-import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
+import { ref, reactive, watch, onMounted, onBeforeUnmount } from 'vue';
 import {
   query,
   orderBy,
@@ -10,12 +10,11 @@ import {
   getCountFromServer,
 } from 'firebase/firestore';
 
-export function useLimitDocument(collection) {
+export function useLimitDocument(limitLength, collection, collectionQuery) {
   const isPending = ref(false);
   const documents = reactive([]);
-  const documentsTotalLength = ref(0);
+  const documentsCount = ref(0);
   const limitDocumentRef = ref(null);
-  const limitLength = ref(12);
 
   function handleScroll() {
     const { scrollTop } = document.documentElement;
@@ -33,8 +32,7 @@ export function useLimitDocument(collection) {
   }
 
   async function getDocuments() {
-    if (isPending.value || documents.length >= documentsTotalLength.value)
-      return;
+    if (isPending.value || documents.length >= documentsCount.value) return;
 
     isPending.value = true;
 
@@ -44,19 +42,30 @@ export function useLimitDocument(collection) {
       const lastDoc = await getDoc(
         doc(collection, documents[documents.length - 1].docID)
       );
-      const q = query(
-        collection,
-        orderBy('createdAt', 'desc'),
-        startAfter(lastDoc),
-        limit(limitLength.value)
-      );
+      const q = collectionQuery
+        ? query(
+            collection,
+            collectionQuery,
+            orderBy('createdAt', 'desc'),
+            startAfter(lastDoc),
+            limit(limitLength)
+          )
+        : query(
+            collection,
+            orderBy('createdAt', 'desc'),
+            startAfter(lastDoc),
+            limit(limitLength)
+          );
       snapshots = await getDocs(q);
     } else {
-      const q = query(
-        collection,
-        orderBy('createdAt', 'desc'),
-        limit(limitLength.value)
-      );
+      const q = collectionQuery
+        ? query(
+            collection,
+            collectionQuery,
+            orderBy('createdAt', 'desc'),
+            limit(limitLength)
+          )
+        : query(collection, orderBy('createdAt', 'desc'), limit(limitLength));
       snapshots = await getDocs(q);
     }
 
@@ -71,10 +80,35 @@ export function useLimitDocument(collection) {
     }, 1000);
   }
 
-  onMounted(async () => {
-    const snapshot = await getCountFromServer(collection);
-    documentsTotalLength.value = snapshot.data().count;
+  async function getDocumentsCount() {
+    const q = collectionQuery ? query(collection, collectionQuery) : collection;
+    const snapshot = await getCountFromServer(q);
+    documentsCount.value = snapshot.data().count;
+  }
 
+  function addDocument(document) {
+    documents.unshift({
+      ...document.data(),
+      docID: document.id,
+    });
+  }
+
+  function editDocument(values) {
+    const index = documents.findIndex((doc) => doc.docID === values.docID);
+    documents[index] = values;
+  }
+
+  function deleteDocument(docID) {
+    const index = documents.findIndex((doc) => doc.docID === docID);
+    documents.splice(index, 1);
+  }
+
+  watch(documents, () => {
+    getDocumentsCount();
+  });
+
+  onMounted(async () => {
+    await getDocumentsCount();
     window.addEventListener('scroll', handleScroll);
     getDocuments();
   });
@@ -87,5 +121,8 @@ export function useLimitDocument(collection) {
     isPending,
     documents,
     limitDocumentRef,
+    addDocument,
+    editDocument,
+    deleteDocument,
   };
 }

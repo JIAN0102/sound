@@ -1,25 +1,9 @@
 <script setup>
-import {
-  ref,
-  reactive,
-  computed,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-} from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import {
-  query,
-  where,
-  orderBy,
-  startAfter,
-  limit,
-  doc,
-  getDoc,
-  getDocs,
-  getCountFromServer,
-} from 'firebase/firestore';
+import { where } from 'firebase/firestore';
 import { commentsCollection } from '@/plugins/firebase';
+import { useLimitDocument } from '@/composables/useLimitDocument';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconAdjust from '@/components/icons/IconAdjust.vue';
 import CommentPostForm from '@/components/CommentPostForm.vue';
@@ -27,108 +11,26 @@ import CommentPostPreview from '@/components/CommentPostPreview.vue';
 
 const route = useRoute();
 
-const isPending = ref(false);
-const comments = reactive([]);
+const collectionQuery = where('songID', '==', route.params.id);
+
+const {
+  isPending,
+  documents: comments,
+  limitDocumentRef,
+  addDocument: addComment,
+  deleteDocument: deleteComment,
+} = useLimitDocument(6, commentsCollection, collectionQuery);
+
 const commentSort = ref('descending');
-const documentsTotalLength = ref(0);
-const limitDocumentRef = ref(null);
-const limitLength = ref(6);
 
 const sortedComments = computed(() =>
   comments.slice().sort((a, b) => {
     if (commentSort.value === 'descending') {
-      return b.createdAt - a.createdAt;
+      return;
     }
     return a.createdAt - b.createdAt;
   })
 );
-
-function handleScroll() {
-  const { scrollTop } = document.documentElement;
-  const { innerHeight } = window;
-  const documentsOffsetTop = limitDocumentRef.value?.offsetTop;
-  const documentsHeight =
-    limitDocumentRef.value?.getBoundingClientRect().height;
-
-  const bottomOfDocuments =
-    scrollTop + innerHeight - (documentsOffsetTop + documentsHeight) >= -100;
-
-  if (bottomOfDocuments) {
-    getComments();
-  }
-}
-
-async function getComments() {
-  if (isPending.value || comments.length >= documentsTotalLength.value) return;
-
-  isPending.value = true;
-
-  let snapshots;
-
-  if (comments.length) {
-    const lastDoc = await getDoc(
-      doc(commentsCollection, comments[comments.length - 1].docID)
-    );
-    const q = query(
-      commentsCollection,
-      where('songID', '==', route.params.id),
-      orderBy('createdAt', 'desc'),
-      startAfter(lastDoc),
-      limit(limitLength.value)
-    );
-    snapshots = await getDocs(q);
-  } else {
-    const q = query(
-      commentsCollection,
-      where('songID', '==', route.params.id),
-      orderBy('createdAt', 'desc'),
-      limit(limitLength.value)
-    );
-    snapshots = await getDocs(q);
-  }
-
-  setTimeout(() => {
-    snapshots.forEach((document) => {
-      comments.push({
-        ...document.data(),
-        docID: document.id,
-      });
-    });
-    isPending.value = false;
-  }, 1000);
-}
-
-function addComment(document) {
-  comments.push({
-    ...document.data(),
-    docID: document.id,
-  });
-}
-
-function deleteComment(docID) {
-  const index = comments.findIndex((comment) => comment.docID === docID);
-  comments.splice(index, 1);
-}
-
-async function getDocumentsTotalLength() {
-  const q = query(commentsCollection, where('songID', '==', route.params.id));
-  const snapshot = await getCountFromServer(q);
-  documentsTotalLength.value = snapshot.data().count;
-}
-
-watch(comments, () => {
-  getDocumentsTotalLength();
-});
-
-onMounted(async () => {
-  await getDocumentsTotalLength();
-  window.addEventListener('scroll', handleScroll);
-  getComments();
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 </script>
 
 <template>

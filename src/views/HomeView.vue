@@ -8,7 +8,7 @@ const {
   isPending,
   documents: songs,
   limitDocumentRef,
-} = useLimitDocument(songsCollection);
+} = useLimitDocument(12, songsCollection);
 </script>
 
 <template>
