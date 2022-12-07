@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { where } from 'firebase/firestore';
 import { commentsCollection } from '@/plugins/firebase';
 import { useLimitDocument } from '@/composables/useLimitDocument';
 import IconAdjust from '@/components/icons/IconAdjust.vue';
@@ -11,15 +10,16 @@ import CommentPostPreview from '@/components/CommentPostPreview.vue';
 
 const route = useRoute();
 
-const collectionQuery = where('songID', '==', route.params.id);
+const collectionWhere = ['songID', '==', route.params.id];
 
 const {
   isPending,
   documents: comments,
+  documentsCount: commentsCount,
   loadingObserverRef,
   addDocument: addComment,
   deleteDocument: deleteComment,
-} = useLimitDocument(6, commentsCollection, collectionQuery);
+} = useLimitDocument(6, commentsCollection, collectionWhere);
 
 const commentSort = ref('descending');
 
@@ -37,7 +37,7 @@ const sortedComments = computed(() =>
   <div
     class="flex jc:space-between ai:center gap-x:30 fg:white jc:flex-start@md"
   >
-    <span>{{ comments.length }} 則留言</span>
+    <span>{{ commentsCount }} 則留言</span>
     <div class="rel">
       <select
         v-model="commentSort"

@@ -36,10 +36,7 @@ const formattedCreatedAt = computed(() => {
       :class="{ 'is-active': song.docID === currentSong.docID }"
     >
       <RouterLink
-        class="rel square block overflow:hidden r:4"
-        :class="{
-          'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
-        }"
+        class="rel square block overflow:hidden bg:linear-gradient(145deg,#383838,#767676) r:4"
         :to="{
           name: 'song',
           params: {

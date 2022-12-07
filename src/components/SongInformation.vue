@@ -2,11 +2,11 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { formatDistanceToNow } from 'date-fns';
-import { zhTW } from 'date-fns/locale';
+import { usePlayerStore } from '@/stores/player';
 import { doc, getDoc } from 'firebase/firestore';
 import { songsCollection } from '@/plugins/firebase';
-import { usePlayerStore } from '@/stores/player';
+import { formatDistanceToNow } from 'date-fns';
+import { zhTW } from 'date-fns/locale';
 import IconPlay from '@/components/icons/IconPlay.vue';
 import IconPause from '@/components/icons/IconPause.vue';
 
@@ -47,10 +47,7 @@ onMounted(async () => {
   <div class="grid-cols:1 gap:20|40 grid-cols:5@lg">
     <div class="grid-col-span:2@lg">
       <div
-        class="rel square mx:auto overflow:hidden r:8 max-w:340@xs"
-        :class="{
-          'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
-        }"
+        class="rel square mx:auto overflow:hidden bg:linear-gradient(145deg,#383838,#767676) r:8 max-w:340@xs"
       >
         <img
           v-if="song.coverUrl"

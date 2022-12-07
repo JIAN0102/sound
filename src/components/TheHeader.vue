@@ -31,7 +31,7 @@ async function handleClick() {
   >
     <RouterLink class="pointer-events:auto" :to="{ name: 'home' }">
       <img
-        class="w:65 w:auto@md"
+        class="w:80 w:auto@md"
         src="/assets/img/sound-logo.svg"
         alt="sound"
       />

@@ -2,11 +2,10 @@
 import { ref, reactive, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/stores/user';
+import { useModalStore } from '@/stores/modal';
 import { addDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, commentsCollection } from '@/plugins/firebase';
-import { useUserStore } from '@/stores/user';
-// import { useCommentStore } from '@/stores/comment';
-import { useModalStore } from '@/stores/modal';
 import IconLoading from '@/components/icons/IconLoading.vue';
 
 const route = useRoute();
@@ -15,9 +14,6 @@ const emit = defineEmits(['add-comment']);
 
 const userStore = useUserStore();
 const { isLoggedIn } = storeToRefs(userStore);
-
-// const commentStore = useCommentStore();
-// const { addComment } = commentStore;
 
 const modalStore = useModalStore();
 const { toggleModal } = modalStore;

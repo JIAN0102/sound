@@ -1,6 +1,7 @@
 import { ref, reactive, watch, onMounted } from 'vue';
 import {
   query,
+  where,
   orderBy,
   startAfter,
   limit,
@@ -10,7 +11,7 @@ import {
   getCountFromServer,
 } from 'firebase/firestore';
 
-export function useLimitDocument(limitLength, collection, collectionQuery) {
+export function useLimitDocument(limitLength, collection, collectionWhere) {
   const isPending = ref(false);
   const documents = reactive([]);
   const documentsCount = ref(0);
@@ -38,10 +39,10 @@ export function useLimitDocument(limitLength, collection, collectionQuery) {
       const lastDoc = await getDoc(
         doc(collection, documents[documents.length - 1].docID)
       );
-      const q = collectionQuery
+      const q = collectionWhere
         ? query(
             collection,
-            collectionQuery,
+            where(...collectionWhere),
             orderBy('createdAt', 'desc'),
             startAfter(lastDoc),
             limit(limitLength)
@@ -54,10 +55,10 @@ export function useLimitDocument(limitLength, collection, collectionQuery) {
           );
       snapshots = await getDocs(q);
     } else {
-      const q = collectionQuery
+      const q = collectionWhere
         ? query(
             collection,
-            collectionQuery,
+            where(...collectionWhere),
             orderBy('createdAt', 'desc'),
             limit(limitLength)
           )
@@ -77,7 +78,9 @@ export function useLimitDocument(limitLength, collection, collectionQuery) {
   }
 
   async function getDocumentsCount() {
-    const q = collectionQuery ? query(collection, collectionQuery) : collection;
+    const q = collectionWhere
+      ? query(collection, where(...collectionWhere))
+      : collection;
     const snapshot = await getCountFromServer(q);
     documentsCount.value = snapshot.data().count;
   }
@@ -112,6 +115,7 @@ export function useLimitDocument(limitLength, collection, collectionQuery) {
   return {
     isPending,
     documents,
+    documentsCount,
     loadingObserverRef,
     addDocument,
     editDocument,

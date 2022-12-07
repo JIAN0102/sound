@@ -1,12 +1,11 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/stores/user';
 import { doc, deleteDoc } from 'firebase/firestore';
-import { commentsCollection } from '@/plugins/firebase';
+import { auth, commentsCollection } from '@/plugins/firebase';
 import { formatDistanceToNow } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
-import { useUserStore } from '@/stores/user';
-import { auth } from '@/plugins/firebase';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 

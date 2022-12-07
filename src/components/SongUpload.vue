@@ -1,6 +1,5 @@
 <script setup>
 import { reactive, onBeforeUnmount } from 'vue';
-import { v4 as uuidv4 } from 'uuid';
 import { addDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import {
   ref as storageRef,
@@ -9,6 +8,7 @@ import {
 } from 'firebase/storage';
 import { auth, storage, songsCollection } from '@/plugins/firebase';
 import emitter from '@/plugins/mitt';
+import { v4 as uuidv4 } from 'uuid';
 import SongUploadFile from '@/components/SongUploadFile.vue';
 import SongUploadPreview from '@/components/SongUploadPreview.vue';
 
@@ -52,10 +52,6 @@ function uploadFile(files) {
         song.url = await getDownloadURL(uploadTask.snapshot.ref);
         const songRef = await addDoc(songsCollection, song);
         const songSnapshot = await getDoc(songRef);
-
-        console.log({
-          ...songSnapshot.data(),
-        });
 
         uploads[uploadIndex].class = 'is-uploaded';
         emitter.emit('addSong', songSnapshot);

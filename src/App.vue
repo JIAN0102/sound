@@ -1,9 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import { storeToRefs } from 'pinia';
-import { auth } from '@/plugins/firebase';
-import { useUserStore } from '@/stores/user';
 import gsap from 'gsap';
 import TheLoading from '@/components/TheLoading.vue';
 import TheBackground from '@/components/TheBackground.vue';
@@ -11,9 +8,6 @@ import TheHeader from '@/components/TheHeader.vue';
 import TheTransition from '@/components/TheTransition.vue';
 import SongPlayer from '@/components/SongPlayer.vue';
 import AuthModal from '@/components/AuthModal.vue';
-
-const userStore = useUserStore();
-const { isLoggedIn } = storeToRefs(userStore);
 
 const isNewPage = ref(false);
 const theLoadingRef = ref(null);
@@ -92,10 +86,6 @@ function onLeave(el, done) {
 }
 
 onMounted(() => {
-  if (auth.currentUser) {
-    isLoggedIn.value = true;
-  }
-
   const { loadingRef, loadingArrowRef, loadingLogoRef } = theLoadingRef.value;
   const { characterRef } = theBackgorundRef.value;
 

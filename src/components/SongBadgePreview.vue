@@ -35,8 +35,7 @@ const formattedCreatedAt = computed(() => {
     :class="{ 'is-active': song.docID === currentSong.docID }"
   >
     <div
-      class="rel square w:64 overflow:hidden cursor:pointer r:4"
-      :class="{ 'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl }"
+      class="rel square w:64 overflow:hidden cursor:pointer bg:linear-gradient(145deg,#383838,#767676) r:4"
     >
       <img
         v-if="song.coverUrl"

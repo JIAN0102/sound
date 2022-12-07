@@ -1,9 +1,9 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
-import gsap from 'gsap';
 import { usePlayerStore } from '@/stores/player';
 import { formatTime } from '@/helpers';
+import gsap from 'gsap';
 
 const playerStore = usePlayerStore();
 const {

@@ -1,10 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { RouterLink } from 'vue-router';
+import { usePlayerStore } from '@/stores/player';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { ref as storageRef, deleteObject } from 'firebase/storage';
 import { storage, songsCollection } from '@/plugins/firebase';
-import { usePlayerStore } from '@/stores/player';
 import { formatDistanceToNow } from 'date-fns';
 import { zhTW } from 'date-fns/locale';
 import IconLoading from '@/components/icons/IconLoading.vue';
@@ -52,10 +52,7 @@ async function handleClick() {
   <div v-else class="flex ai:center gap-x:20 p:8 r:4 bg:#212121:hover">
     <div class="flex ai:center gap-x:16 flex:1">
       <div
-        class="rel square w:64 overflow:hidden r:4"
-        :class="{
-          'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
-        }"
+        class="rel square w:64 overflow:hidden bg:linear-gradient(145deg,#383838,#767676) r:4"
       >
         <img
           v-if="song.coverUrl"

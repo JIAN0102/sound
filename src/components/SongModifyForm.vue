@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive, onMounted, inject } from 'vue';
-import { v4 as uuidv4 } from 'uuid';
 import { doc, updateDoc } from 'firebase/firestore';
 import {
   ref as storageRef,
@@ -8,6 +7,7 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import { auth, storage, songsCollection } from '@/plugins/firebase';
+import { v4 as uuidv4 } from 'uuid';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconCamera from '@/components/icons/IconCamera.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
@@ -90,8 +90,6 @@ async function onSubmit(values) {
     values.coverUrl = coverUrl;
   }
 
-  console.log(values);
-
   try {
     await updateDoc(doc(songsCollection, props.song.docID), values);
     editSong(values);
@@ -116,10 +114,7 @@ async function onSubmit(values) {
       <div class="rel p:40|30|60 bg:#212121 r:30">
         <div>
           <label
-            class="rel square block max-w:200 mx:auto overflow:hidden b:2|dashed|white/.5 r:8 ~border-color|.1s b:white:hover@md"
-            :class="{
-              'bg:linear-gradient(145deg,#383838,#767676)': !song.coverUrl,
-            }"
+            class="rel square block max-w:200 mx:auto overflow:hidden bg:linear-gradient(145deg,#383838,#767676) b:2|dashed|white/.5 r:8 ~border-color|.1s b:white:hover@md"
             for="uploadCover"
           >
             <img

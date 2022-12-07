@@ -1,13 +1,12 @@
 <script setup>
 import { onMounted, onBeforeUnmount, provide } from 'vue';
-import { where } from 'firebase/firestore';
 import { auth, songsCollection } from '@/plugins/firebase';
-import { useLimitDocument } from '@/composables/useLimitDocument';
 import emitter from '@/plugins/mitt';
+import { useLimitDocument } from '@/composables/useLimitDocument';
 import BaseLoading from '@/components/BaseLoading.vue';
 import SongModifyPreview from '@/components/SongModifyPreview.vue';
 
-const collectionQuery = where('uid', '==', auth.currentUser.uid);
+const collectionWhere = ['uid', '==', auth.currentUser.uid];
 
 const {
   isPending,
@@ -16,7 +15,7 @@ const {
   addDocument: addSong,
   editDocument: editSong,
   deleteDocument: deleteSong,
-} = useLimitDocument(18, songsCollection, collectionQuery);
+} = useLimitDocument(18, songsCollection, collectionWhere);
 
 provide('song', {
   editSong,
