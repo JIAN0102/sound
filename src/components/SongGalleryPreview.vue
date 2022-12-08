@@ -17,7 +17,7 @@ const props = defineProps({
 
 const playerStore = usePlayerStore();
 const { currentSong, isSoundPlaying } = storeToRefs(playerStore);
-const { createSong } = playerStore;
+const { createSong, createSongWhenNotPlaying } = playerStore;
 
 const formattedCreatedAt = computed(() => {
   if (!props.song.createdAt) return;
@@ -43,7 +43,7 @@ const formattedCreatedAt = computed(() => {
             id: song.docID,
           },
         }"
-        @click="createSong(song)"
+        @click="createSongWhenNotPlaying(song)"
       >
         <img
           v-if="song.coverUrl"
