@@ -40,7 +40,7 @@ async function handleClick() {
     <nav class="pointer-events:auto">
       <button
         v-if="!isLoggedIn"
-        class="group rel overflow:hidden bg:#030303 rounded"
+        class="group rel z:1 overflow:hidden bg:#030303 rounded"
         type="button"
         @click="toggleModal"
       >
@@ -61,7 +61,7 @@ async function handleClick() {
       <ul v-else class="flex ai:center gap-x:10 gap-x:20@md">
         <li>
           <RouterLink
-            class="group rel block overflow:hidden bg:#030303 rounded"
+            class="group rel z:1 block overflow:hidden bg:#030303 rounded"
             :to="{ name: 'manage' }"
           >
             <div

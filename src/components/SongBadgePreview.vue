@@ -17,7 +17,7 @@ const props = defineProps({
 
 const playerStore = usePlayerStore();
 const { currentSong, isSoundPlaying } = storeToRefs(playerStore);
-const { createSong, createSongWhenNotPlaying } = playerStore;
+const { createSong } = playerStore;
 
 const formattedCreatedAt = computed(() => {
   if (!props.song.createdAt) return;
@@ -66,7 +66,7 @@ const formattedCreatedAt = computed(() => {
               id: song.docID,
             },
           }"
-          @click="createSongWhenNotPlaying(song)"
+          @click="createSong(song)"
         >
           {{ song.title }}
         </RouterLink>

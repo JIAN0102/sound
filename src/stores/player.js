@@ -30,6 +30,8 @@ export const usePlayerStore = defineStore('player', () => {
       sound.value.unload();
     }
 
+    if (isSoundPlaying.value) return;
+
     currentSong.value = song;
 
     sound.value = new Howl({
@@ -40,14 +42,7 @@ export const usePlayerStore = defineStore('player', () => {
         requestAnimationFrame(updateProgress);
       },
     });
-
     sound.value.play();
-  }
-
-  function createSongWhenNotPlaying(song) {
-    if (!isSoundPlaying.value) {
-      createSong(song);
-    }
   }
 
   function pauseAudio() {
@@ -105,7 +100,6 @@ export const usePlayerStore = defineStore('player', () => {
     isSoundLoaded,
     isSoundPlaying,
     createSong,
-    createSongWhenNotPlaying,
     pauseAudio,
     toggleAudio,
     updateDraggingProgress,
