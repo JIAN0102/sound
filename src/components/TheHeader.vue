@@ -84,7 +84,7 @@ async function handleClick() {
               <span
                 class="f:bold fg:white ~color|.5s .group:hover_{fg:black}@md"
               >
-                上傳歌曲</span
+                我的歌曲</span
               >
             </div>
           </RouterLink>

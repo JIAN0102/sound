@@ -10,7 +10,7 @@ const {
   isPending,
   documents: songs,
   loadingObserverRef,
-} = useLimitDocument(18, songsCollection);
+} = useLimitDocument(12, songsCollection);
 </script>
 
 <template>

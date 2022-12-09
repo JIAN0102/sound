@@ -1,4 +1,4 @@
-import { ref, reactive, watch, onMounted } from 'vue';
+import { ref, reactive, watch, nextTick, onMounted } from 'vue';
 import {
   query,
   where,
@@ -17,16 +17,14 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
   const documentsCount = ref(0);
   const loadingObserverRef = ref(null);
 
-  function observerDocuments() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          getDocuments();
-        }
-      });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        observer.unobserve(loadingObserverRef.value);
+        getDocuments();
+      }
     });
-    observer.observe(loadingObserverRef.value);
-  }
+  });
 
   async function getDocuments() {
     if (isPending.value || documents.length >= documentsCount.value) return;
@@ -66,7 +64,7 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
       snapshots = await getDocs(q);
     }
 
-    setTimeout(() => {
+    setTimeout(async () => {
       snapshots.forEach((document) => {
         documents.push({
           ...document.data(),
@@ -74,6 +72,8 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
         });
       });
       isPending.value = false;
+      await nextTick();
+      observer.observe(loadingObserverRef.value);
     }, 1000);
   }
 
@@ -109,7 +109,6 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
   onMounted(async () => {
     await getDocumentsCount();
     await getDocuments();
-    observerDocuments();
   });
 
   return {
