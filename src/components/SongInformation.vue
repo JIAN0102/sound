@@ -48,7 +48,7 @@ onMounted(async () => {
     class="rel overflow:hidden bg:#212121 r:12"
     :class="`bg:url('${song.coverUrl}')|center/cover`"
   >
-    <div class="abs inset:0 bd:blur(50)|brightness(60%)"></div>
+    <div class="abs inset:0 bd:blur(50)|brightness(50%)"></div>
     <div
       class="rel square mx:auto overflow:hidden bg:linear-gradient(145deg,#383838,#767676) max-w:400@xs"
     >

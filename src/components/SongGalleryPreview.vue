@@ -68,18 +68,20 @@ const formattedCreatedAt = computed(() => {
         <IconPlay v-else :width="20" :height="20" />
       </button>
     </div>
-    <RouterLink
-      class="block mt:16 f:bold fg:white t:underline:hover"
-      :to="{
-        name: 'song',
-        params: {
-          id: song.docID,
-        },
-      }"
-      @click="createSong(song)"
-    >
-      {{ song.title }}
-    </RouterLink>
+    <h2 class="mt:16 f:bold fg:white lh:1.25 lines:2">
+      <RouterLink
+        class="t:underline:hover"
+        :to="{
+          name: 'song',
+          params: {
+            id: song.docID,
+          },
+        }"
+        @click="createSong(song)"
+      >
+        {{ song.title }}
+      </RouterLink>
+    </h2>
     <h3 class="mt:6 f:14 fg:white/.5">
       {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
     </h3>

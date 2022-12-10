@@ -53,7 +53,7 @@ async function onSubmit(values, { resetForm }) {
     <VField v-slot="{ field, meta }" name="comment">
       <textarea
         v-bind="field"
-        class="block w:full h:200 p:20|30 fg:white lh:1.75 bg:#212121 b:3|solid|transparent r:30 outline:0 resize:none b:#696969:focus fg:white/.7::placeholder pointer-events:none:disabled"
+        class="block w:full h:200 p:20|30 fg:white lh:1.75 bg:#212121 b:3|solid|transparent r:30 outline:0 resize:none b:#696969:focus fg:white/.7::placeholder"
         type="text"
         :placeholder="greeting"
         :disabled="!isLoggedIn || submission"
@@ -63,7 +63,7 @@ async function onSubmit(values, { resetForm }) {
         class="rel flex w:200 h:60 mt:-30 mx:auto overflow:hidden bg:#212121 b:3|solid|#030303 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#030303;translate(-50%,-50%)}::before"
       >
         <button
-          class="flex center-content w:1/2 fg:white bg:#383838:hover@md pointer-events:none:disabled"
+          class="flex center-content w:1/2 fg:white bg:#383838:hover@md"
           type="submit"
           :disabled="submission || !meta.valid"
         >
@@ -71,7 +71,7 @@ async function onSubmit(values, { resetForm }) {
           <template v-else>留言</template>
         </button>
         <button
-          class="flex center-content w:1/2 fg:white bg:#383838:hover@md pointer-events:none:disabled"
+          class="flex center-content w:1/2 fg:white bg:#383838:hover@md"
           type="reset"
           :disabled="submission"
         >

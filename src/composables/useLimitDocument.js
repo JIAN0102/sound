@@ -73,7 +73,7 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
       });
       isPending.value = false;
       await nextTick();
-      observer.observe(loadingObserverRef.value);
+      if (loadingObserverRef.value) observer.observe(loadingObserverRef.value);
     }, 1000);
   }
 
@@ -92,9 +92,9 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
     });
   }
 
-  function editDocument(values) {
-    const index = documents.findIndex((doc) => doc.docID === values.docID);
-    documents[index] = values;
+  function editDocument(document) {
+    const index = documents.findIndex((doc) => doc.docID === document.docID);
+    documents[index] = document;
   }
 
   function deleteDocument(docID) {
@@ -102,9 +102,12 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
     documents.splice(index, 1);
   }
 
-  watch(documents, () => {
-    getDocumentsCount();
-  });
+  watch(
+    () => documents.length,
+    () => {
+      getDocumentsCount();
+    }
+  );
 
   onMounted(async () => {
     await getDocumentsCount();

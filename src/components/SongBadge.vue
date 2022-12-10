@@ -1,33 +1,14 @@
 <script setup>
-import { onMounted, onBeforeUnmount, provide } from 'vue';
-import { auth, songsCollection } from '@/plugins/firebase';
-import emitter from '@/plugins/mitt';
+import { songsCollection } from '@/plugins/firebase';
 import { useLimitDocument } from '@/composables/useLimitDocument';
 import BaseLoading from '@/components/BaseLoading.vue';
-import SongModifyPreview from '@/components/SongModifyPreview.vue';
-
-const collectionWhere = ['uid', '==', auth.currentUser.uid];
+import SongBadgePreview from '@/components/SongBadgePreview.vue';
 
 const {
   isPending,
   documents: songs,
   loadingObserverRef,
-  addDocument: addSong,
-  editDocument: editSong,
-  deleteDocument: deleteSong,
-} = useLimitDocument(12, songsCollection, collectionWhere);
-
-provide('song', {
-  editSong,
-});
-
-onMounted(async () => {
-  emitter.on('addSong', addSong);
-});
-
-onBeforeUnmount(() => {
-  emitter.off('addSong', addSong);
-});
+} = useLimitDocument(12, songsCollection);
 </script>
 
 <template>
@@ -35,7 +16,7 @@ onBeforeUnmount(() => {
     <ul class="bb:1|solid|white/.1>li">
       <TransitionGroup name="fade">
         <li v-for="song in songs" :key="song.docID">
-          <SongModifyPreview :song="song" @delete-song="deleteSong" />
+          <SongBadgePreview :song="song" />
         </li>
       </TransitionGroup>
     </ul>

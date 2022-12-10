@@ -68,13 +68,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <SongUploadFile @upload-file="uploadFile" />
-
-  <ul v-if="uploads.length" class="mt:20 mt:30@md mt:20>li~li">
-    <SongUploadPreview
-      v-for="upload in uploads"
-      :key="upload.name"
-      :upload="upload"
-    />
-  </ul>
+  <div class="mt:20 mt:30@md">
+    <SongUploadFile @upload-file="uploadFile" />
+    <ul v-if="uploads.length" class="mt:20 mt:30@md mt:20>li~li">
+      <li v-for="upload in uploads" :key="upload.name">
+        <SongUploadPreview :upload="upload" />
+      </li>
+    </ul>
+  </div>
 </template>

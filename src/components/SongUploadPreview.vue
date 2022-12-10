@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <li :class="upload.class">
+  <div :class="upload.class">
     <h3 class="f:14 fg:white f:16@md">
       {{ upload.name }}
       <span v-if="upload.class === 'is-uploaded'" class="fg:primary"
@@ -28,5 +28,5 @@ defineProps({
         ></div>
       </div>
     </div>
-  </li>
+  </div>
 </template>

@@ -35,7 +35,7 @@ const sortedComments = computed(() =>
 
 <template>
   <div
-    class="flex jc:space-between ai:center gap-x:30 fg:white jc:flex-start@md"
+    class="flex jc:space-between ai:center gap-x:30 mt:60 fg:white {jc:flex-start;mt:40}@md"
   >
     <span>{{ commentsCount }} 則留言</span>
     <div class="rel">

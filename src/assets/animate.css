@@ -1,4 +1,4 @@
-@keyframes scroll {
+@keyframes marquee {
   0% {
     background-position: 0 0;
   }
@@ -7,7 +7,7 @@
   }
 }
 
-@keyframes rotate{
+@keyframes rotate {
   0% {
     transform: rotate(0);
   }

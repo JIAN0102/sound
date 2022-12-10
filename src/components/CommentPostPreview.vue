@@ -42,7 +42,7 @@ async function handleClick() {
   <div class="rel">
     <button
       v-if="isLoggedIn && comment.uid === auth.currentUser.uid"
-      class="abs top:0 right:0 fg:white pointer-events:none:disabled"
+      class="abs top:0 right:0 fg:white"
       type="button"
       :disabled="isPending"
       @click="handleClick"

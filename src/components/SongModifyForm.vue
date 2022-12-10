@@ -195,7 +195,7 @@ async function onSubmit(values) {
           <VField v-slot="{ field }" name="description">
             <textarea
               v-bind="field"
-              class="block w:full h:140 p:16|24 mt:8 fg:white lh:1.75 bg:#030303 b:3|solid|transparent r:30 outline:0 resize:none b:#656565:focus fg:#696969::placeholder pointer-events:none:disabled"
+              class="block w:full h:140 p:16|24 mt:8 fg:white lh:1.75 bg:#030303 b:3|solid|transparent r:30 outline:0 resize:none b:#656565:focus fg:#696969::placeholder"
               type="text"
             ></textarea>
           </VField>
@@ -227,7 +227,7 @@ async function onSubmit(values) {
         class="rel flex w:200 h:60 mt:-30 mx:auto overflow:hidden bg:#212121 b:3|solid|#030303 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#030303;translate(-50%,-50%)}::before"
       >
         <button
-          class="flex center-content w:1/2 h:full fg:white bg:#383838:hover@md pointer-events:none:disabled"
+          class="flex center-content w:1/2 h:full fg:white bg:#383838:hover@md"
           type="submit"
           :disabled="submission"
         >
@@ -235,7 +235,7 @@ async function onSubmit(values) {
           <span v-else>確定</span>
         </button>
         <button
-          class="flex center-content w:1/2 h:full fg:white bg:#383838:hover@md pointer-events:none:disabled"
+          class="flex center-content w:1/2 h:full fg:white bg:#383838:hover@md"
           type="button"
           :disabled="submission"
           @click="$emit('close-form')"
