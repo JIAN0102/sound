@@ -17,7 +17,7 @@ const {
 } = storeToRefs(playerStore);
 const { pauseAudio, updateDraggingProgress, updateSeek } = playerStore;
 
-const slider = ref(null);
+const sliderRef = ref(null);
 
 function onSliderDown(event) {
   if (!isSoundLoaded.value) return;
@@ -49,8 +49,8 @@ function onDragStart(event) {
   pauseAudio();
 
   const clientX = getClientX(event);
-  const sliderSize = slider.value?.clientWidth;
-  const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
+  const sliderSize = sliderRef.value?.clientWidth;
+  const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
   const newPercent = (clientX - sliderOffsetLeft) / sliderSize;
 
   updateDraggingProgress(newPercent);
@@ -59,8 +59,8 @@ function onDragStart(event) {
 function onDragging(event) {
   if (dragging.value) {
     const clientX = getClientX(event);
-    const sliderSize = slider.value?.clientWidth;
-    const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
+    const sliderSize = sliderRef.value?.clientWidth;
+    const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
     let newPercent = (clientX - sliderOffsetLeft) / sliderSize;
 
     if (newPercent < 0) {
@@ -116,7 +116,7 @@ onMounted(() => {
 
 <template>
   <div
-    ref="slider"
+    ref="sliderRef"
     class="rel flex:1 h:60 px:30 cursor:pointer"
     @mousedown="onSliderDown"
     @touchstart="onSliderDown"

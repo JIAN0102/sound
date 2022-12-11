@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { auth, songsCollection } from '@/plugins/firebase';
 import emitter from '@/plugins/mitt';
 import { useLimitDocument } from '@/composables/useLimitDocument';
@@ -37,7 +37,7 @@ onMounted(async () => {
   emitter.on('addSong', addSong);
 });
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   emitter.off('addSong', addSong);
 });
 </script>

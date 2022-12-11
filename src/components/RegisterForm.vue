@@ -1,7 +1,5 @@
 <script setup>
 import { ref, reactive } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useModalStore } from '@/stores/modal';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, usersCollection } from '@/plugins/firebase';
@@ -10,8 +8,7 @@ import IconUser from '@/components/icons/IconUser.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
 import IconCheck from '@/components/icons/IconCheck.vue';
 
-const modalStore = useModalStore();
-const { authType } = storeToRefs(modalStore);
+defineEmits(['change-type']);
 
 const schema = reactive({
   name: 'required',
@@ -232,7 +229,9 @@ async function onSubmit({ name, email, password }) {
     </fieldset>
     <p class="mt:20 f:bold fg:white t:center f:18@md">
       已經有帳號了？
-      <span class="t:underline cursor:pointer" @click="authType = 'login'"
+      <span
+        class="t:underline cursor:pointer"
+        @click="$emit('change-type', 'login')"
         >登入</span
       >
     </p>

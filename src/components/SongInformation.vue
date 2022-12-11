@@ -66,7 +66,7 @@ onMounted(async () => {
   </div>
   <div class="flex gap-x:20 mt:30">
     <div class="flex:1 mt:6 mt:0@md">
-      <h1 class="f:bold f:24 fg:white f:32@sm f:40@md">
+      <h1 class="f:bold f:24 fg:white f:28@sm f:32@md">
         {{ song.title }}
       </h1>
       <h2 class="mt:4 f:14 fg:white/.5">

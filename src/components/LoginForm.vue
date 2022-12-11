@@ -1,15 +1,12 @@
 <script setup>
 import { ref, reactive } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useModalStore } from '@/stores/modal';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/plugins/firebase';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconUser from '@/components/icons/IconUser.vue';
 import IconAlert from '@/components/icons/IconAlert.vue';
 
-const modalStore = useModalStore();
-const { authType } = storeToRefs(modalStore);
+defineEmits(['change-type']);
 
 const schema = reactive({
   email: 'required|email',
@@ -135,7 +132,9 @@ async function onSubmit({ email, password }) {
     </fieldset>
     <p class="mt:20 f:bold fg:white t:center f:18@md">
       還沒有帳號嗎？
-      <span class="t:underline cursor:pointer" @click="authType = 'register'"
+      <span
+        class="t:underline cursor:pointer"
+        @click="$emit('change-type', 'register')"
         >註冊</span
       >
     </p>

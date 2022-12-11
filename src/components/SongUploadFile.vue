@@ -5,7 +5,7 @@ import IconUpload from '@/components/icons/IconUpload.vue';
 const emit = defineEmits(['upload-file']);
 
 const isDragOver = ref(false);
-const uploadRef = ref(null);
+const uploadFileRef = ref(null);
 
 function uploadFile(event) {
   isDragOver.value = false;
@@ -14,7 +14,7 @@ function uploadFile(event) {
     ? [...event.dataTransfer.files]
     : [...event.target.files];
 
-  uploadRef.value.value = '';
+  uploadFileRef.value.value = '';
 
   emit('upload-file', files);
 }
@@ -44,7 +44,7 @@ function uploadFile(event) {
 
   <input
     id="uploadFile"
-    ref="uploadRef"
+    ref="uploadFileRef"
     class="hide"
     type="file"
     multiple

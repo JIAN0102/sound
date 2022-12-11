@@ -3,7 +3,6 @@ import { defineStore } from 'pinia';
 
 export const useModalStore = defineStore('modal', () => {
   const isModalOpen = ref(false);
-  const authType = ref('login');
 
   function toggleModal() {
     isModalOpen.value = !isModalOpen.value;
@@ -12,7 +11,6 @@ export const useModalStore = defineStore('modal', () => {
 
   return {
     isModalOpen,
-    authType,
     toggleModal,
   };
 });

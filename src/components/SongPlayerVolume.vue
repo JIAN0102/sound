@@ -10,7 +10,7 @@ const { volume } = storeToRefs(playerStore);
 const { updateVolume } = playerStore;
 
 const dragging = ref(false);
-const slider = ref(null);
+const sliderRef = ref(null);
 
 function onSliderDown(event) {
   event.preventDefault();
@@ -39,8 +39,8 @@ function onDragStart(event) {
   dragging.value = true;
 
   const clientX = getClientX(event);
-  const sliderSize = slider.value?.clientWidth;
-  const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
+  const sliderSize = sliderRef.value?.clientWidth;
+  const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
   const newPercent = (clientX - sliderOffsetLeft) / sliderSize;
 
   updateVolume(newPercent);
@@ -49,8 +49,8 @@ function onDragStart(event) {
 function onDragging(event) {
   if (dragging.value) {
     const clientX = getClientX(event);
-    const sliderSize = slider.value?.clientWidth;
-    const sliderOffsetLeft = slider.value?.getBoundingClientRect().left;
+    const sliderSize = sliderRef.value?.clientWidth;
+    const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
     let newPercent = (clientX - sliderOffsetLeft) / sliderSize;
 
     if (newPercent < 0) {
@@ -75,7 +75,7 @@ function onDragEnd() {
 
 <template>
   <div
-    ref="slider"
+    ref="sliderRef"
     class="rel w:120 h:60 overflow:hidden cursor:pointer hide@<md"
     @mousedown.left="onSliderDown"
     @touchstart="onSliderDown"

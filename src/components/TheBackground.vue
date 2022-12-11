@@ -59,7 +59,7 @@ defineExpose({
       <div></div>
     </div>
     <div
-      class="abs top:20% bottom:-20% left:1/2 translateX(-50%) ~top|1s {top:15%;bottom:-40%}@xs bottom:-60%@md"
+      class="abs top:20% bottom:-20% left:1/2 translateX(-50%) {top:15%;bottom:-40%}@xs bottom:-60%@md"
     >
       <img
         ref="characterRef"

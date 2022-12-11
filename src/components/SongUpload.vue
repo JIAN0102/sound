@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onBeforeUnmount } from 'vue';
+import { reactive, onUnmounted } from 'vue';
 import { addDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import {
   ref as storageRef,
@@ -64,7 +64,7 @@ function uploadFile(files) {
   });
 }
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
   uploads.forEach((upload) => {
     upload.uploadTask.cancel();
   });
