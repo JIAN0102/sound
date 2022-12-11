@@ -34,34 +34,42 @@ export function useLimitDocument(limitLength, collection, collectionWhere) {
     let snapshots;
 
     if (documents.length) {
-      const lastDoc = await getDoc(
-        doc(collection, documents[documents.length - 1].docID)
-      );
-      const q = collectionWhere
-        ? query(
-            collection,
-            where(...collectionWhere),
-            orderBy('createdAt', 'desc'),
-            startAfter(lastDoc),
-            limit(limitLength)
-          )
-        : query(
-            collection,
-            orderBy('createdAt', 'desc'),
-            startAfter(lastDoc),
-            limit(limitLength)
-          );
-      snapshots = await getDocs(q);
+      try {
+        const lastDoc = await getDoc(
+          doc(collection, documents[documents.length - 1].docID)
+        );
+        const q = collectionWhere
+          ? query(
+              collection,
+              where(...collectionWhere),
+              orderBy('createdAt', 'desc'),
+              startAfter(lastDoc),
+              limit(limitLength)
+            )
+          : query(
+              collection,
+              orderBy('createdAt', 'desc'),
+              startAfter(lastDoc),
+              limit(limitLength)
+            );
+        snapshots = await getDocs(q);
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      const q = collectionWhere
-        ? query(
-            collection,
-            where(...collectionWhere),
-            orderBy('createdAt', 'desc'),
-            limit(limitLength)
-          )
-        : query(collection, orderBy('createdAt', 'desc'), limit(limitLength));
-      snapshots = await getDocs(q);
+      try {
+        const q = collectionWhere
+          ? query(
+              collection,
+              where(...collectionWhere),
+              orderBy('createdAt', 'desc'),
+              limit(limitLength)
+            )
+          : query(collection, orderBy('createdAt', 'desc'), limit(limitLength));
+        snapshots = await getDocs(q);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     setTimeout(async () => {

@@ -39,12 +39,16 @@ async function onSubmit(values, { resetForm }) {
     name: auth.currentUser.displayName,
     uid: auth.currentUser.uid,
   };
-  const commentRef = await addDoc(commentsCollection, comment);
-  const commentSnapshot = await getDoc(commentRef);
 
-  submission.value = false;
-  resetForm();
-  emit('add-comment', commentSnapshot);
+  try {
+    const commentRef = await addDoc(commentsCollection, comment);
+    const commentSnapshot = await getDoc(commentRef);
+    submission.value = false;
+    resetForm();
+    emit('add-comment', commentSnapshot);
+  } catch (error) {
+    console.log(error);
+  }
 }
 </script>
 

@@ -49,12 +49,16 @@ function uploadFile(files) {
           coverUrl: '',
           genre: '無',
         };
-        song.url = await getDownloadURL(uploadTask.snapshot.ref);
-        const songRef = await addDoc(songsCollection, song);
-        const songSnapshot = await getDoc(songRef);
+        try {
+          song.url = await getDownloadURL(uploadTask.snapshot.ref);
+          const songRef = await addDoc(songsCollection, song);
+          const songSnapshot = await getDoc(songRef);
 
-        uploads[uploadIndex].class = 'is-uploaded';
-        emitter.emit('addSong', songSnapshot);
+          uploads[uploadIndex].class = 'is-uploaded';
+          emitter.emit('addSong', songSnapshot);
+        } catch (error) {
+          console.log(error);
+        }
       }
     );
   });

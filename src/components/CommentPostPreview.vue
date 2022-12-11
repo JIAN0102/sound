@@ -32,8 +32,14 @@ const formattedCreatedAt = computed(() => {
 
 async function handleClick() {
   isPending.value = true;
-  await deleteDoc(doc(commentsCollection, props.comment.docID));
-  emit('delete-comment', props.comment.docID);
+
+  try {
+    await deleteDoc(doc(commentsCollection, props.comment.docID));
+    emit('delete-comment', props.comment.docID);
+  } catch (error) {
+    console.log(error);
+  }
+
   isPending.value = false;
 }
 </script>

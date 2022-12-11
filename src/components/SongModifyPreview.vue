@@ -10,7 +10,6 @@ import { zhTW } from 'date-fns/locale';
 import IconLoading from '@/components/icons/IconLoading.vue';
 import IconEdit from '@/components/icons/IconEdit.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
-import SongModifyForm from '@/components/SongModifyForm.vue';
 
 const props = defineProps({
   song: {
@@ -19,12 +18,11 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['delete-song']);
+const emit = defineEmits(['open-modal', 'delete-song']);
 
 const playerStore = usePlayerStore();
 const { createSongWhenNotPlaying } = playerStore;
 
-const isEdit = ref(false);
 const isPending = ref(false);
 
 const formattedCreatedAt = computed(() => {
@@ -38,18 +36,21 @@ async function handleClick() {
   isPending.value = true;
 
   const songRef = storageRef(storage, `songs/${props.song.uuid}`);
-  await deleteObject(songRef);
-  await deleteDoc(doc(songsCollection, props.song.docID));
-  emit('delete-song', props.song.docID);
+
+  try {
+    await deleteObject(songRef);
+    await deleteDoc(doc(songsCollection, props.song.docID));
+    emit('delete-song', props.song.docID);
+  } catch (error) {
+    console.log(error);
+  }
 
   isPending.value = false;
 }
 </script>
 
 <template>
-  <SongModifyForm v-if="isEdit" :song="song" @close-form="isEdit = false" />
-
-  <div v-else class="flex ai:center gap-x:20 p:8 r:4 bg:#212121:hover">
+  <div class="flex ai:center gap-x:20 p:8 r:4 bg:#212121:hover">
     <div class="flex ai:center gap-x:16 flex:1">
       <div
         class="rel square w:64 overflow:hidden bg:linear-gradient(145deg,#383838,#767676) r:4"
@@ -84,7 +85,7 @@ async function handleClick() {
       <button
         class="flex center-content w:40 h:40 fg:white/.5 fg:white:hover"
         type="button"
-        @click="isEdit = true"
+        @click="$emit('open-modal', song)"
       >
         <IconEdit :width="20" :height="20" />
       </button>

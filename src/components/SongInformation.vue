@@ -29,17 +29,21 @@ const formattedCreatedAt = computed(() => {
 });
 
 onMounted(async () => {
-  const snapshot = await getDoc(doc(songsCollection, route.params.id));
-  if (!snapshot.exists()) {
-    router.push({
-      name: 'home',
-    });
-    return;
+  try {
+    const snapshot = await getDoc(doc(songsCollection, route.params.id));
+    if (!snapshot.exists()) {
+      router.push({
+        name: 'home',
+      });
+      return;
+    }
+    song.value = {
+      ...snapshot.data(),
+      docID: snapshot.id,
+    };
+  } catch (error) {
+    console.log(error);
   }
-  song.value = {
-    ...snapshot.data(),
-    docID: snapshot.id,
-  };
 });
 </script>
 
