@@ -59,7 +59,10 @@ async function onSubmit({ name, email, password }) {
   </div>
 
   <VForm :validation-schema="schema" @submit="onSubmit">
-    <fieldset :disabled="submission">
+    <fieldset
+      :disabled="submission"
+      :class="{ 'pointer-events:none': submission }"
+    >
       <div>
         <label class="f:bold fg:white f:18@md" for="registerName"
           >該如何稱呼你？</label
@@ -208,11 +211,7 @@ async function onSubmit({ name, email, password }) {
           </div>
         </VField>
       </div>
-      <button
-        class="group rel w:full mt:40 bg:primary rounded"
-        type="submit"
-        :disabled="submission"
-      >
+      <button class="group rel w:full mt:40 bg:primary rounded" type="submit">
         <div
           class="abs inset:0 rounded opacity:0 @background-gradient|2s|linear|infinite ~opacity|.3s .group:hover_{opacity:1}@md"
         ></div>

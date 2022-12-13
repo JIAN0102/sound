@@ -49,7 +49,7 @@ onMounted(async () => {
 
 <template>
   <div
-    class="rel overflow:hidden bg:#212121 r:12"
+    class="rel overflow:hidden bg:#212121 r:8"
     :class="`bg:url('${song.coverUrl}')|center/cover`"
   >
     <div class="abs inset:0 bd:blur(50)|brightness(50%)"></div>

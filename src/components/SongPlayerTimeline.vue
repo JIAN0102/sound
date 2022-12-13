@@ -3,85 +3,34 @@ import { ref, watch, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
 import { formatTime } from '@/helpers';
+import { useSlider } from '@/composables/useSlider';
 import gsap from 'gsap';
 
 const playerStore = usePlayerStore();
 const {
-  dragging,
   currentSong,
   seek,
   duration,
   progress,
-  isSoundLoaded,
+  isStopUpdateProgress,
   isSoundPlaying,
 } = storeToRefs(playerStore);
-const { pauseAudio, updateDraggingProgress, updateSeek } = playerStore;
+const { pauseAudio, updateCacheProgress, updateSeek } = playerStore;
 
-const sliderRef = ref(null);
+const { sliderRef, onSliderDown } = useSlider({
+  onDragStartEvent,
+  updatePercent: updateCacheProgress,
+  onDragEndEvent,
+});
 
-function onSliderDown(event) {
-  if (!isSoundLoaded.value) return;
-
-  event.preventDefault();
-  onDragStart(event);
-
-  window.addEventListener('mousemove', onDragging);
-  window.addEventListener('touchmove', onDragging);
-  window.addEventListener('mouseup', onDragEnd);
-  window.addEventListener('touchend', onDragEnd);
-}
-
-function getClientX(event) {
-  let clientX;
-
-  if (event.type.startsWith('touch')) {
-    clientX = event.touches[0].clientX;
-  } else {
-    clientX = event.clientX;
-  }
-
-  return clientX;
-}
-
-function onDragStart(event) {
-  dragging.value = true;
-
+function onDragStartEvent() {
+  isStopUpdateProgress.value = true;
   pauseAudio();
-
-  const clientX = getClientX(event);
-  const sliderSize = sliderRef.value?.clientWidth;
-  const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
-  const newPercent = (clientX - sliderOffsetLeft) / sliderSize;
-
-  updateDraggingProgress(newPercent);
 }
 
-function onDragging(event) {
-  if (dragging.value) {
-    const clientX = getClientX(event);
-    const sliderSize = sliderRef.value?.clientWidth;
-    const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
-    let newPercent = (clientX - sliderOffsetLeft) / sliderSize;
-
-    if (newPercent < 0) {
-      newPercent = 0;
-    } else if (newPercent > 1) {
-      newPercent = 1;
-    }
-
-    updateDraggingProgress(newPercent);
-  }
-}
-
-function onDragEnd() {
-  if (dragging.value) {
-    dragging.value = false;
-
-    updateSeek(progress.value);
-
-    window.removeEventListener('mousemove', onDragging);
-    window.removeEventListener('touchmove', onDragging);
-  }
+function onDragEndEvent() {
+  isStopUpdateProgress.value = false;
+  updateSeek();
 }
 
 const progressRef = ref(null);
@@ -117,7 +66,7 @@ onMounted(() => {
 <template>
   <div
     ref="sliderRef"
-    class="rel flex:1 h:60 px:30 cursor:pointer"
+    class="rel flex:1 h:60 cursor:pointer"
     @mousedown="onSliderDown"
     @touchstart="onSliderDown"
   >
@@ -127,7 +76,7 @@ onMounted(() => {
       :style="{ width: `${progress * 100}%` }"
     ></div>
     <div
-      class="rel flex jc:space-between ai:center gap-x:30 h:full f:bold fg:white pointer-events:none"
+      class="rel flex jc:space-between ai:center gap-x:30 h:full px:30 f:bold fg:white pointer-events:none"
     >
       <span class="hide@<md">{{ formatTime(seek) }}</span>
       <h2 class="flex:1 t:center lines:1">

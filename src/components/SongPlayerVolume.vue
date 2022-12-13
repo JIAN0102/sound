@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { usePlayerStore } from '@/stores/player';
+import { useSlider } from '@/composables/useSlider';
 import IconVolume from '@/components/icons/IconVolume.vue';
 import IconMuted from '@/components/icons/IconMuted.vue';
 
@@ -9,68 +9,9 @@ const playerStore = usePlayerStore();
 const { volume } = storeToRefs(playerStore);
 const { updateVolume } = playerStore;
 
-const dragging = ref(false);
-const sliderRef = ref(null);
-
-function onSliderDown(event) {
-  event.preventDefault();
-
-  onDragStart(event);
-
-  window.addEventListener('mousemove', onDragging);
-  window.addEventListener('touchmove', onDragging);
-  window.addEventListener('mouseup', onDragEnd);
-  window.addEventListener('touchend', onDragEnd);
-}
-
-function getClientX(event) {
-  let clientX;
-
-  if (event.type.startsWith('touch')) {
-    clientX = event.touches[0].clientX;
-  } else {
-    clientX = event.clientX;
-  }
-
-  return clientX;
-}
-
-function onDragStart(event) {
-  dragging.value = true;
-
-  const clientX = getClientX(event);
-  const sliderSize = sliderRef.value?.clientWidth;
-  const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
-  const newPercent = (clientX - sliderOffsetLeft) / sliderSize;
-
-  updateVolume(newPercent);
-}
-
-function onDragging(event) {
-  if (dragging.value) {
-    const clientX = getClientX(event);
-    const sliderSize = sliderRef.value?.clientWidth;
-    const sliderOffsetLeft = sliderRef.value?.getBoundingClientRect().left;
-    let newPercent = (clientX - sliderOffsetLeft) / sliderSize;
-
-    if (newPercent < 0) {
-      newPercent = 0;
-    } else if (newPercent > 1) {
-      newPercent = 1;
-    }
-
-    updateVolume(newPercent);
-  }
-}
-
-function onDragEnd() {
-  if (dragging.value) {
-    dragging.value = false;
-
-    window.removeEventListener('mousemove', onDragging);
-    window.removeEventListener('touchmove', onDragging);
-  }
-}
+const { sliderRef, onSliderDown } = useSlider({
+  updatePercent: updateVolume,
+});
 </script>
 
 <template>

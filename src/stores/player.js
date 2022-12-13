@@ -4,13 +4,13 @@ import { Howl } from 'howler';
 import debounce from 'lodash.debounce';
 
 export const usePlayerStore = defineStore('player', () => {
-  const dragging = ref(false);
   const currentSong = ref({});
   const sound = ref({});
   const seek = ref(0);
   const duration = ref(0);
   const volume = ref(0.1);
   const progress = ref(0);
+  const isStopUpdateProgress = ref(false);
 
   const isSoundLoaded = computed(() =>
     sound.value.state ? sound.value.state() === 'loaded' : false
@@ -49,24 +49,23 @@ export const usePlayerStore = defineStore('player', () => {
   }
 
   function pauseAudio() {
-    if (isSoundPlaying.value) {
-      sound.value.pause();
-    }
+    if (!isSoundPlaying.value) return;
+    sound.value.pause();
   }
 
   function toggleAudio() {
     if (!isSoundLoaded.value) return;
-
     isSoundPlaying.value ? sound.value.pause() : sound.value.play();
   }
 
-  function updateDraggingProgress(percent) {
+  function updateCacheProgress(percent) {
+    if (!isSoundLoaded.value) return;
     seek.value = duration.value * percent;
     progress.value = percent;
   }
 
   function updateProgress() {
-    if (dragging.value) return;
+    if (isStopUpdateProgress.value) return;
 
     seek.value = sound.value.seek();
     duration.value = sound.value.duration();
@@ -77,36 +76,40 @@ export const usePlayerStore = defineStore('player', () => {
     }
   }
 
-  const updateSeek = debounce((percent) => {
-    if (dragging.value || isSoundPlaying.value) return;
+  const updateSeek = debounce(() => {
+    if (
+      isStopUpdateProgress.value ||
+      !isSoundLoaded.value ||
+      isSoundPlaying.value
+    )
+      return;
 
-    const seconds = sound.value.duration() * percent;
+    const seconds = sound.value.duration() * progress.value;
     sound.value.seek(seconds);
     sound.value.play();
   }, 250);
 
   function updateVolume(percent) {
     if (!isSoundLoaded.value) return;
-
     volume.value = percent;
     sound.value.volume(percent);
   }
 
   return {
-    dragging,
     currentSong,
     sound,
     seek,
     duration,
     volume,
     progress,
+    isStopUpdateProgress,
     isSoundLoaded,
     isSoundPlaying,
     createSong,
     createSongWhenNotPlaying,
     pauseAudio,
     toggleAudio,
-    updateDraggingProgress,
+    updateCacheProgress,
     updateSeek,
     updateVolume,
   };

@@ -127,7 +127,10 @@ async function onSubmit(values) {
         :initial-values="song"
         @submit="onSubmit"
       >
-        <fieldset :disabled="submission">
+        <fieldset
+          :disabled="submission"
+          :class="{ 'pointer-events:none': submission }"
+        >
           <div>
             <label
               class="rel square block max-w:200 mx:auto overflow:hidden bg:linear-gradient(145deg,#383838,#767676) b:2|dashed|white/.5 r:8 ~border-color|.1s b:white:hover@md"
@@ -165,7 +168,7 @@ async function onSubmit(values) {
               <div class="rel">
                 <input
                   v-bind="field"
-                  class="block w:full h:60 px:24 mt:8 fg:white bg:#030303 b:3|solid|transparent rounded outline:0 b:#656565:focus"
+                  class="block w:full h:60 px:24 mt:8 fg:white bg:#030303 b:3|solid|transparent rounded outline:0 b:#696969:focus"
                   :class="{ 'b:danger!': !meta.valid && meta.touched }"
                   type="text"
                 />
@@ -188,7 +191,7 @@ async function onSubmit(values) {
             <label class="f:bold fg:white f:18@md">曲風</label>
             <div class="rel">
               <VField
-                class="block w:full h:60 px:24 mt:8 fg:white bg:#030303 b:3|solid|transparent rounded outline:0 appearance:none b:#656565:focus"
+                class="block w:full h:60 px:24 mt:8 fg:white bg:#030303 b:3|solid|transparent rounded outline:0 appearance:none b:#696969:focus"
                 as="select"
                 name="genre"
               >
@@ -211,7 +214,7 @@ async function onSubmit(values) {
             <VField v-slot="{ field }" name="description">
               <textarea
                 v-bind="field"
-                class="block w:full h:140 p:16|24 mt:8 fg:white lh:1.75 bg:#030303 b:3|solid|transparent r:30 outline:0 resize:none b:#656565:focus fg:#696969::placeholder"
+                class="block w:full h:140 p:16|24 mt:8 fg:white lh:1.75 bg:#030303 b:3|solid|transparent r:30 outline:0 resize:none b:#696969:focus fg:#696969::placeholder {w:5;rounded}::scrollbar bg:white::scrollbar-thumb rounded::scrollbar-thumb"
                 type="text"
               ></textarea>
             </VField>
@@ -244,7 +247,6 @@ async function onSubmit(values) {
             <button
               class="flex center-content w:1/2 h:full fg:white bg:#383838:hover@md"
               type="submit"
-              :disabled="submission"
             >
               <IconLoading v-if="submission" />
               <span v-else>確定</span>
@@ -252,7 +254,6 @@ async function onSubmit(values) {
             <button
               class="flex center-content w:1/2 h:full fg:white bg:#383838:hover@md"
               type="button"
-              :disabled="submission"
               @click="$emit('close-modal')"
             >
               取消
