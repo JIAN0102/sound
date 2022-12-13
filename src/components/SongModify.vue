@@ -12,6 +12,7 @@ const collectionWhere = ['uid', '==', auth.currentUser.uid];
 const {
   isPending,
   documents: songs,
+  documentsCount: songsCount,
   loadingObserverRef,
   addDocument: addSong,
   editDocument: editSong,
@@ -44,6 +45,9 @@ onUnmounted(() => {
 
 <template>
   <div class="rel mt:20 mt:30@md">
+    <div v-if="!songsCount" class="fg:white/.7">
+      目前尚無任何歌曲，試著上傳看看吧!
+    </div>
     <ul class="bb:1|solid|white/.1>li">
       <TransitionGroup name="fade">
         <li v-for="song in songs" :key="song.docID">

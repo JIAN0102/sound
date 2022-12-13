@@ -39,7 +39,7 @@ const formattedCreatedAt = computed(() => {
     >
       <img
         v-if="song.coverUrl"
-        class="abs top:0 left:0 full obj:cover"
+        class="full obj:cover"
         :src="song.coverUrl"
         alt=""
       />

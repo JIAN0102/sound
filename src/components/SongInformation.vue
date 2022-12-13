@@ -54,11 +54,11 @@ onMounted(async () => {
   >
     <div class="abs inset:0 bd:blur(50)|brightness(50%)"></div>
     <div
-      class="rel square mx:auto overflow:hidden bg:linear-gradient(145deg,#383838,#767676) max-w:400@xs"
+      class="rel square overflow:hidden bg:linear-gradient(145deg,#383838,#767676) {max-w:400;mx:auto}@xs"
     >
       <img
         v-if="song.coverUrl"
-        class="abs top:0 left:0 full obj:cover"
+        class="full obj:cover"
         :src="song.coverUrl"
         :alt="song.title"
       />
