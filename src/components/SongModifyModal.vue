@@ -32,8 +32,7 @@ function focusTagInput() {
 }
 
 function addTag(tag) {
-  if (tagInput.value === '') return;
-  if (tags.value.includes(tag)) {
+  if (tagInput.value === '' || tags.value.includes(tag)) {
     tagInput.value = '';
     return;
   }
@@ -75,7 +74,7 @@ const submission = ref(false);
 async function onSubmit(values) {
   submission.value = true;
 
-  values.tags = [...tags.value];
+  values.tags = tags.value;
 
   if (cover.value) {
     const coverRef = storageRef(
