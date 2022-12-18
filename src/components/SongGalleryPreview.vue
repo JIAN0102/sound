@@ -77,7 +77,7 @@ const formattedCreatedAt = computed(() => {
             id: song.docID,
           },
         }"
-        @click="createSong(song)"
+        @click="createSongWhenNotPlaying(song)"
       >
         {{ song.title }}
       </RouterLink>
