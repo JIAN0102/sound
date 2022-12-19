@@ -70,9 +70,11 @@ const schema = reactive({
   title: 'required',
 });
 const submission = ref(false);
+const errorCodeMessage = ref('');
 
 async function onSubmit(values) {
   submission.value = true;
+  errorCodeMessage.value = '';
 
   values.tags = tags.value;
 
@@ -87,19 +89,22 @@ async function onSubmit(values) {
       values.coverUrl = coverUrl;
     } catch (error) {
       console.log(error);
+      errorCodeMessage.value = '圖片超過大小上限 1MB';
+      submission.value = false;
+      return;
     }
   }
 
   try {
     await updateDoc(doc(songsCollection, props.song.docID), values);
     emit('edit-song', values);
+    emit('close-modal');
   } catch (error) {
     console.log(error);
+    errorCodeMessage.value = '歌曲更新失敗，請再嘗試一次';
   }
 
-  tagInput.value = '';
   submission.value = false;
-  emit('close-modal');
 }
 </script>
 
@@ -154,7 +159,7 @@ async function onSubmit(values) {
             <h3 class="rel mt:20 f:bold fg:white lh:1.5 t:center f:20@md">
               上傳歌曲封面
               <br />
-              <span class="f:14 fg:white/.5">支援檔案類型：JPG、PNG。≤3MB</span>
+              <span class="f:14 fg:white/.5">支援檔案類型：JPG、PNG。≤1MB</span>
             </h3>
           </div>
           <div class="mt:30">
@@ -239,6 +244,13 @@ async function onSubmit(values) {
                 @keypress.enter.prevent="addTag(tagInput)"
               />
             </div>
+          </div>
+          <div
+            v-if="errorCodeMessage"
+            class="flex center-content gap-x:5 mt:20 f:14 fg:danger"
+          >
+            <IconAlert />
+            {{ errorCodeMessage }}
           </div>
           <div
             class="rel flex w:200 h:60 mt:20 mx:auto overflow:hidden bg:#212121 b:3|solid|#030303 rounded {content:'';abs;top:1/2;left:1/2;w:3;h:30;bg:#030303;translate(-50%,-50%)}::before"

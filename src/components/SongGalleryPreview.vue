@@ -30,60 +30,58 @@ const formattedCreatedAt = computed(() => {
 </script>
 
 <template>
-  <div>
-    <div
-      class="group rel"
-      :class="{ 'is-active': song.docID === currentSong.docID }"
+  <div
+    class="group rel"
+    :class="{ 'is-active': song.docID === currentSong.docID }"
+  >
+    <RouterLink
+      class="rel square block overflow:hidden bg:linear-gradient(145deg,#383838,#767676) r:4"
+      :to="{
+        name: 'song',
+        params: {
+          id: song.docID,
+        },
+      }"
+      @click="createSongWhenNotPlaying(song)"
     >
-      <RouterLink
-        class="rel square block overflow:hidden bg:linear-gradient(145deg,#383838,#767676) r:4"
-        :to="{
-          name: 'song',
-          params: {
-            id: song.docID,
-          },
-        }"
-        @click="createSongWhenNotPlaying(song)"
-      >
-        <img
-          v-if="song.coverUrl"
-          class="full obj:cover"
-          :src="song.coverUrl"
-          alt=""
-        />
-        <div
-          class="abs inset:0 bg:linear-gradient(to|bottom,black/.5,transparent) opacity:0 invisible ~opacity|.3s,visibility|.3s :is(.is-active,.group:hover)_{opacity:1;visible}"
-        ></div>
-      </RouterLink>
-      <button
-        class="abs bottom:20 right:20 z:10 flex center-content w:48 h:48 fg:white bg:#030303 rounded opacity:0 invisible ~opacity|.3s,visibility|.3s :is(.is-active,.group:hover)_{opacity:1;visible}"
-        type="button"
-        @click="createSong(song)"
-      >
-        <IconPause
-          v-if="song.docID === currentSong.docID && isSoundPlaying"
-          :width="20"
-          :height="20"
-        />
-        <IconPlay v-else :width="20" :height="20" />
-      </button>
-    </div>
-    <h2 class="mt:16 f:bold fg:white lh:1.25 lines:2">
-      <RouterLink
-        class="t:underline:hover"
-        :to="{
-          name: 'song',
-          params: {
-            id: song.docID,
-          },
-        }"
-        @click="createSongWhenNotPlaying(song)"
-      >
-        {{ song.title }}
-      </RouterLink>
-    </h2>
-    <h3 class="mt:6 f:14 fg:white/.5">
-      {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
-    </h3>
+      <img
+        v-if="song.coverUrl"
+        class="full obj:cover"
+        :src="song.coverUrl"
+        alt=""
+      />
+      <div
+        class="abs inset:0 bg:linear-gradient(to|bottom,black/.5,transparent) opacity:0 invisible ~opacity|.3s,visibility|.3s :is(.is-active,.group:hover)_{opacity:1;visible}"
+      ></div>
+    </RouterLink>
+    <button
+      class="abs bottom:20 right:20 z:10 flex center-content w:48 h:48 fg:white bg:#030303 rounded opacity:0 invisible ~opacity|.3s,visibility|.3s :is(.is-active,.group:hover)_{opacity:1;visible}"
+      type="button"
+      @click="createSong(song)"
+    >
+      <IconPause
+        v-if="song.docID === currentSong.docID && isSoundPlaying"
+        :width="20"
+        :height="20"
+      />
+      <IconPlay v-else :width="20" :height="20" />
+    </button>
   </div>
+  <h2 class="mt:16 f:bold fg:white lh:1.25 lines:2">
+    <RouterLink
+      class="t:underline:hover"
+      :to="{
+        name: 'song',
+        params: {
+          id: song.docID,
+        },
+      }"
+      @click="createSongWhenNotPlaying(song)"
+    >
+      {{ song.title }}
+    </RouterLink>
+  </h2>
+  <h3 class="mt:6 f:14 fg:white/.5">
+    {{ song.displayName }} • {{ song.genre }} • {{ formattedCreatedAt }}
+  </h3>
 </template>
