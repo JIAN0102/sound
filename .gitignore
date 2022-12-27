@@ -11,6 +11,7 @@ node_modules
 .DS_Store
 dist
 dist-ssr
+src/plugins/firebase.js
 coverage
 *.local
 
@@ -28,4 +29,3 @@ coverage
 *.sw?
 
 .vercel
-src/plugins/firebase.js
